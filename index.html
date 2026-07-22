@@ -83,6 +83,7 @@
             background: linear-gradient(90deg, var(--gold), var(--orange));
             z-index: 10000;
             transition: width 0.1s;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
         /* ===== Particles Background ===== */
@@ -103,7 +104,7 @@
             left: 0;
             right: 0;
             z-index: 999;
-            padding: 15px 0;
+            padding: 12px 0;
             background: rgba(10, 17, 40, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -123,17 +124,30 @@
         }
 
         .navbar .logo {
-            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
             font-weight: 900;
+        }
+
+        .navbar .logo img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.2));
+            transition: var(--transition);
+        }
+
+        .navbar .logo img:hover {
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+            transform: scale(1.05);
+        }
+
+        .navbar .logo .brand-text {
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-        }
-
-        .navbar .logo i {
-            -webkit-text-fill-color: var(--gold);
-            margin-left: 8px;
         }
 
         .navbar .nav-links {
@@ -177,6 +191,7 @@
             border-radius: 50px;
             font-weight: 700;
             transition: var(--transition);
+            -webkit-text-fill-color: var(--primary-dark);
         }
 
         .navbar .nav-links .btn-nav:hover {
@@ -710,8 +725,20 @@
         }
 
         .footer .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             font-size: 1.8rem;
             font-weight: 900;
+        }
+
+        .footer .brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .footer .brand .brand-text {
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -818,37 +845,104 @@
             opacity: 1;
         }
 
-        /* ===== News Ticker ===== */
-        .news-ticker {
-            background: rgba(255, 215, 0, 0.05);
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        /* ===== BOTTOM TICKER (شريط سفلي) ===== */
+        .bottom-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 998;
+            background: linear-gradient(135deg, rgba(10, 17, 40, 0.95), rgba(26, 35, 126, 0.95));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 2px solid rgba(255, 215, 0, 0.2);
             padding: 10px 0;
             overflow: hidden;
-            position: relative;
-            z-index: 1;
-            margin-top: 80px;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .news-ticker .ticker-content {
-            display: inline-block;
+        .bottom-ticker .ticker-wrapper {
+            overflow: hidden;
             white-space: nowrap;
-            animation: ticker-scroll 35s linear infinite;
-            color: rgba(255, 255, 255, 0.7);
+            position: relative;
+        }
+
+        .bottom-ticker .ticker-wrapper::before,
+        .bottom-ticker .ticker-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .bottom-ticker .ticker-wrapper::before {
+            left: 0;
+            background: linear-gradient(90deg, rgba(10, 17, 40, 0.9), transparent);
+        }
+
+        .bottom-ticker .ticker-wrapper::after {
+            right: 0;
+            background: linear-gradient(270deg, rgba(10, 17, 40, 0.9), transparent);
+        }
+
+        .bottom-ticker .ticker-content {
+            display: inline-block;
+            animation: ticker-scroll 50s linear infinite;
+            color: rgba(255, 255, 255, 0.85);
             font-size: 0.95rem;
+            padding: 0 20px;
         }
 
-        .news-ticker .ticker-content span {
-            margin: 0 40px;
+        .bottom-ticker:hover .ticker-content {
+            animation-play-state: paused;
         }
 
-        .news-ticker .ticker-content .highlight {
+        .bottom-ticker .ticker-content .item {
+            display: inline-block;
+            margin: 0 30px;
+        }
+
+        .bottom-ticker .ticker-content .item .icon {
+            margin-left: 8px;
             color: var(--gold);
         }
 
+        .bottom-ticker .ticker-content .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .bottom-ticker .ticker-content .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        .bottom-ticker .ticker-content .separator {
+            color: rgba(255, 215, 0, 0.15);
+            margin: 0 8px;
+            font-size: 0.6rem;
+        }
+
+        .bottom-ticker .ticker-content .location {
+            color: #4FC3F7;
+        }
+
+        .bottom-ticker .ticker-content .date {
+            color: #81C784;
+        }
+
         @keyframes ticker-scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* ===== Toast ===== */
@@ -925,7 +1019,7 @@
             }
             .floating-buttons {
                 left: 10px;
-                bottom: 20px;
+                bottom: 80px;
             }
             .floating-btn {
                 width: 50px;
@@ -942,6 +1036,22 @@
                 flex-direction: column;
                 gap: 10px;
                 align-items: center;
+            }
+            .navbar .logo img {
+                height: 35px;
+            }
+            .navbar .logo .brand-text {
+                font-size: 1.2rem;
+            }
+            .bottom-ticker .ticker-content {
+                font-size: 0.8rem;
+            }
+            .bottom-ticker .ticker-content .item {
+                margin: 0 15px;
+            }
+            .bottom-ticker .ticker-wrapper::before,
+            .bottom-ticker .ticker-wrapper::after {
+                width: 40px;
             }
         }
 
@@ -961,6 +1071,45 @@
             .cta-banner h2 {
                 font-size: 1.8rem;
             }
+            .navbar .logo img {
+                height: 30px;
+            }
+            .footer .brand img {
+                height: 30px;
+            }
+            .bottom-ticker {
+                padding: 8px 0;
+            }
+            .bottom-ticker .ticker-content {
+                font-size: 0.7rem;
+            }
+            .bottom-ticker .ticker-content .item {
+                margin: 0 10px;
+            }
+            .bottom-ticker .ticker-wrapper::before,
+            .bottom-ticker .ticker-wrapper::after {
+                width: 20px;
+            }
+            .floating-buttons {
+                bottom: 70px;
+            }
+        }
+
+        /* ===== Scroll indicator ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.5rem;
+            animation: bounce-down 2s infinite;
+        }
+
+        @keyframes bounce-down {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
         }
     </style>
 </head>
@@ -986,7 +1135,8 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="/" class="logo">
-                <i class="fas fa-wrench"></i> TopLoad
+                <img src="logo.png" alt="TopLoad Logo">
+                <span class="brand-text">TopLoad</span>
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">الرئيسية</a></li>
@@ -1004,20 +1154,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- ===== NEWS TICKER ===== -->
-    <div class="news-ticker" style="margin-top:0;">
-        <div class="container" style="overflow:hidden; white-space:nowrap;">
-            <div class="ticker-content">
-                <span>🏆 <span class="highlight">TopLoad</span> - أفضل خدمة صيانة غسالات في الاسكندرية</span>
-                <span>📞 <span class="highlight">01021508336</span> - اتصل الآن واحصل على خصم 20%</span>
-                <span>📍 نخدم <span class="highlight">30+</span> منطقة في الاسكندرية والساحل الشمالي</span>
-                <span>⏱️ الرد خلال <span class="highlight">30 دقيقة</span> - خدمة سريعة وموثوقة</span>
-                <span>⭐ تقييم <span class="highlight">4.9/5</span> من أكثر من 500 عميل</span>
-                <span>🔧 صيانة جميع أنواع الغسالات - أوتوماتيك، نصف أوتوماتيك، هوجن</span>
-            </div>
-        </div>
-    </div>
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
@@ -1059,6 +1195,9 @@
                     <span class="label">% رضا العملاء</span>
                 </div>
             </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
@@ -1285,7 +1424,10 @@
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
-            <div class="brand"><i class="fas fa-wrench"></i> TopLoad</div>
+            <div class="brand">
+                <img src="logo.png" alt="TopLoad Logo">
+                <span class="brand-text">TopLoad</span>
+            </div>
             <div class="contact-info">
                 <a href="tel:01021508336"><i class="fas fa-phone"></i> 01021508336</a>
                 <a href="https://wa.me/201021508336" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
@@ -1310,6 +1452,116 @@
             <i class="fas fa-tools"></i>
             <span class="tooltip">طلب صيانة</span>
         </a>
+    </div>
+
+    <!-- ===== BOTTOM TICKER (شريط سفلي) ===== -->
+    <div class="bottom-ticker">
+        <div class="container" style="padding:0 20px;">
+            <div class="ticker-wrapper">
+                <div class="ticker-content">
+                    <!-- التكرار الأول -->
+                    <span class="item">
+                        <span class="badge">📍</span>
+                        <span class="location">14 شارع كنيسة الاورام، جناكليس، الاسكندرية</span>
+                        <span class="separator">|</span>
+                        <span class="icon">📅</span>
+                        <span class="date">مواعيد الصيانة: السبت - الخميس 9ص - 11م</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">🔧</span>
+                        <span class="highlight">جميع أنواع الغسالات</span>
+                        <span class="separator">|</span>
+                        <span>أوتوماتيك</span>
+                        <span class="separator">·</span>
+                        <span>نصف أوتوماتيك</span>
+                        <span class="separator">·</span>
+                        <span>هوجن</span>
+                        <span class="separator">·</span>
+                        <span>بتحميل علوي</span>
+                        <span class="separator">·</span>
+                        <span>بتحميل أمامي</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">🛠️</span>
+                        <span>خدماتنا تشمل:</span>
+                        <span class="separator">|</span>
+                        <span>تسريب مياه</span>
+                        <span class="separator">·</span>
+                        <span>مشاكل كهربائية</span>
+                        <span class="separator">·</span>
+                        <span>تغيير طلمبة</span>
+                        <span class="separator">·</span>
+                        <span>صيانة موتور</span>
+                        <span class="separator">·</span>
+                        <span>برمجة إلكترونية</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">⭐</span>
+                        <span class="highlight">ضمان 12 شهر</span>
+                        <span class="separator">|</span>
+                        <span>قطع غيار أصلية</span>
+                        <span class="separator">·</span>
+                        <span>فنيين محترفين</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">📞</span>
+                        <span class="highlight">01021508336</span>
+                        <span class="separator">|</span>
+                        <span>خدمة 24 ساعة</span>
+                    </span>
+                    <!-- التكرار الثاني (للسلاسة) -->
+                    <span class="item">
+                        <span class="badge">📍</span>
+                        <span class="location">14 شارع كنيسة الاورام، جناكليس، الاسكندرية</span>
+                        <span class="separator">|</span>
+                        <span class="icon">📅</span>
+                        <span class="date">مواعيد الصيانة: السبت - الخميس 9ص - 11م</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">🔧</span>
+                        <span class="highlight">جميع أنواع الغسالات</span>
+                        <span class="separator">|</span>
+                        <span>أوتوماتيك</span>
+                        <span class="separator">·</span>
+                        <span>نصف أوتوماتيك</span>
+                        <span class="separator">·</span>
+                        <span>هوجن</span>
+                        <span class="separator">·</span>
+                        <span>بتحميل علوي</span>
+                        <span class="separator">·</span>
+                        <span>بتحميل أمامي</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">🛠️</span>
+                        <span>خدماتنا تشمل:</span>
+                        <span class="separator">|</span>
+                        <span>تسريب مياه</span>
+                        <span class="separator">·</span>
+                        <span>مشاكل كهربائية</span>
+                        <span class="separator">·</span>
+                        <span>تغيير طلمبة</span>
+                        <span class="separator">·</span>
+                        <span>صيانة موتور</span>
+                        <span class="separator">·</span>
+                        <span>برمجة إلكترونية</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">⭐</span>
+                        <span class="highlight">ضمان 12 شهر</span>
+                        <span class="separator">|</span>
+                        <span>قطع غيار أصلية</span>
+                        <span class="separator">·</span>
+                        <span>فنيين محترفين</span>
+                    </span>
+                    <span class="item">
+                        <span class="badge">📞</span>
+                        <span class="highlight">01021508336</span>
+                        <span class="separator">|</span>
+                        <span>خدمة 24 ساعة</span>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ===== SCRIPTS ===== -->
@@ -1354,7 +1606,6 @@
             navLinks.classList.toggle('open');
         });
 
-        // Close menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -1493,8 +1744,19 @@
             });
         });
 
+        // =====================================================
+        // 8. Handle logo error
+        // =====================================================
+        document.querySelectorAll('img[src="logo.png"]').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+            });
+        });
+
         console.log('🚀 TopLoad - الصفحة الرئيسية');
-        console.log('📍 30+ منطقة مخدومة');
+        console.log('📍 العنوان: 14 شارع كنيسة الاورام، جناكليس، الاسكندرية');
+        console.log('📞 01021508336');
+        console.log('🔧 جميع أنواع الغسالات');
     </script>
 </body>
 </html>
