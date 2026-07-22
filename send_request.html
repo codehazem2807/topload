@@ -24,8 +24,8 @@
             --gold: #FFD700;
             --orange: #FF6B35;
             --gold-light: #FFE082;
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             --radius: 20px;
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -251,12 +251,26 @@
         }
 
         /* ============================================================
-           FORM
+           GLASS CARD
            ============================================================ */
-        .request-form {
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
             padding: 40px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
+        .glass-card:hover {
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        /* ============================================================
+           FORM
+           ============================================================ */
         .request-form .form-group {
             margin-bottom: 22px;
         }
@@ -265,7 +279,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
             font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.85);
@@ -279,6 +293,7 @@
         .request-form label .label-icon {
             color: var(--gold);
             font-size: 0.9rem;
+            width: 18px;
         }
 
         .request-form input,
@@ -286,27 +301,38 @@
         .request-form textarea {
             width: 100%;
             padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             color: #fff;
             font-size: 1rem;
             font-family: var(--font-arabic);
             transition: var(--transition);
             outline: none;
+            display: block;
         }
 
         .request-form input:focus,
         .request-form select:focus,
         .request-form textarea:focus {
             border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.04);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
         }
 
         .request-form input::placeholder,
         .request-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .request-form select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFD700' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 18px center;
+            padding-left: 45px;
+            cursor: pointer;
         }
 
         .request-form select option {
@@ -315,9 +341,13 @@
             padding: 10px;
         }
 
+        .request-form select option:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
         .request-form textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 130px;
         }
 
         .request-form .form-row {
@@ -331,7 +361,7 @@
             background: rgba(255, 215, 0, 0.08);
             border: 1px solid rgba(255, 215, 0, 0.15);
             color: var(--gold);
-            padding: 6px 16px;
+            padding: 5px 16px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.8rem;
@@ -341,11 +371,18 @@
             align-items: center;
             gap: 6px;
             margin-right: 8px;
+            height: 32px;
         }
 
         .request-form .gps-btn:hover {
-            background: rgba(255, 215, 0, 0.15);
+            background: rgba(255, 215, 0, 0.18);
             border-color: var(--gold);
+            transform: translateY(-1px);
+        }
+
+        .request-form .gps-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .request-form .gps-btn .fa-spinner {
@@ -367,6 +404,25 @@
             align-items: center;
             gap: 12px;
             margin-top: 5px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font-arabic);
+            font-weight: 700;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+            box-shadow: 0 4px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 50px rgba(255, 215, 0, 0.35);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
         .btn-submit .spinner {
@@ -441,11 +497,13 @@
             cursor: pointer;
             transition: var(--transition);
             font-size: 0.95rem;
+            text-decoration: none;
         }
 
         .form-success .btn-success:hover {
             background: var(--gold);
             color: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         /* ============================================================
@@ -513,7 +571,7 @@
         }
 
         /* ============================================================
-           FLOATING BUTTONS (صغيرة)
+           FLOATING BUTTONS
            ============================================================ */
         .floating-buttons {
             position: fixed;
@@ -538,6 +596,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            text-decoration: none;
         }
 
         .floating-btn:hover {
@@ -569,10 +629,6 @@
         .floating-btn.request {
             background: linear-gradient(135deg, var(--gold), var(--orange));
             color: var(--primary-dark);
-        }
-
-        .floating-btn {
-            position: relative;
         }
 
         .floating-btn .tooltip {
@@ -607,7 +663,7 @@
             .request-form .form-row {
                 grid-template-columns: 1fr;
             }
-            .request-form {
+            .glass-card {
                 padding: 24px;
             }
             .navbar .logo .logo-wrapper {
@@ -640,19 +696,25 @@
                 font-size: 0.9rem;
                 padding: 14px 20px;
             }
+            .request-form input,
+            .request-form select,
+            .request-form textarea {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
         }
 
         @media (max-width: 480px) {
             .request-header h1 {
                 font-size: 1.5rem;
             }
-            .request-form {
+            .glass-card {
                 padding: 16px;
             }
             .request-form input,
             .request-form select,
             .request-form textarea {
-                padding: 12px 14px;
+                padding: 10px 14px;
                 font-size: 0.9rem;
             }
             .btn-submit {
@@ -660,7 +722,7 @@
                 padding: 14px;
             }
             .main {
-                padding: 90px 12px 90px;
+                padding: 90px 10px 90px;
             }
             .request-header .icon-wrapper {
                 width: 60px;
@@ -668,6 +730,9 @@
             }
             .request-header .icon-wrapper .icon {
                 font-size: 2rem;
+            }
+            .request-form label {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -757,7 +822,7 @@
                     <textarea id="problem" placeholder="صف المشكلة بالتفصيل (اختياري)"></textarea>
                 </div>
 
-                <button type="submit" class="btn-primary btn-submit" id="submitBtn">
+                <button type="submit" class="btn-submit" id="submitBtn">
                     <span class="btn-text"><i class="fas fa-paper-plane"></i> إرسال الطلب</span>
                     <span class="spinner"></span>
                 </button>
@@ -1098,8 +1163,8 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                background: linear-gradient(135deg, var(--gold), var(--orange));
-                                color: var(--primary-dark);
+                                background: linear-gradient(135deg, #FFD700, #FF6B35);
+                                color: #0A1128;
                                 font-size: 1.3rem;
                                 font-weight: 900;
                                 border-radius: 50%;
