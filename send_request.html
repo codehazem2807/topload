@@ -27,7 +27,6 @@
       overflow-x: hidden;
       padding-top: 80px;
     }
-    /* scroll behavior */
     html {
       scroll-behavior: smooth;
     }
@@ -144,6 +143,12 @@
       font-weight: 800;
       color: #0a0e1a;
       box-shadow: 0 0 0 2px rgba(212, 168, 67, 0.3);
+      overflow: hidden;
+    }
+    .logo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .logo-text {
       font-size: 1.7rem;
@@ -170,7 +175,7 @@
       font-family: 'Cairo', sans-serif;
     }
     .btn-back i {
-      transform: scaleX(-1); /* RTL arrow */
+      transform: scaleX(-1);
     }
     .btn-back:hover {
       border-color: #D4A843;
@@ -268,14 +273,6 @@
       color: #8a94a8;
       font-weight: 300;
     }
-    select.form-control {
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%235a6a7e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>');
-      background-repeat: no-repeat;
-      background-position: left 1rem center;
-      background-size: 14px;
-      padding-left: 2.8rem;
-    }
     textarea.form-control {
       min-height: 110px;
       resize: vertical;
@@ -305,6 +302,10 @@
     .btn-location i {
       font-size: 1.1rem;
     }
+    .btn-location:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
     /* submit button */
     .btn-submit {
@@ -326,12 +327,16 @@
       margin-top: 1rem;
       box-shadow: 0 8px 25px rgba(212, 168, 67, 0.25);
     }
-    .btn-submit:hover {
+    .btn-submit:hover:not(:disabled) {
       transform: translateY(-6px) scale(1.01);
       box-shadow: 0 20px 40px rgba(212, 168, 67, 0.4);
     }
-    .btn-submit:active {
+    .btn-submit:active:not(:disabled) {
       transform: scale(0.97);
+    }
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
     }
     .btn-submit i {
       font-size: 1.2rem;
@@ -496,7 +501,10 @@
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="logo-wrapper">
-      <div class="logo-circle">T</div>
+      <div class="logo-circle" id="logoContainer">
+        <img src="logo.png" alt="TopLoad" id="logoImg" style="display:none;" />
+        <span id="logoFallback">T</span>
+      </div>
       <span class="logo-text">TopLoad</span>
     </div>
     <button class="btn-back" id="backHomeBtn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</button>
@@ -534,18 +542,15 @@
             <div style="font-size:0.8rem;color:#e85d3a;margin-top:4px;" id="phoneError"></div>
           </div>
           <div class="form-group">
-            <label for="address"><i class="fas fa-map-pin" style="margin-left:8px;color:#D4A843;"></i>العنوان</label>
-            <input type="text" id="address" class="form-control" placeholder="العنوان التفصيلي" />
+            <label for="address"><i class="fas fa-map-pin" style="margin-left:8px;color:#D4A843;"></i>العنوان والمنطقة</label>
+            <input type="text" id="address" class="form-control" placeholder="العنوان التفصيلي والمنطقة" required />
+            <div style="font-size:0.8rem;color:#e85d3a;margin-top:4px;" id="addressError"></div>
           </div>
           <div class="form-group">
-            <label for="areaSelect"><i class="fas fa-location-dot" style="margin-left:8px;color:#D4A843;"></i>المنطقة</label>
-            <select id="areaSelect" class="form-control" required>
-              <option value="">-- اختر المنطقة --</option>
-            </select>
-            <div style="font-size:0.8rem;color:#e85d3a;margin-top:4px;" id="areaError"></div>
-          </div>
-          <div class="form-group">
-            <button type="button" class="btn-location" id="locateBtn"><i class="fas fa-crosshairs"></i> تحديد الموقع</button>
+            <button type="button" class="btn-location" id="locateBtn"><i class="fas fa-crosshairs"></i> تحديد الموقع تلقائياً</button>
+            <div style="font-size:0.8rem;color:#8a94a8;margin-top:6px;">
+              <i class="fas fa-info-circle"></i> سيتم ملء العنوان والمنطقة تلقائياً
+            </div>
           </div>
           <div class="form-group">
             <label for="problemDesc"><i class="fas fa-pen" style="margin-left:8px;color:#D4A843;"></i>وصف المشكلة</label>
@@ -588,36 +593,26 @@
       // ========== INIT AOS ==========
       AOS.init({ duration: 700, once: true, mirror: false });
 
+      // ========== LOGO ==========
+      const logoImg = document.getElementById('logoImg');
+      const logoFallback = document.getElementById('logoFallback');
+      
+      // Try to load logo.png
+      logoImg.onload = function() {
+        logoImg.style.display = 'block';
+        logoFallback.style.display = 'none';
+      };
+      logoImg.onerror = function() {
+        logoImg.style.display = 'none';
+        logoFallback.style.display = 'flex';
+      };
+      // Set src to trigger load/error
+      logoImg.src = 'logo.png';
+
       // ========== SUPABASE ==========
       const supabaseUrl = 'https://uzcllseejydmpwzsygjp.supabase.co';
       const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
       const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-      // ========== AREAS (40+ for Alexandria & North Coast) ==========
-      const areaList = [
-        'الإسكندرية (المنتزه)', 'الإسكندرية (سيدي جابر)', 'الإسكندرية (محرم بك)', 'الإسكندرية (الأنفوشي)',
-        'الإسكندرية (الرمل)', 'الإسكندرية (كامب شيزار)', 'الإسكندرية (سبورتنج)', 'الإسكندرية (جلوبال)',
-        'الإسكندرية (لوران)', 'الإسكندرية (المعمورة)', 'الإسكندرية (العصافرة)', 'الإسكندرية (الدخيلة)',
-        'الإسكندرية (القباري)', 'الإسكندرية (محطة الرمل)', 'الإسكندرية (سموحة)', 'الإسكندرية (زيزينيا)',
-        'الإسكندرية (فيكتوريا)', 'الإسكندرية (كليوباترا)', 'الإسكندرية (إبراهيمية)', 'الإسكندرية (الشافعي)',
-        'الساحل الشمالي (مرسى مطروح)', 'الساحل الشمالي (العلمين)', 'الساحل الشمالي (سيدي عبد الرحمن)',
-        'الساحل الشمالي (رأس الحكمة)', 'الساحل الشمالي (فوكة)', 'الساحل الشمالي (الضبعة)',
-        'الساحل الشمالي (نجيلة)', 'الساحل الشمالي (الحمام)', 'الساحل الشمالي (سيدي كرير)',
-        'الساحل الشمالي (برج العرب)', 'الساحل الشمالي (الساحل الشمالي الغربي)', 'الساحل الشمالي (مارينا)',
-        'الساحل الشمالي (بورتو مارينا)', 'الساحل الشمالي (جولف بورتو)', 'الساحل الشمالي (هيلتون)',
-        'الساحل الشمالي (قرية سياحية)', 'الإسكندرية (أبو قير)', 'الإسكندرية (المنشية)',
-        'الإسكندرية (باكوس)', 'الإسكندرية (حدائق القبة)', 'الإسكندرية (سيدي بشر)',
-        'الساحل الشمالي (بلو ووتر)', 'الساحل الشمالي (كيلو 96)'
-      ];
-
-      // populate select
-      const areaSelect = document.getElementById('areaSelect');
-      areaList.forEach(a => {
-        const opt = document.createElement('option');
-        opt.value = a;
-        opt.textContent = a;
-        areaSelect.appendChild(opt);
-      });
 
       // ========== DOM REFS ==========
       const form = document.getElementById('requestForm');
@@ -633,7 +628,7 @@
       const toastContainer = document.getElementById('toastContainer');
       const nameError = document.getElementById('nameError');
       const phoneError = document.getElementById('phoneError');
-      const areaError = document.getElementById('areaError');
+      const addressError = document.getElementById('addressError');
 
       // ========== TOAST ==========
       function showToast(message, type = 'info') {
@@ -646,7 +641,6 @@
           toast.style.opacity = '0';
           setTimeout(() => toast.remove(), 300);
         }, 5000);
-        // close on Escape
         document.addEventListener('keydown', function escHandler(e) {
           if (e.key === 'Escape') {
             toast.remove();
@@ -657,75 +651,95 @@
 
       // ========== GEOLOCATION ==========
       locateBtn.addEventListener('click', function() {
-        locateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ التحديد...';
+        locateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ تحديد الموقع...';
         locateBtn.disabled = true;
+        
         if (!navigator.geolocation) {
           showToast('المتصفح لا يدعم تحديد الموقع', 'error');
-          locateBtn.innerHTML = '<i class="fas fa-crosshairs"></i> تحديد الموقع';
+          locateBtn.innerHTML = '<i class="fas fa-crosshairs"></i> تحديد الموقع تلقائياً';
           locateBtn.disabled = false;
           return;
         }
+        
         navigator.geolocation.getCurrentPosition(
           async (pos) => {
             const { latitude, longitude } = pos.coords;
             try {
+              // Use Nominatim to get address
               const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar`);
               const data = await resp.json();
-              let displayName = data.display_name || '';
-              // try to match area
-              let matched = null;
-              for (let a of areaList) {
-                if (displayName.includes(a) || a.includes(displayName.split(',')[0])) {
-                  matched = a; break;
+              
+              let fullAddress = data.display_name || '';
+              // Extract area/city from address
+              const addressParts = fullAddress.split(',').map(s => s.trim());
+              let area = '';
+              
+              // Try to find area from address parts
+              const areaKeywords = ['الإسكندرية', 'الساحل الشمالي', 'مرسى مطروح', 'العلمين', 'سيدي عبد الرحمن', 
+                                   'رأس الحكمة', 'فوكة', 'الضبعة', 'نجيلة', 'الحمام', 'سيدي كرير', 'برج العرب'];
+              
+              for (let part of addressParts) {
+                for (let keyword of areaKeywords) {
+                  if (part.includes(keyword)) {
+                    area = part;
+                    break;
+                  }
                 }
+                if (area) break;
               }
-              if (!matched) {
-                // fallback: try first part
-                const parts = displayName.split(',');
-                for (let a of areaList) {
-                  if (parts.some(p => a.includes(p.trim()))) { matched = a; break; }
-                }
+              
+              // If no area found, use the first part
+              if (!area && addressParts.length > 0) {
+                area = addressParts[0];
               }
-              if (matched) {
-                areaSelect.value = matched;
-                showToast(`تم تحديد المنطقة: ${matched}`, 'success');
-              } else {
-                showToast('لم نتمكن من مطابقة المنطقة، اخترها يدوياً', 'info');
+              
+              // Build full address with area
+              let finalAddress = fullAddress;
+              if (area && !fullAddress.includes(area)) {
+                finalAddress = area + '، ' + fullAddress;
               }
+              
+              address.value = finalAddress;
+              showToast(`تم تحديد الموقع: ${area || 'تم تحديث العنوان'}`, 'success');
             } catch (e) {
-              showToast('حدث خطأ في تحديد المنطقة', 'error');
+              showToast('حدث خطأ في تحديد الموقع، حاول يدوياً', 'error');
             }
-            locateBtn.innerHTML = '<i class="fas fa-crosshairs"></i> تحديد الموقع';
+            locateBtn.innerHTML = '<i class="fas fa-crosshairs"></i> تحديد الموقع تلقائياً';
             locateBtn.disabled = false;
           },
           (err) => {
-            showToast('يرجى السماح بالوصول إلى الموقع', 'error');
-            locateBtn.innerHTML = '<i class="fas fa-crosshairs"></i> تحديد الموقع';
+            let errorMsg = 'يرجى السماح بالوصول إلى الموقع';
+            if (err.code === 1) errorMsg = 'تم رفض الوصول إلى الموقع، يرجى السماح به';
+            else if (err.code === 2) errorMsg = 'الموقع غير متاح حالياً';
+            else if (err.code === 3) errorMsg = 'انتهت مهلة تحديد الموقع';
+            showToast(errorMsg, 'error');
+            locateBtn.innerHTML = '<i class="fas fa-crosshairs"></i> تحديد الموقع تلقائياً';
             locateBtn.disabled = false;
           },
-          { enableHighAccuracy: true, timeout: 12000 }
+          { enableHighAccuracy: true, timeout: 15000 }
         );
       });
 
       // ========== VALIDATION ==========
       function validateForm() {
         let valid = true;
-        // name
+        
         if (fullName.value.trim().length < 3) {
           nameError.textContent = 'الاسم يجب أن يكون 3 أحرف على الأقل';
           valid = false;
         } else nameError.textContent = '';
-        // phone
+        
         const phoneVal = phone.value.trim();
         if (phoneVal.length < 10 || !/^\d+$/.test(phoneVal)) {
           phoneError.textContent = 'رقم التليفون يجب أن يكون 10 أرقام على الأقل';
           valid = false;
         } else phoneError.textContent = '';
-        // area
-        if (!areaSelect.value) {
-          areaError.textContent = 'الرجاء اختيار المنطقة';
+        
+        if (address.value.trim().length < 3) {
+          addressError.textContent = 'الرجاء إدخال العنوان والمنطقة';
           valid = false;
-        } else areaError.textContent = '';
+        } else addressError.textContent = '';
+        
         return valid;
       }
 
@@ -736,7 +750,7 @@
           showToast('يرجى تصحيح الأخطاء في النموذج', 'error');
           return;
         }
-        // loading state
+        
         submitBtn.disabled = true;
         spinner.classList.remove('spinner-hidden');
         submitBtn.querySelector('i.fa-paper-plane').style.display = 'none';
@@ -744,22 +758,24 @@
         const payload = {
           full_name: fullName.value.trim(),
           phone: phone.value.trim(),
-          address: address.value.trim() || 'غير محدد',
-          area: areaSelect.value,
+          address: address.value.trim(),
           problem_description: problemDesc.value.trim() || 'لا يوجد وصف',
           status: 'جديد'
         };
 
         try {
-          const { data, error } = await supabase.from('maintenance_requests').insert([payload]);
+          const { data, error } = await supabase
+            .from('maintenance_requests')
+            .insert([payload]);
+          
           if (error) throw error;
-          // success
+          
           form.style.display = 'none';
           successBox.style.display = 'block';
           showToast('تم إرسال طلبك بنجاح!', 'success');
-          // scroll to success
           successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } catch (err) {
+          console.error('Supabase error:', err);
           showToast('فشل الإرسال: ' + (err.message || 'خطأ في الشبكة'), 'error');
         } finally {
           submitBtn.disabled = false;
@@ -768,16 +784,24 @@
         }
       });
 
-      // ========== RESET TO FORM (success back) ==========
+      // ========== RESET TO FORM ==========
       function resetToForm() {
         form.style.display = 'block';
         successBox.style.display = 'none';
         form.reset();
+        // Clear errors
+        nameError.textContent = '';
+        phoneError.textContent = '';
+        addressError.textContent = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+      
       document.getElementById('successBackBtn').addEventListener('click', resetToForm);
       document.getElementById('backHomeBtn').addEventListener('click', resetToForm);
-      document.getElementById('footerHomeLink').addEventListener('click', (e) => { e.preventDefault(); resetToForm(); });
+      document.getElementById('footerHomeLink').addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        resetToForm(); 
+      });
       document.getElementById('floatHomeBtn').addEventListener('click', resetToForm);
 
       // ========== FLOATING BUTTONS ==========
@@ -792,7 +816,10 @@
       const canvas = document.getElementById('particles-canvas');
       const ctx = canvas.getContext('2d');
       let w, h;
-      function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+      function resize() { 
+        w = canvas.width = window.innerWidth; 
+        h = canvas.height = window.innerHeight; 
+      }
       resize();
       window.addEventListener('resize', resize);
 
@@ -808,6 +835,7 @@
           alpha: Math.random() * 0.6 + 0.2,
         });
       }
+      
       function drawParticles() {
         ctx.clearRect(0, 0, w, h);
         particles.forEach(p => {
@@ -824,11 +852,14 @@
       }
       drawParticles();
 
-      // close toasts on Escape (global)
+      // Close toasts on Escape
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           const toasts = toastContainer.querySelectorAll('.toast');
-          toasts.forEach(t => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); });
+          toasts.forEach(t => { 
+            t.style.opacity = '0'; 
+            setTimeout(() => t.remove(), 300); 
+          });
         }
       });
 
