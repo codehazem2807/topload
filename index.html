@@ -3,1115 +3,1717 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صيانة غسالات بالاسكندرية | TopLoad - خدمة فورية بضمان معتمد</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="أفضل خدمة صيانة غسالات بالاسكندرية في جميع المناطق. فنيين معتمدين، قطع غيار أصلية، ضمان 6 شهور، خدمة فورية. اتصل الآن 01021508336">
-    <meta name="keywords" content="صيانة غسالات بالاسكندرية, تصليح غسالات, فني غسالات, صيانة غسالات اوتوماتيك, مركز صيانة غسالات, صيانة غسالات المنتزه, صيانة غسالات سيدي بشر, صيانة غسالات بحري, صيانة غسالات العجمي, صيانة غسالات محرم بك, صيانة غسالات سبورتنج, صيانة غسالات سموحة, صيانة غسالات كامب شيزار, صيانة غسالات جناكليس, صيانة غسالات فيكتوريا, صيانة غسالات الرمل, صيانة غسالات الظاهرية, صيانة غسالات العطارين, صيانة غسالات المنشية, صيانة غسالات القباري, صيانة غسالات الدخيلة, صيانة غسالات العامرية, صيانة غسالات برج العرب">
+    <title>TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي</title>
+    <meta name="description" content="أفضل خدمة صيانة غسالات في الاسكندرية والساحل الشمالي. نخدم جميع المناطق: المنتزه، سموحة، سيدي بشر، مراسى، العلمين والمزيد. اتصل الآن: 01021508336">
+    <meta name="keywords" content="صيانة غسالات بالاسكندرية, تصليح غسالات, فني غسالات, مركز صيانة غسالات, صيانة غسالات اوتوماتيك, صيانة غسالات المنتزه, صيانة غسالات سموحة, صيانة غسالات مراسى">
+    <link rel="canonical" href="https://topload-maintenance.com">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="صيانة غسالات بالاسكندرية | TopLoad">
-    <meta property="og:description" content="خدمة صيانة غسالات احترافية في جميع مناطق الاسكندرية. ضمان 6 شهور على القطع و 3 شهور على الخدمة.">
+    <meta property="og:title" content="TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي">
+    <meta property="og:description" content="خدمة صيانة غسالات محترفة في جميع مناطق الاسكندرية والساحل الشمالي">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://topload-eg.com/">
+    <meta property="og:url" content="https://topload-maintenance.com">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="صيانة غسالات بالاسكندرية | TopLoad">
-    <meta name="twitter:description" content="خدمة صيانة غسالات احترافية في جميع مناطق الاسكندرية.">
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <link rel="canonical" href="https://topload-eg.com/">
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "TopLoad - صيانة غسالات",
-        "image": "https://topload-eg.com/logo.png",
-        "telephone": "+201021508336",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "14 شارع كنيسة الاورام",
-            "addressLocality": "جناكليس",
-            "addressRegion": "الاسكندرية",
-            "addressCountry": "EG"
-        },
-        "openingHours": "Mo-Su 09:00-23:00",
-        "priceRange": "$$",
-        "areaServed": {
-            "@type": "City",
-            "name": "الاسكندرية"
-        }
-    }
-    </script>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
-        * { font-family: 'Cairo', sans-serif; }
-        
+        /* ===== CSS Variables ===== */
         :root {
-            --primary: #0A1628;
-            --secondary: #1A2D4A;
-            --accent: #F5A623;
-            --accent-dark: #D4891A;
-            --gradient-main: linear-gradient(135deg, #0A1628 0%, #1A2D4A 100%);
-            --gradient-accent: linear-gradient(135deg, #F5A623 0%, #F7C948 100%);
-            --shadow-glow: 0 8px 32px rgba(245, 166, 35, 0.3);
+            --primary-dark: #0A1128;
+            --primary-blue: #1A237E;
+            --gold: #FFD700;
+            --orange: #FF6B35;
+            --gold-light: #FFE082;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        html { scroll-behavior: smooth; }
-        
-        .gradient-bg { background: var(--gradient-main); }
-        .gradient-accent { background: var(--gradient-accent); }
-        .text-gradient { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        
-        .btn-primary {
-            background: var(--gradient-accent);
-            color: var(--primary);
-            padding: 16px 40px;
-            border-radius: 60px;
-            font-weight: 800;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-block;
-            box-shadow: var(--shadow-glow);
-            border: none;
-            cursor: pointer;
-            font-size: 1.05rem;
-            letter-spacing: 0.5px;
+
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .btn-primary:hover { 
-            transform: translateY(-4px) scale(1.02); 
-            box-shadow: 0 12px 48px rgba(245, 166, 35, 0.5);
+
+        html {
+            scroll-behavior: smooth;
         }
-        .btn-primary:disabled { 
-            opacity: 0.6; 
-            cursor: not-allowed; 
-            transform: none !important; 
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--primary-dark);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.7;
         }
-        
-        .btn-outline {
-            border: 2px solid rgba(255,255,255,0.8);
-            color: white;
-            padding: 14px 36px;
-            border-radius: 60px;
-            font-weight: 700;
-            transition: all 0.4s ease;
-            display: inline-block;
-            background: transparent;
-            backdrop-filter: blur(10px);
+
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .btn-outline:hover { 
-            background: white; 
-            color: var(--primary); 
-            transform: translateY(-3px);
-            box-shadow: 0 8px 32px rgba(255,255,255,0.2);
+        ::-webkit-scrollbar-track {
+            background: var(--primary-dark);
         }
-        
-        .hero-section {
-            background: linear-gradient(135deg, rgba(10, 22, 40, 0.92) 0%, rgba(26, 45, 74, 0.88) 100%),
-                        url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1350&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold), var(--orange));
+            border-radius: 10px;
         }
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== Scroll Progress Bar ===== */
+        #progress-bar {
+            position: fixed;
+            top: 0;
             left: 0;
-            right: 0;
-            height: 200px;
-            background: linear-gradient(transparent, #0A1628);
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--orange));
+            z-index: 10000;
+            transition: width 0.1s;
+        }
+
+        /* ===== Particles Background ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
             pointer-events: none;
         }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .glass-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(245, 166, 35, 0.3);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-        }
-        
-        .service-card {
-            background: white;
-            border-radius: 28px;
-            padding: 36px 28px;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0,0,0,0.04);
-            position: relative;
-            overflow: hidden;
-        }
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient-accent);
-            transform: scaleX(0);
-            transition: transform 0.5s ease;
-            transform-origin: right;
-        }
-        .service-card:hover::before { transform: scaleX(1); }
-        .service-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
-            border-color: rgba(245, 166, 35, 0.2);
-        }
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 34px;
-            margin: 0 auto 20px;
-            background: var(--gradient-accent);
-            color: var(--primary);
-            box-shadow: 0 8px 24px rgba(245, 166, 35, 0.25);
-        }
-        
-        .stats-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 32px 24px;
-            transition: all 0.4s ease;
-            text-align: center;
-        }
-        .stats-card:hover { 
-            transform: translateY(-6px); 
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(245, 166, 35, 0.2);
-        }
-        .stats-number {
-            font-size: 3rem;
+
+        /* ===== Section Titles ===== */
+        .section-title {
+            font-size: 2.8rem;
             font-weight: 900;
-            background: var(--gradient-accent);
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
-        .form-input {
-            width: 100%;
-            padding: 16px 22px;
-            border-radius: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.06);
-            color: white;
-            font-size: 16px;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(5px);
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
         }
-        .form-input::placeholder { color: rgba(255, 255, 255, 0.4); }
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 40px rgba(245, 166, 35, 0.08);
+
+        /* ===== Glassmorphism Card ===== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
         }
-        .form-input.error {
-            border-color: #ef4444;
-            background: rgba(239, 68, 68, 0.08);
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--gold);
+            box-shadow: 0 12px 48px rgba(255, 215, 0, 0.15);
         }
-        .form-label {
-            display: block;
+
+        /* ===== Buttons ===== */
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: #0A1128;
             font-weight: 700;
-            margin-bottom: 10px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 15px;
-            letter-spacing: 0.5px;
-        }
-        .form-label .required { color: #F5A623; margin-right: 4px; }
-        
-        .location-btn {
-            background: var(--gradient-accent);
-            color: var(--primary);
-            padding: 16px 24px;
-            border-radius: 18px;
-            font-weight: 700;
-            transition: all 0.4s ease;
+            font-size: 1.1rem;
             border: none;
+            border-radius: 50px;
             cursor: pointer;
-            white-space: nowrap;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 14px 35px;
+            background: transparent;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 1;
+            padding: 100px 20px 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(26, 35, 126, 0.6) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(255, 107, 53, 0.2) 0%, transparent 60%),
+                linear-gradient(180deg, rgba(10, 17, 40, 0.7) 0%, rgba(10, 17, 40, 0.9) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 25px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(255, 215, 0, 0.3); }
+            50% { border-color: rgba(255, 215, 0, 0.8); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== Floating Shapes ===== */
+        .floating-shapes {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float-shape 20s infinite ease-in-out;
+        }
+
+        .floating-shapes .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--gold);
+            top: -50px;
+            right: -50px;
+            animation-delay: 0s;
+        }
+        .floating-shapes .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: var(--orange);
+            bottom: -30px;
+            left: -30px;
+            animation-delay: -5s;
+        }
+        .floating-shapes .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            background: var(--primary-blue);
+            top: 50%;
+            left: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float-shape {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(40px, 30px) scale(1.05); }
+        }
+
+        /* ===== Features ===== */
+        .features {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 25px;
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: float-icon 3s ease-in-out infinite;
+        }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .feature-card .count-up {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            display: block;
+            margin-top: 15px;
+        }
+
+        /* ===== Services ===== */
+        .services {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card .icon {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card .btn-service {
+            padding: 10px 30px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== Areas Section ===== */
+        .areas {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .area-tag {
+            padding: 12px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .area-tag:hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .area-tag .icon {
+            margin-left: 8px;
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        .area-category {
+            margin-top: 30px;
+        }
+
+        .area-category h4 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 15px;
         }
-        .location-btn:hover:not(:disabled) { 
-            transform: scale(1.03); 
-            box-shadow: 0 8px 32px rgba(245, 166, 35, 0.3);
+
+        .area-category h4::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
         }
-        .location-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 20px 32px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            z-index: 1000;
-            animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-weight: 700;
-            max-width: 420px;
-            border: 1px solid rgba(255,255,255,0.1);
+
+        .areas-stats {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
         }
-        @keyframes slideIn {
-            from { transform: translateX(100%) scale(0.9); opacity: 0; }
-            to { transform: translateX(0) scale(1); opacity: 1; }
+
+        .areas-stats .big-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: #25D366;
-            color: white;
-            width: 68px;
-            height: 68px;
+
+        /* ===== Testimonials ===== */
+        .testimonials {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            padding: 30px;
+        }
+
+        .testimonial-card .stars {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-card .text {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-card .author .avatar {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            box-shadow: 0 8px 40px rgba(37, 211, 102, 0.4);
-            z-index: 999;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
         }
-        .whatsapp-float:hover { 
-            transform: scale(1.1) rotate(-8deg); 
-            color: white; 
-            box-shadow: 0 12px 48px rgba(37, 211, 102, 0.5);
+
+        .testimonial-card .author .info .name {
+            font-weight: 600;
         }
-        
+
+        .testimonial-card .author .info .role {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== Contact Form ===== */
+        .contact {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .contact-detail .icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-detail .text {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-detail .text strong {
+            color: #fff;
+        }
+
+        .contact-form {
+            padding: 40px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-form select option {
+            background: var(--primary-dark);
+            color: #fff;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .contact-form .btn-submit {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .contact-form .btn-submit .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(10, 17, 40, 0.2);
+            border-top: 3px solid var(--primary-dark);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-form .btn-submit.loading .spinner {
+            display: block;
+        }
+
+        .contact-form .btn-submit.loading .btn-text {
+            display: none;
+        }
+
+        .contact-form .btn-submit.loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-success {
+            display: none;
+            padding: 20px;
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid #2ecc71;
+            border-radius: 12px;
+            text-align: center;
+            color: #2ecc71;
+            margin-top: 15px;
+        }
+
+        .form-success.show {
+            display: block;
+            animation: fadeUp 0.5s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Floating Buttons ===== */
         .floating-buttons {
             position: fixed;
             left: 20px;
-            bottom: 110px;
+            bottom: 30px;
             z-index: 999;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
+
         .floating-btn {
-            width: 58px;
-            height: 58px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
-            color: white;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
         }
-        .floating-btn:hover { transform: scale(1.12); }
-        
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 16px;
-            line-height: 1.2;
+
+        .floating-btn:hover {
+            transform: scale(1.15);
         }
-        .section-subtitle {
-            font-size: 1.15rem;
-            opacity: 0.8;
-            max-width: 620px;
-            margin: 0 auto;
-            line-height: 1.7;
+
+        .floating-btn.whatsapp {
+            background: #25D366;
         }
-        
-        .contact-card {
-            background: white;
-            border-radius: 28px;
-            padding: 32px;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0,0,0,0.04);
+
+        .floating-btn.whatsapp::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid #25D366;
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        .floating-btn.phone {
+            background: var(--orange);
+        }
+
+        .floating-btn.request {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+        }
+
+        .floating-btn .tooltip {
+            position: absolute;
+            right: 70px;
+            background: rgba(10, 17, 40, 0.95);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .floating-btn:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 50px 0 30px;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
         }
-        .contact-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 24px 60px rgba(0,0,0,0.06);
-            border-color: rgba(245, 166, 35, 0.2);
+
+        .footer .brand {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .contact-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 16px;
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
-        
-        .spinner {
-            display: inline-block;
-            width: 22px;
-            height: 22px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 0.7s ease infinite;
+
+        /* ===== Responsive ===== */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
-        .service-image {
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-        }
-        .service-image:hover {
-            transform: scale(1.01);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
-        }
-        
+
         @media (max-width: 768px) {
-            .section-title { font-size: 2rem; }
-            .whatsapp-float { width: 58px; height: 58px; font-size: 30px; bottom: 20px; left: 20px; }
-            .toast { right: 16px; left: 16px; max-width: none; }
-            .floating-buttons { bottom: 90px; left: 12px; }
-            .floating-btn { width: 50px; height: 50px; font-size: 22px; }
-            .stats-number { font-size: 2.2rem; }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .hero-stat .number {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .floating-buttons {
+                left: 10px;
+                bottom: 20px;
+            }
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            .floating-btn .tooltip {
+                display: none;
+            }
+            .areas-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
+            }
+            .contact-form {
+                padding: 20px;
+            }
+        }
+
+        /* ===== News Ticker ===== */
+        .news-ticker {
+            background: rgba(255, 215, 0, 0.05);
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .news-ticker .ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker-scroll 30s linear infinite;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .news-ticker .ticker-content span {
+            margin: 0 40px;
+        }
+
+        .news-ticker .ticker-content .highlight {
+            color: var(--gold);
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* ===== Toast Notification ===== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 18px 30px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            z-index: 10001;
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, var(--primary-blue), #0A1128);
+            border: 1px solid var(--gold);
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 bg-white/98 backdrop-blur-xl shadow-lg border-b border-gray-100/20">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-3">
-                    <img src="logo.png" alt="TopLoad - صيانة غسالات بالاسكندرية" class="w-14 h-14 rounded-2xl object-cover shadow-lg" onerror="this.src='https://via.placeholder.com/56/0A1628/F5A623?text=TL'">
-                    <span class="text-2xl font-black text-gray-800">Top<span class="text-gradient">Load</span></span>
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ===== NEWS TICKER ===== -->
+    <div class="news-ticker">
+        <div class="container" style="overflow:hidden; white-space:nowrap;">
+            <div class="ticker-content">
+                <span>🏆 <span class="highlight">TopLoad</span> - أفضل خدمة صيانة غسالات في الاسكندرية</span>
+                <span>📞 <span class="highlight">01021508336</span> - اتصل الآن واحصل على خصم 20%</span>
+                <span>📍 نخدم <span class="highlight">30+</span> منطقة في الاسكندرية والساحل الشمالي</span>
+                <span>⏱️ الرد خلال <span class="highlight">30 دقيقة</span> - خدمة سريعة وموثوقة</span>
+                <span>⭐ تقييم <span class="highlight">4.9/5</span> من أكثر من 500 عميل</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="hero-badge">
+                <i class="fas fa-star"></i> خدمة معتمدة منذ 2015
+            </div>
+            <h1>
+                صيانة غسالات<br>
+                <span class="highlight">الاسكندرية والساحل الشمالي</span>
+            </h1>
+            <p>
+                نخدم جميع المناطق - المنتزه، سموحة، سيدي بشر، مراسى، العلمين، 
+                وأكثر من 30 منطقة أخرى. خدمة سريعة واحترافية بأسعار تنافسية.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i> اطلب الصيانة الآن
+                </a>
+                <a href="tel:01021508336" class="btn-secondary">
+                    <i class="fas fa-phone"></i> 01021508336
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="number" data-count="500">0</span>
+                    <span class="label">عميل سعيد</span>
                 </div>
-                
-                <div class="hidden lg:flex items-center gap-8">
-                    <a href="#home" class="text-gray-700 hover:text-[#F5A623] font-semibold transition">الرئيسية</a>
-                    <a href="#services" class="text-gray-700 hover:text-[#F5A623] font-semibold transition">خدماتنا</a>
-                    <a href="#about" class="text-gray-700 hover:text-[#F5A623] font-semibold transition">من نحن</a>
-                    <a href="#request" class="text-gray-700 hover:text-[#F5A623] font-semibold transition">طلب صيانة</a>
-                    <a href="#contact" class="text-gray-700 hover:text-[#F5A623] font-semibold transition">اتصل بنا</a>
+                <div class="hero-stat">
+                    <span class="number" data-count="4.9">0</span>
+                    <span class="label">تقييم / 5</span>
                 </div>
-                
-                <div class="flex items-center gap-3">
-                    <a href="tel:01021508336" class="hidden sm:flex items-center gap-2 bg-[#0A1628] text-white px-5 py-2.5 rounded-2xl hover:bg-[#1A2D4A] transition text-sm font-bold shadow-lg">
-                        <i class="fas fa-phone"></i> 01021508336
-                    </a>
-                    <a href="#request" class="btn-primary text-sm px-6 py-3">
-                        <i class="fas fa-tools ml-2"></i>طلب صيانة
-                    </a>
+                <div class="hero-stat">
+                    <span class="number" data-count="30">0</span>
+                    <span class="label">منطقة مخدومة</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="number" data-count="98">0</span>
+                    <span class="label">% رضا العملاء</span>
                 </div>
             </div>
         </div>
-    </nav>
+    </section>
 
-    <!-- Floating Contact Buttons -->
-    <div class="floating-buttons">
-        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="floating-btn" style="background: #25D366;" title="واتساب" aria-label="واتساب">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        <a href="tel:01021508336" class="floating-btn" style="background: #0A1628;" title="اتصال" aria-label="اتصال">
-            <i class="fas fa-phone"></i>
-        </a>
-        <a href="#request" class="floating-btn" style="background: var(--gradient-accent); color: #0A1628;" title="طلب صيانة" aria-label="طلب صيانة">
-            <i class="fas fa-tools"></i>
-        </a>
-    </div>
-
-    <!-- Main Content -->
-    <main class="mt-20">
-        
-        <!-- Hero Section -->
-        <section id="home" class="hero-section text-white min-h-screen flex items-center relative">
-            <div class="container mx-auto px-4 hero-content py-20 lg:py-28">
-                <div class="max-w-4xl mx-auto text-center">
-                    <div class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
-                        <span class="w-2 h-2 rounded-full bg-[#F5A623] animate-pulse"></span>
-                        <span class="text-sm font-bold tracking-wider">⭐ خدمة معتمدة بضمان 6 شهور</span>
-                    </div>
-                    
-                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
-                        صيانة <span class="text-gradient">غسالات</span><br>
-                        <span class="text-4xl md:text-5xl lg:text-6xl">الاسكندرية</span>
-                    </h1>
-                    
-                    <p class="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                        فنيين معتمدين • قطع غيار أصلية • ضمان 6 شهور • خدمة فورية بجميع المناطق
-                    </p>
-                    
-                    <div class="flex flex-wrap justify-center items-center gap-4">
-                        <a href="#request" class="btn-primary text-lg px-14 py-5">
-                            <i class="fas fa-paper-plane ml-2"></i> اطلب صيانة الآن
-                        </a>
-                        <a href="tel:01021508336" class="btn-outline text-lg px-10 py-4">
-                            <i class="fas fa-phone ml-2"></i> اتصل بنا
-                        </a>
-                    </div>
-                    
-                    <div class="mt-10 flex flex-wrap justify-center gap-8 text-sm opacity-80">
-                        <span><i class="fas fa-check-circle text-[#F5A623] ml-2"></i> ضمان 6 شهور على القطع</span>
-                        <span><i class="fas fa-check-circle text-[#F5A623] ml-2"></i> ضمان 3 شهور على الخدمة</span>
-                        <span><i class="fas fa-check-circle text-[#F5A623] ml-2"></i> خدمة سريعة خلال 24 ساعة</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Quick Contact Bar -->
-        <section class="py-4 bg-[#F5A623] text-[#0A1628] relative z-10">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-sm md:text-base font-bold">
-                    <span><i class="fas fa-clock ml-2"></i> متاحين 24 ساعة</span>
-                    <span class="hidden sm:inline">|</span>
-                    <a href="tel:01021508336" class="hover:underline flex items-center gap-2">
-                        <i class="fas fa-phone"></i> 01021508336
-                    </a>
-                    <span class="hidden sm:inline">|</span>
-                    <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="hover:underline flex items-center gap-2">
-                        <i class="fab fa-whatsapp"></i> واتساب
-                    </a>
-                    <span class="hidden sm:inline">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-map-pin"></i> 14 شارع كنيسة الاورام، جناكليس</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section class="py-20 gradient-bg text-white">
-            <div class="container mx-auto px-4">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="stats-card">
-                        <div class="stats-number">500+</div>
-                        <div class="text-sm opacity-80 mt-1">عميل راضٍ</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-number">98%</div>
-                        <div class="text-sm opacity-80 mt-1">نسبة نجاح الخدمة</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-number">4.9</div>
-                        <div class="text-sm opacity-80 mt-1">تقييم العملاء</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-number">15+</div>
-                        <div class="text-sm opacity-80 mt-1">منطقة خدمة</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="py-24 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <span class="inline-block px-5 py-1.5 rounded-full bg-[#F5A623]/10 text-[#F5A623] font-bold text-sm tracking-wider mb-4 border border-[#F5A623]/20">خدماتنا</span>
-                    <h2 class="section-title text-gray-800">خدمات صيانة الغسالات المتخصصة</h2>
-                    <p class="section-subtitle text-gray-600">نقدم حلولاً متكاملة لجميع أعطال الغسالات بقطع غيار أصلية وضمان طويل</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-washing-machine"></i></div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">غسالات أوتوماتيك</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">صيانة المحرك، الطرمبة، برامج الغسيل، تسريب المياه، لوحات التحكم</p>
-                        <div class="mt-4">
-                            <a href="tel:01021508336" class="text-[#F5A623] font-bold text-sm hover:underline"><i class="fas fa-phone ml-1"></i> اتصل الآن</a>
-                        </div>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-water"></i></div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">غسالات نصف أوتوماتيك</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">تصليح أعطال المحرك، التايمر، طرمبة الصرف، صيانة الحلة الداخلية</p>
-                        <div class="mt-4">
-                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-[#25D366] font-bold text-sm hover:underline"><i class="fab fa-whatsapp ml-1"></i> واتساب</a>
-                        </div>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-microchip"></i></div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">لوحات إلكترونية</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">تصليح وصيانة لوحات التحكم الإلكترونية وبرمجتها</p>
-                        <div class="mt-4">
-                            <a href="#request" class="text-[#F5A623] font-bold text-sm hover:underline"><i class="fas fa-pen ml-1"></i> طلب صيانة</a>
-                        </div>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-clock"></i></div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">خدمة طوارئ 24 ساعة</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">فريق جاهز للتحرك الفوري لأي عطل طارئ في جميع مناطق الاسكندرية</p>
-                        <div class="mt-4">
-                            <a href="tel:01021508336" class="text-red-500 font-bold text-sm hover:underline"><i class="fas fa-phone ml-1"></i> طوارئ</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Services Image - NEW -->
-                <div class="service-image mt-16">
-                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1350&auto=format&fit=crop" 
-                         alt="فريق صيانة غسالات محترف - TopLoad الاسكندرية" 
-                         class="w-full h-64 md:h-96 object-cover">
-                </div>
-                
-                <div class="mt-10 text-center">
-                    <div class="inline-flex flex-wrap justify-center gap-4">
-                        <a href="tel:01021508336" class="contact-btn" style="background: #0A1628; color: white; padding: 14px 32px; border-radius: 20px; font-weight: 700; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
-                            <i class="fas fa-phone"></i> اتصل بنا
-                        </a>
-                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="contact-btn" style="background: #25D366; color: white; padding: 14px 32px; border-radius: 20px; font-weight: 700; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
-                            <i class="fab fa-whatsapp"></i> واتساب
-                        </a>
-                        <a href="#request" class="contact-btn" style="background: var(--gradient-accent); color: var(--primary); padding: 14px 32px; border-radius: 20px; font-weight: 700; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">
-                            <i class="fas fa-paper-plane"></i> طلب صيانة
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="py-24 gradient-bg text-white">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col lg:flex-row items-center gap-16">
-                    <div class="lg:w-1/2">
-                        <span class="inline-block px-5 py-1.5 rounded-full bg-white/10 text-[#F5A623] font-bold text-sm tracking-wider mb-4 border border-white/10">من نحن</span>
-                        <h2 class="text-4xl md:text-5xl font-black mb-6">شريكك الموثوق في صيانة الغسالات</h2>
-                        <p class="text-lg leading-relaxed opacity-90 mb-8">
-                            نحن TopLoad، المتخصصون في صيانة جميع أنواع الغسالات بالاسكندرية. نقدم خدمة احترافية بفنيين معتمدين، قطع غيار أصلية، وضمان مزدوج يمنحك راحة البال.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#F5A623]/20 flex items-center justify-center text-[#F5A623]"><i class="fas fa-check"></i></div>
-                                <span>فنيين حاصلين على شهادات معتمدة</span>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#F5A623]/20 flex items-center justify-center text-[#F5A623]"><i class="fas fa-check"></i></div>
-                                <span>ضمان 6 شهور على قطع الغيار الأصلية</span>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#F5A623]/20 flex items-center justify-center text-[#F5A623]"><i class="fas fa-check"></i></div>
-                                <span>ضمان 3 شهور على جودة الخدمة</span>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#F5A623]/20 flex items-center justify-center text-[#F5A623]"><i class="fas fa-check"></i></div>
-                                <span>خدمة سريعة في جميع مناطق الاسكندرية</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-4 mt-8">
-                            <a href="#request" class="btn-primary inline-block">
-                                <i class="fas fa-calendar-check ml-2"></i> احجز موعد الصيانة
-                            </a>
-                            <a href="tel:01021508336" class="btn-outline inline-block">
-                                <i class="fas fa-phone ml-2"></i> اتصل بنا
-                            </a>
-                        </div>
-                    </div>
-                    <div class="lg:w-1/2">
-                        <div class="glass-card p-4 rounded-3xl">
-                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1350&auto=format&fit=crop" 
-                                 alt="فني صيانة غسالات في الاسكندرية - TopLoad" 
-                                 class="rounded-2xl w-full shadow-2xl">
-                        </div>
-                        <div class="flex justify-center gap-4 mt-6">
-                            <a href="tel:01021508336" class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-white/20 transition">
-                                <i class="fas fa-phone text-[#F5A623]"></i>
-                                <span>01021508336</span>
-                            </a>
-                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-white/20 transition">
-                                <i class="fab fa-whatsapp text-[#25D366]"></i>
-                                <span>واتساب</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Request Form Section -->
-        <section id="request" class="py-24 bg-[#0A1628] text-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <span class="inline-block px-5 py-1.5 rounded-full bg-[#F5A623]/20 text-[#F5A623] font-bold text-sm tracking-wider mb-4 border border-[#F5A623]/20">طلب صيانة</span>
-                    <h2 class="section-title">اطلب خدمة صيانة الغسالات الآن</h2>
-                    <p class="section-subtitle">املأ البيانات وسيتواصل معك فريقنا خلال دقائق</p>
-                </div>
-                
-                <div class="max-w-2xl mx-auto">
-                    <div class="glass-card p-8 md:p-10">
-                        <form id="requestForm" class="space-y-6">
-                            <div>
-                                <label class="form-label"><i class="fas fa-user ml-2"></i>الاسم كاملاً <span class="required">*</span></label>
-                                <input type="text" id="fullName" class="form-input" placeholder="أدخل اسمك بالكامل" required>
-                            </div>
-                            
-                            <div>
-                                <label class="form-label"><i class="fas fa-phone ml-2"></i>رقم التليفون <span class="required">*</span></label>
-                                <input type="tel" id="phone" class="form-input" placeholder="مثال: 01012345678" required>
-                            </div>
-                            
-                            <div>
-                                <label class="form-label"><i class="fas fa-map-pin ml-2"></i>العنوان</label>
-                                <div class="flex flex-col sm:flex-row gap-3">
-                                    <input type="text" id="address" class="form-input flex-1" placeholder="أدخل عنوانك بالتفصيل">
-                                    <button type="button" onclick="getLocation()" class="location-btn justify-center" id="locationBtn">
-                                        <i class="fas fa-location-dot"></i> تحديد الموقع
-                                    </button>
-                                </div>
-                                <div id="locationStatus" class="text-xs mt-2 text-gray-400"></div>
-                            </div>
-                            
-                            <div>
-                                <label class="form-label"><i class="fas fa-clipboard-list ml-2"></i>وصف المشكلة</label>
-                                <textarea id="problemDesc" rows="4" class="form-input" placeholder="اشرح المشكلة بالتفصيل لنساعدك بشكل أسرع" style="resize: vertical;"></textarea>
-                            </div>
-                            
-                            <button type="submit" class="btn-primary w-full text-center text-lg py-5" id="submitBtn">
-                                <i class="fas fa-paper-plane ml-2"></i> إرسال الطلب
-                            </button>
-                        </form>
-                        
-                        <!-- Quick Contact Options -->
-                        <div class="mt-8 pt-6 border-t border-white/10 text-center">
-                            <p class="text-sm text-gray-400 mb-4">أو تواصل معنا مباشرة عبر:</p>
-                            <div class="flex flex-wrap justify-center gap-3">
-                                <a href="tel:01021508336" class="bg-white/10 px-6 py-3 rounded-2xl hover:bg-white/20 transition flex items-center gap-2 text-sm font-bold">
-                                    <i class="fas fa-phone text-[#F5A623]"></i> اتصال
-                                </a>
-                                <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="bg-white/10 px-6 py-3 rounded-2xl hover:bg-white/20 transition flex items-center gap-2 text-sm font-bold">
-                                    <i class="fab fa-whatsapp text-[#25D366]"></i> واتساب
-                                </a>
-                                <a href="#" class="bg-white/10 px-6 py-3 rounded-2xl hover:bg-white/20 transition flex items-center gap-2 text-sm font-bold">
-                                    <i class="fas fa-comment text-[#F5A623]"></i> تواصل الآن
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-24 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <span class="inline-block px-5 py-1.5 rounded-full bg-[#F5A623]/10 text-[#F5A623] font-bold text-sm tracking-wider mb-4 border border-[#F5A623]/20">تواصل معنا</span>
-                    <h2 class="section-title text-gray-800">فريقنا جاهز لخدمتك</h2>
-                    <p class="section-subtitle text-gray-600">نحن هنا للإجابة على استفساراتك على مدار الساعة</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <div class="contact-card">
-                        <div class="contact-icon bg-[#0A1628]/10 text-[#0A1628]"><i class="fas fa-phone"></i></div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">اتصال</h3>
-                        <a href="tel:01021508336" class="text-2xl font-bold text-[#0A1628] hover:text-[#F5A623] transition">01021508336</a>
-                        <div class="mt-4">
-                            <a href="tel:01021508336" class="inline-block bg-[#0A1628] text-white px-6 py-2.5 rounded-2xl hover:bg-[#1A2D4A] transition text-sm font-bold">
-                                <i class="fas fa-phone ml-1"></i> اتصل الآن
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon bg-[#25D366]/10 text-[#25D366]"><i class="fab fa-whatsapp"></i></div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">واتساب</h3>
-                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-2xl font-bold text-[#0A1628] hover:text-[#25D366] transition">01021508336</a>
-                        <div class="mt-4">
-                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="inline-block bg-[#25D366] text-white px-6 py-2.5 rounded-2xl hover:bg-[#20b85a] transition text-sm font-bold">
-                                <i class="fab fa-whatsapp ml-1"></i> تواصل واتساب
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon bg-[#F5A623]/10 text-[#F5A623]"><i class="fas fa-comment"></i></div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">تواصل سريع</h3>
-                        <p class="text-gray-600 text-sm mb-4">تواصل معنا عبر النموذج أو وسائل التواصل</p>
-                        <div class="flex flex-wrap justify-center gap-2">
-                            <a href="#request" class="inline-block bg-[#F5A623] text-[#0A1628] px-4 py-2 rounded-2xl hover:bg-[#F7C948] transition text-sm font-bold">
-                                <i class="fas fa-pen ml-1"></i> طلب صيانة
-                            </a>
-                            <a href="tel:01021508336" class="inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded-2xl hover:bg-gray-300 transition text-sm font-bold">
-                                <i class="fas fa-phone ml-1"></i> اتصال
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Address Card -->
-                <div class="max-w-3xl mx-auto mt-12 bg-gray-50 rounded-3xl p-8 shadow-xl border border-gray-100">
-                    <div class="flex flex-col md:flex-row items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-[#F5A623]/10 flex items-center justify-center text-3xl text-[#F5A623] flex-shrink-0">
-                            <i class="fas fa-location-dot"></i>
-                        </div>
-                        <div class="text-center md:text-right flex-1">
-                            <h4 class="font-bold text-gray-800 text-lg mb-1">عنوان المركز الرئيسي</h4>
-                            <p class="text-gray-700">14 شارع كنيسة الاورام، جناكليس، الاسكندرية</p>
-                            <p class="text-gray-500 text-sm mt-2"><i class="far fa-clock ml-1"></i> متاحين طوال أيام الأسبوع من 9 صباحاً حتى 11 مساءً</p>
-                        </div>
-                        <div>
-                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="inline-block bg-[#25D366] text-white px-6 py-3 rounded-2xl hover:bg-[#20b85a] transition text-sm font-bold">
-                                <i class="fab fa-whatsapp ml-1"></i> تواصل الآن
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Social Contact Buttons -->
-                <div class="flex flex-wrap justify-center gap-4 mt-12">
-                    <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" 
-                       class="bg-[#25D366] text-white px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
-                        <i class="fab fa-whatsapp text-2xl"></i> واتساب
-                    </a>
-                    <a href="tel:01021508336" 
-                       class="bg-[#0A1628] text-white px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
-                        <i class="fas fa-phone text-2xl"></i> اتصال
-                    </a>
-                    <a href="#request" 
-                       class="bg-[#F5A623] text-[#0A1628] px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
-                        <i class="fas fa-paper-plane text-2xl"></i> طلب صيانة
-                    </a>
-                    <a href="#" 
-                       class="bg-[#1877F2] text-white px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
-                        <i class="fab fa-facebook text-2xl"></i> فيسبوك
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- WhatsApp Float Button -->
-    <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="whatsapp-float" aria-label="تواصل واتساب">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Footer -->
-    <footer class="bg-[#0A1628] text-white pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="logo.png" alt="TopLoad" class="w-12 h-12 rounded-2xl object-cover" onerror="this.src='https://via.placeholder.com/48/0A1628/F5A623?text=TL'">
-                        <span class="text-2xl font-black">Top<span class="text-[#F5A623]">Load</span></span>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">خدمة صيانة غسالات متخصصة في جميع مناطق الاسكندرية بضمان الجودة والأسعار المنافسة.</p>
-                    <div class="flex gap-3 mt-4">
-                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-gray-400 hover:text-[#25D366] transition text-xl"><i class="fab fa-whatsapp"></i></a>
-                        <a href="tel:01021508336" class="text-gray-400 hover:text-white transition text-xl"><i class="fas fa-phone"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-[#1877F2] transition text-xl"><i class="fab fa-facebook"></i></a>
-                    </div>
-                    <div class="mt-4">
-                        <a href="tel:01021508336" class="text-[#F5A623] font-bold text-lg">01021508336</a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">روابط سريعة</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#home" class="hover:text-white transition">الرئيسية</a></li>
-                        <li><a href="#services" class="hover:text-white transition">خدماتنا</a></li>
-                        <li><a href="#about" class="hover:text-white transition">من نحن</a></li>
-                        <li><a href="#request" class="hover:text-white transition">طلب صيانة</a></li>
-                        <li><a href="#contact" class="hover:text-white transition">اتصل بنا</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">مناطق الخدمة</h4>
-                    <ul class="space-y-1 text-gray-400 text-sm">
-                        <li>المنتزه، سيدي بشر، بحري</li>
-                        <li>العجمي، محرم بك، سبورتنج</li>
-                        <li>سموحة، كامب شيزار، جناكليس</li>
-                        <li>فيكتوريا، الرمل، الظاهرية</li>
-                        <li>العطارين، المنشية، القباري</li>
-                        <li>الدخيلة، العامرية، برج العرب</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">معلومات الاتصال</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><i class="fas fa-phone ml-2 text-[#F5A623]"></i> <a href="tel:01021508336" class="hover:text-white transition">01021508336</a></li>
-                        <li><i class="fas fa-whatsapp ml-2 text-[#25D366]"></i> <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="hover:text-white transition">01021508336</a></li>
-                        <li><i class="fas fa-map-marker-alt ml-2 text-[#F5A623]"></i> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</li>
-                    </ul>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <a href="tel:01021508336" class="bg-white/10 px-4 py-2 rounded-2xl hover:bg-white/20 transition text-sm">اتصال</a>
-                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="bg-white/10 px-4 py-2 rounded-2xl hover:bg-white/20 transition text-sm">واتساب</a>
-                    </div>
-                </div>
-            </div>
+    <!-- ===== FEATURES ===== -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">لماذا تختار TopLoad؟</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">مميزات تجعلنا الخيار الأول لصيانة الغسالات</p>
             
-            <div class="border-t border-white/10 mt-12 pt-8 text-center text-gray-400 text-sm">
-                <p>جميع الحقوق محفوظة &copy; TopLoad - 2026</p>
+            <div class="features-grid">
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="0">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <h3>خدمة سريعة</h3>
+                    <p>الرد على طلبك خلال 30 دقيقة وزيارة فورية</p>
+                    <span class="count-up" data-count="30">0</span>
+                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">دقيقة للرد</span>
+                </div>
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="100">
+                    <div class="icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>تغطية شاملة</h3>
+                    <p>نخدم جميع مناطق الاسكندرية والساحل الشمالي</p>
+                    <span class="count-up" data-count="30">0</span>
+                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">منطقة مخدومة</span>
+                </div>
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="200">
+                    <div class="icon"><i class="fas fa-user-check"></i></div>
+                    <h3>فنيين محترفين</h3>
+                    <p>فريق مدرب بخبرة عالية في جميع أنواع الغسالات</p>
+                    <span class="count-up" data-count="15">0</span>
+                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">فني متخصص</span>
+                </div>
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="300">
+                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>ضمان شامل</h3>
+                    <p>ضمان على جميع خدمات الصيانة وقطع الغيار</p>
+                    <span class="count-up" data-count="12">0</span>
+                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">شهر ضمان</span>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">خدماتنا</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">جميع أنواع صيانة الغسالات في مكان واحد</p>
+            
+            <div class="services-grid">
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="0">
+                    <span class="icon"><i class="fas fa-wrench"></i></span>
+                    <h3>صيانة عامة</h3>
+                    <p>إصلاح جميع الأعطال الشائعة في الغسالات الأوتوماتيك والنصف أوتوماتيك</p>
+                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                </div>
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="100">
+                    <span class="icon"><i class="fas fa-tint"></i></span>
+                    <h3>تسريب مياه</h3>
+                    <p>حل مشاكل تسريب المياه من الغسالة وفحص الخراطيم والمضخات</p>
+                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                </div>
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="200">
+                    <span class="icon"><i class="fas fa-bolt"></i></span>
+                    <h3>مشاكل كهربائية</h3>
+                    <p>إصلاح الأعطال الكهربائية والموتور واللوحة الإلكترونية</p>
+                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                </div>
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="300">
+                    <span class="icon"><i class="fas fa-sync-alt"></i></span>
+                    <h3>قطع غيار أصلية</h3>
+                    <p>توفير جميع قطع الغيار الأصلية بأسعار تنافسية</p>
+                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AREAS ===== -->
+    <section class="areas" id="areas">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">مناطق الخدمة</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">نغطي جميع مناطق الاسكندرية والساحل الشمالي</p>
+            
+            <div class="areas-stats" data-aos="fade-up">
+                <span class="big-number">30+</span>
+                <p style="color:rgba(255,255,255,0.7);">منطقة مخدومة في الاسكندرية والساحل الشمالي</p>
+            </div>
+
+            <div class="area-category" data-aos="fade-up">
+                <h4><i class="fas fa-city"></i> شرق الاسكندرية</h4>
+                <div class="areas-grid">
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> المنتزه</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سيدي بشر</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> ميامي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كليوباترا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الشاطبي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الابراهيمية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> زيزينيا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سبورتنج</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سموحة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كامب شيزار</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> جناكليس</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> فيكتوريا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الرمل</div>
+                </div>
+            </div>
+
+            <div class="area-category" data-aos="fade-up" data-aos-delay="100">
+                <h4><i class="fas fa-city"></i> غرب الاسكندرية</h4>
+                <div class="areas-grid">
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> بحري</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> العجمي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> محرم بك</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> القباري</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الدخيلة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> العامرية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> برج العرب</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الورديان</div>
+                </div>
+            </div>
+
+            <div class="area-category" data-aos="fade-up" data-aos-delay="200">
+                <h4><i class="fas fa-city"></i> وسط وشمال الاسكندرية</h4>
+                <div class="areas-grid">
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الظاهرية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> العطارين</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> المنشية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الحضرة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> السيوف</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الانفوشي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> القلعة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كوم الدكة</div>
+                </div>
+            </div>
+
+            <div class="area-category" data-aos="fade-up" data-aos-delay="300">
+                <h4><i class="fas fa-umbrella-beach"></i> الساحل الشمالي</h4>
+                <div class="areas-grid">
+                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
+                        <i class="fas fa-star icon" style="color:var(--gold);"></i> مراسى
+                    </div>
+                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
+                        <i class="fas fa-star icon" style="color:var(--gold);"></i> العلمين
+                    </div>
+                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
+                        <i class="fas fa-star icon" style="color:var(--gold);"></i> سيدي عبد الرحمن
+                    </div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> رأس الحكمة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الضبعة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الحمام</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> مطروح</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> السلوم</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سيدي براني</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> النجيلة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> فوكة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> مارينا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> جرين بيتش</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سان ستيفانو</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كريستال بيتش</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">آراء العملاء</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">ما يقوله عملاؤنا عن خدماتنا</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text">"خدمة ممتازة وسريعة، الفني وصل في نفس اليوم واصلح الغسالة في وقت قياسي. أنصح الجميع بـ TopLoad."</p>
+                    <div class="author">
+                        <div class="avatar">أ</div>
+                        <div class="info">
+                            <div class="name">أحمد محمد</div>
+                            <div class="role">المنتزه - الاسكندرية</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text">"قمت بالتواصل معهم لصيانة غسالة في فيلتي بمراسى، كانوا محترفين جداً وسعر مناسب. شكراً TopLoad."</p>
+                    <div class="author">
+                        <div class="avatar">ن</div>
+                        <div class="info">
+                            <div class="name">نادين خالد</div>
+                            <div class="role">مراسى - الساحل الشمالي</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text">"فني محترف وخلوق، شرح لي المشكلة بالتفصيل واصلحها في نفس اليوم. سعر معقول جداً مقارنة بغيرهم."</p>
+                    <div class="author">
+                        <div class="avatar">س</div>
+                        <div class="info">
+                            <div class="name">سارة علي</div>
+                            <div class="role">سموحة - الاسكندرية</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT / FORM ===== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">اطلب الصيانة الآن</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">املأ النموذج وسنقوم بالرد عليك خلال 30 دقيقة</p>
+            
+            <div class="contact-wrapper">
+                <div class="contact-info" data-aos="fade-left">
+                    <h3>تواصل معنا</h3>
+                    <p>نحن هنا لمساعدتك في أي وقت. اتصل بنا أو املأ النموذج وسنكون سعداء بخدمتك.</p>
+                    
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fas fa-phone"></i></div>
+                        <div class="text"><strong>الهاتف:</strong> <a href="tel:01021508336" style="color:var(--gold);">01021508336</a></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fas fa-whatsapp"></i></div>
+                        <div class="text"><strong>واتساب:</strong> <a href="https://wa.me/201021508336" target="_blank" style="color:#25D366;">01021508336</a></div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="text"><strong>العنوان:</strong> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</div>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="icon"><i class="fas fa-clock"></i></div>
+                        <div class="text"><strong>ساعات العمل:</strong> 9 صباحاً - 11 مساءً (جميع الأيام)</div>
+                    </div>
+
+                    <div style="margin-top:30px;padding:20px;background:var(--glass-bg);border-radius:12px;border:1px solid var(--glass-border);">
+                        <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);">
+                            <i class="fas fa-check-circle" style="color:var(--gold);"></i> 
+                            نخدم جميع مناطق الاسكندرية والساحل الشمالي
+                        </p>
+                        <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);margin-top:5px;">
+                            <i class="fas fa-check-circle" style="color:var(--gold);"></i> 
+                            ضمان على جميع الخدمات لمدة 12 شهر
+                        </p>
+                    </div>
+                </div>
+
+                <form class="contact-form glass-card" id="requestForm" data-aos="fade-right" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName"><i class="fas fa-user" style="color:var(--gold);"></i> الاسم كاملاً *</label>
+                            <input type="text" id="fullName" placeholder="أدخل اسمك" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone" style="color:var(--gold);"></i> رقم التليفون *</label>
+                            <input type="tel" id="phone" placeholder="مثال: 01012345678" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address"><i class="fas fa-home" style="color:var(--gold);"></i> العنوان</label>
+                        <input type="text" id="address" placeholder="شارع، رقم المبنى، الحي">
+                    </div>
+                    <div class="form-group">
+                        <label for="area"><i class="fas fa-map-pin" style="color:var(--gold);"></i> المنطقة *</label>
+                        <select id="area" required>
+                            <option value="">-- اختر المنطقة --</option>
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="problem"><i class="fas fa-tools" style="color:var(--gold);"></i> وصف المشكلة</label>
+                        <textarea id="problem" placeholder="صف المشكلة بالتفصيل"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-submit" id="submitBtn">
+                        <span class="btn-text"><i class="fas fa-paper-plane"></i> إرسال الطلب</span>
+                        <span class="spinner"></span>
+                    </button>
+                    <div class="form-success" id="formSuccess">
+                        <i class="fas fa-check-circle" style="font-size:2rem;"></i>
+                        <p style="margin-top:10px;">تم إرسال طلبك بنجاح! سنقوم بالتواصل معك خلال 30 دقيقة.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="brand">TopLoad</div>
+            <p>صيانة غسالات - الاسكندرية والساحل الشمالي</p>
+            <p style="margin-top:5px;font-size:0.8rem;">© 2025 جميع الحقوق محفوظة</p>
         </div>
     </footer>
 
-    <!-- Toast -->
-    <div id="toast" class="toast hidden"></div>
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/201021508336" target="_blank" class="floating-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="tooltip">واتساب</span>
+        </a>
+        <a href="tel:01021508336" class="floating-btn phone">
+            <i class="fas fa-phone"></i>
+            <span class="tooltip">اتصل الآن</span>
+        </a>
+        <a href="#contact" class="floating-btn request">
+            <i class="fas fa-tools"></i>
+            <span class="tooltip">طلب صيانة</span>
+        </a>
+    </div>
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // =============================================
-        // SUPABASE CONFIGURATION
-        // =============================================
-        const SUPABASE_URL = 'https://uzcllseejydmpwzsygjp.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
-        
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // =====================================================
+        // 1. AOS Initialization
+        // =====================================================
+        AOS.init({
+            once: true,
+            duration: 800,
+            offset: 80,
+        });
 
-        // =============================================
-        // TOAST SYSTEM
-        // =============================================
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            const colors = { 
-                success: 'bg-green-500', 
-                error: 'bg-red-500', 
-                warning: 'bg-yellow-500', 
-                info: 'bg-blue-500' 
-            };
-            toast.className = `toast text-white ${colors[type]}`;
-            toast.innerHTML = message;
-            toast.classList.remove('hidden');
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => toast.classList.add('hidden'), 5000);
-        }
+        // =====================================================
+        // 2. Scroll Progress Bar
+        // =====================================================
+        const progressBar = document.getElementById('progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
 
-        // =============================================
-        // LOCATION SERVICE - FIXED VERSION
-        // =============================================
-        window.getLocation = function() {
-            const btn = document.getElementById('locationBtn');
-            const status = document.getElementById('locationStatus');
-            const originalText = btn.innerHTML;
-            
-            // Show loading
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ التحديد...';
-            btn.disabled = true;
-            status.textContent = '⏳ جاري الحصول على موقعك...';
-            status.className = 'text-xs mt-2 text-yellow-400';
+        // =====================================================
+        // 3. Particles Background
+        // =====================================================
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, particles = [];
 
-            if (!navigator.geolocation) {
-                status.textContent = '❌ المتصفح لا يدعم تحديد الموقع';
-                status.className = 'text-xs mt-2 text-red-400';
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                showToast('المتصفح لا يدعم تحديد الموقع', 'error');
-                return;
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`;
+                    ctx.fill();
+                }
             }
 
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const { latitude, longitude } = position.coords;
-                    status.textContent = '⏳ جاري تحديد العنوان...';
-                    
-                    try {
-                        // Using BigDataCloud API (more reliable than Nominatim)
-                        const response = await fetch(
-                            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ar&countryCode=EG`
-                        );
-                        
-                        if (!response.ok) throw new Error('فشل في جلب البيانات');
-                        
-                        const data = await response.json();
-                        
-                        let address = '';
-                        if (data.locality) address += data.locality;
-                        if (data.city) address += (address ? '، ' : '') + data.city;
-                        if (data.principalSubdivision) address += (address ? '، ' : '') + data.principalSubdivision;
-                        if (data.countryName) address += (address ? '، ' : '') + data.countryName;
-                        
-                        if (!address || address.length < 3) {
-                            // Fallback to coordinates
-                            address = `خط عرض ${latitude.toFixed(6)}، خط طول ${longitude.toFixed(6)}`;
-                        }
-                        
-                        // Ensure Alexandria is mentioned
-                        if (!address.includes('الاسكندرية') && !address.includes('Alexandria')) {
-                            address += '، الاسكندرية';
-                        }
-                        
-                        document.getElementById('address').value = address;
-                        status.textContent = '✅ تم تحديد موقعك بنجاح';
-                        status.className = 'text-xs mt-2 text-green-400';
-                        showToast('✅ تم تحديد موقعك بنجاح', 'success');
-                        
-                    } catch (error) {
-                        console.error('Geocoding error:', error);
-                        // Fallback: use coordinates with a friendly message
-                        const coords = `خط عرض ${latitude.toFixed(6)}، خط طول ${longitude.toFixed(6)}`;
-                        document.getElementById('address').value = coords + '، الاسكندرية';
-                        status.textContent = '✅ تم تحديد الإحداثيات (يرجى مراجعة العنوان)';
-                        status.className = 'text-xs mt-2 text-yellow-400';
-                        showToast('تم تحديد الإحداثيات، يرجى التحقق من العنوان', 'info');
-                    }
-                    
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                },
-                (error) => {
-                    console.error('Geolocation error:', error);
-                    let message = 'يرجى السماح بتحديد الموقع';
-                    let className = 'text-xs mt-2 text-yellow-400';
-                    
-                    if (error.code === 1) {
-                        message = '⚠️ يرجى السماح بالوصول إلى الموقع في إعدادات المتصفح';
-                        className = 'text-xs mt-2 text-red-400';
-                    } else if (error.code === 2) {
-                        message = '⚠️ تعذر تحديد الموقع، حاول مرة أخرى أو أدخل العنوان يدوياً';
-                        className = 'text-xs mt-2 text-yellow-400';
-                    } else if (error.code === 3) {
-                        message = '⚠️ انتهت مهلة تحديد الموقع، حاول مرة أخرى';
-                        className = 'text-xs mt-2 text-yellow-400';
-                    }
-                    
-                    status.textContent = message;
-                    status.className = className;
-                    showToast(message, 'warning');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                },
-                { 
-                    enableHighAccuracy: true, 
-                    timeout: 15000, 
-                    maximumAge: 0 
-                }
-            );
-        };
+            const count = Math.min(100, Math.floor((w * h) / 15000));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
 
-        // =============================================
-        // FORM SUBMIT
-        // =============================================
-        document.getElementById('requestForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+            function drawLines() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(255, 215, 0, ${0.08 * (1 - dist/150)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                drawLines();
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // =====================================================
+        // 4. Count Up Animation (Intersection Observer)
+        // =====================================================
+        (function initCountUp() {
+            const counters = document.querySelectorAll('.count-up, .hero-stat .number');
             
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = parseFloat(el.getAttribute('data-count'));
+                        if (isNaN(target)) return;
+                        const duration = 2000;
+                        const startTime = performance.now();
+                        
+                        function updateCount(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = eased * target;
+                            
+                            if (Number.isInteger(target)) {
+                                el.textContent = Math.floor(current);
+                            } else {
+                                el.textContent = current.toFixed(1);
+                            }
+                            
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                el.textContent = target;
+                            }
+                        }
+                        requestAnimationFrame(updateCount);
+                        observer.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            counters.forEach(c => observer.observe(c));
+        })();
+
+        // =====================================================
+        // 5. Areas List (for dropdown and display)
+        // =====================================================
+        const AREAS = [
+            // Alexandria - East
+            'المنتزه', 'سيدي بشر', 'ميامي', 'كليوباترا', 'الشاطبي',
+            'الابراهيمية', 'زيزينيا', 'سبورتنج', 'سموحة', 'كامب شيزار',
+            'جناكليس', 'فيكتوريا', 'الرمل',
+            // Alexandria - West
+            'بحري', 'العجمي', 'محرم بك', 'القباري', 'الدخيلة',
+            'العامرية', 'برج العرب', 'الورديان',
+            // Alexandria - Central / North
+            'الظاهرية', 'العطارين', 'المنشية', 'الحضرة', 'السيوف',
+            'الانفوشي', 'القلعة', 'كوم الدكة',
+            // North Coast
+            'مراسى', 'العلمين', 'سيدي عبد الرحمن', 'رأس الحكمة',
+            'الضبعة', 'الحمام', 'مطروح', 'السلوم', 'سيدي براني',
+            'النجيلة', 'فوكة', 'مارينا', 'جرين بيتش', 'سان ستيفانو',
+            'كريستال بيتش'
+        ];
+
+        // Populate select dropdown
+        const areaSelect = document.getElementById('area');
+        AREAS.forEach(area => {
+            const opt = document.createElement('option');
+            opt.value = area;
+            opt.textContent = area;
+            areaSelect.appendChild(opt);
+        });
+
+        // =====================================================
+        // 6. Supabase Configuration
+        // =====================================================
+        const SUPABASE_URL = 'https://uzcllseejydmpwzsygjp.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // =====================================================
+        // 7. Toast Notification
+        // =====================================================
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            clearTimeout(toast._hideTimeout);
+            toast._hideTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4500);
+        }
+
+        // =====================================================
+        // 8. Form Submission with Supabase
+        // =====================================================
+        const form = document.getElementById('requestForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successDiv = document.getElementById('formSuccess');
+
+        // GPS Location (get area from coordinates - simplified)
+        function getLocation() {
+            if (!navigator.geolocation) {
+                showToast('متصفحك لا يدعم تحديد الموقع', 'error');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                async (pos) => {
+                    const { latitude, longitude } = pos.coords;
+                    try {
+                        // Reverse geocode using OpenStreetMap Nominatim
+                        const resp = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar`
+                        );
+                        const data = await resp.json();
+                        if (data && data.address) {
+                            const parts = [];
+                            if (data.address.city) parts.push(data.address.city);
+                            if (data.address.town) parts.push(data.address.town);
+                            if (data.address.village) parts.push(data.address.village);
+                            if (data.address.suburb) parts.push(data.address.suburb);
+                            if (data.address.road) parts.push(data.address.road);
+                            const locationName = parts.join(' - ') || data.display_name || 'موقعك الحالي';
+                            
+                            // Try to match with AREAS list
+                            let matchedArea = '';
+                            for (const area of AREAS) {
+                                if (locationName.includes(area)) {
+                                    matchedArea = area;
+                                    break;
+                                }
+                            }
+                            if (matchedArea) {
+                                document.getElementById('area').value = matchedArea;
+                                showToast(`تم تحديد منطقتك: ${matchedArea}`, 'success');
+                            } else {
+                                // Try to find by partial match
+                                const areaNames = AREAS.join(' ');
+                                for (const area of AREAS) {
+                                    if (areaNames.includes(area) && locationName.includes(area.substring(0, 3))) {
+                                        document.getElementById('area').value = area;
+                                        showToast(`تم تحديد منطقتك: ${area}`, 'success');
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        showToast('تعذر تحديد المنطقة تلقائياً، اخترها يدوياً', 'error');
+                    }
+                },
+                () => {
+                    showToast('يرجى السماح بتحديد الموقع أو اختيار المنطقة يدوياً', 'info');
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        }
+
+        // Try to get location on page load (after a moment)
+        setTimeout(getLocation, 1500);
+
+        // Manual GPS button (click on the area select label icon)
+        document.querySelector('label[for="area"] i')?.addEventListener('click', getLocation);
+
+        // Form submit
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get values
             const fullName = document.getElementById('fullName').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
-            const problemDesc = document.getElementById('problemDesc').value.trim();
-            const submitBtn = document.getElementById('submitBtn');
+            const area = document.getElementById('area').value;
+            const problem = document.getElementById('problem').value.trim();
 
-            // Validation
-            if (!fullName) {
-                showToast('⚠️ يرجى إدخال الاسم كاملاً', 'warning');
-                document.getElementById('fullName').focus();
-                document.getElementById('fullName').classList.add('error');
+            // Validate
+            if (!fullName || !phone || !area) {
+                showToast('الاسم ورقم التليفون والمنطقة مطلوبة', 'error');
                 return;
             }
-            document.getElementById('fullName').classList.remove('error');
 
-            if (!phone || phone.length < 10) {
-                showToast('⚠️ يرجى إدخال رقم تليفون صحيح (10 أرقام على الأقل)', 'warning');
-                document.getElementById('phone').focus();
-                document.getElementById('phone').classList.add('error');
+            if (phone.length < 10) {
+                showToast('رقم التليفون غير صحيح', 'error');
                 return;
             }
-            document.getElementById('phone').classList.remove('error');
 
-            // Prepare data for Supabase
-            const requestData = {
-                full_name: fullName,
-                phone: phone,
-                address: address || 'لم يتم تحديد',
-                problem_description: problemDesc || 'لم يتم ذكر المشكلة',
-                status: 'جديد',
-                created_at: new Date().toISOString()
-            };
-
+            // Loading state
+            submitBtn.classList.add('loading');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner"></span> جاري الإرسال...';
+            successDiv.classList.remove('show');
 
             try {
-                console.log('📤 إرسال البيانات:', requestData);
-                
                 const { data, error } = await supabase
                     .from('maintenance_requests')
-                    .insert([requestData])
+                    .insert([{
+                        full_name: fullName,
+                        phone: phone,
+                        address: address || null,
+                        area: area,
+                        problem_description: problem || null,
+                        status: 'جديد',
+                        created_at: new Date().toISOString()
+                    }])
                     .select();
 
-                if (error) {
-                    console.error('❌ خطأ Supabase:', error);
-                    throw new Error(error.message);
-                }
+                if (error) throw error;
 
-                console.log('✅ تم الإرسال بنجاح:', data);
-                showToast('✅ تم إرسال الطلب بنجاح! سنتواصل معك خلال دقائق', 'success');
-                
-                document.getElementById('requestForm').reset();
-                document.getElementById('locationStatus').textContent = '';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Success
+                successDiv.classList.add('show');
+                showToast('✅ تم إرسال طلبك بنجاح! سنتواصل معك خلال 30 دقيقة.', 'success');
+                form.reset();
 
-            } catch (error) {
-                console.error('❌ فشل الإرسال:', error);
-                let errorMessage = 'حدث خطأ في إرسال الطلب';
-                if (error.message.includes('permission denied')) {
-                    errorMessage = '⚠️ مشكلة في صلاحيات قاعدة البيانات. تم تعطيل الحماية.';
-                } else if (error.message.includes('network')) {
-                    errorMessage = '⚠️ مشكلة في الاتصال بالإنترنت. يرجى التحقق والمحاولة مرة أخرى.';
-                } else {
-                    errorMessage = `⚠️ ${error.message}`;
-                }
-                showToast(errorMessage, 'error');
+                // Reset success after 5 seconds
+                setTimeout(() => {
+                    successDiv.classList.remove('show');
+                }, 6000);
+
+            } catch (err) {
+                console.error('Supabase Error:', err);
+                showToast('❌ حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.', 'error');
             } finally {
+                submitBtn.classList.remove('loading');
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane ml-2"></i> إرسال الطلب';
             }
         });
 
-        // Remove error class on focus
-        document.querySelectorAll('.form-input').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.classList.remove('error');
-            });
-        });
-
-        // Smooth scroll
+        // =====================================================
+        // 9. Smooth anchor scrolling
+        // =====================================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        console.log('🔧 TopLoad - صيانة غسالات بالاسكندرية');
-        console.log('📞 رقم التليفون: 01021508336');
-        console.log('📍 العنوان: 14 شارع كنيسة الاورام، جناكليس، الاسكندرية');
-        console.log('📦 قاعدة البيانات: Supabase (بدون حماية)');
+        // =====================================================
+        // 10. Log (optional: check connection)
+        // =====================================================
+        console.log('🚀 TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي');
+        console.log('📦 Supabase connected:', !!supabase);
+        console.log('📍 Areas count:', AREAS.length);
     </script>
 </body>
 </html>
