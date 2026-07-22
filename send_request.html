@@ -16,16 +16,18 @@
 
     <style>
         /* ============================================================
-           CSS VARIABLES
+           CSS VARIABLES - متوافقة مع لوجو TopLoad
            ============================================================ */
         :root {
-            --primary-dark: #0A1128;
-            --primary-blue: #1A237E;
-            --gold: #FFD700;
-            --orange: #FF6B35;
-            --gold-light: #FFE082;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --primary-dark: #1B3A6B;
+            --primary-blue: #2C5F8A;
+            --primary-light: #4A7FAB;
+            --gold: #D4A843;
+            --gold-light: #E8C96E;
+            --orange: #E85D3A;
+            --orange-light: #F07A5A;
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             --radius: 20px;
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -100,10 +102,10 @@
             right: 0;
             z-index: 999;
             padding: 12px 0;
-            background: rgba(10, 17, 40, 0.92);
+            background: rgba(27, 58, 107, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+            border-bottom: 1px solid rgba(212, 168, 67, 0.15);
             transition: var(--transition);
         }
 
@@ -117,7 +119,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 1.6rem;
             font-weight: 900;
         }
 
@@ -128,9 +129,10 @@
             border-radius: 50%;
             overflow: hidden;
             border: 2px solid var(--gold);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 25px rgba(212, 168, 67, 0.2);
             transition: var(--transition);
             flex-shrink: 0;
+            background: #fff;
         }
 
         .navbar .logo .logo-wrapper::after {
@@ -153,11 +155,12 @@
         .navbar .logo .logo-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 50%;
             display: block;
             position: relative;
             z-index: 1;
+            padding: 4px;
         }
 
         .navbar .logo .brand-text {
@@ -206,7 +209,7 @@
 
         .request-wrapper {
             width: 100%;
-            max-width: 820px;
+            max-width: 850px;
         }
 
         .request-header {
@@ -215,20 +218,26 @@
         }
 
         .request-header .icon-wrapper {
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 107, 53, 0.1));
-            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: linear-gradient(135deg, rgba(212, 168, 67, 0.12), rgba(232, 93, 58, 0.12));
+            border: 2px solid rgba(212, 168, 67, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 18px;
             transition: var(--transition);
+            animation: pulse-icon 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 168, 67, 0); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(212, 168, 67, 0.1); }
         }
 
         .request-header .icon-wrapper .icon {
-            font-size: 2.8rem;
+            font-size: 3rem;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -236,18 +245,27 @@
         }
 
         .request-header h1 {
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 5px;
         }
 
-        .request-header p {
+        .request-header .subtitle {
             color: rgba(255, 255, 255, 0.5);
             font-size: 1.05rem;
-            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .request-header .subtitle .dot {
+            color: var(--gold);
+            font-size: 0.5rem;
         }
 
         /* ============================================================
@@ -259,20 +277,20 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
-            padding: 40px;
+            padding: 45px;
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
 
         .glass-card:hover {
-            border-color: rgba(255, 215, 0, 0.2);
+            border-color: rgba(212, 168, 67, 0.2);
         }
 
         /* ============================================================
            FORM
            ============================================================ */
         .request-form .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 24px;
         }
 
         .request-form label {
@@ -296,39 +314,42 @@
             width: 18px;
         }
 
+        .request-form .input-wrapper {
+            position: relative;
+        }
+
         .request-form input,
         .request-form select,
         .request-form textarea {
             width: 100%;
             padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
             color: #fff;
             font-size: 1rem;
             font-family: var(--font-arabic);
             transition: var(--transition);
             outline: none;
-            display: block;
         }
 
         .request-form input:focus,
         .request-form select:focus,
         .request-form textarea:focus {
             border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 30px rgba(212, 168, 67, 0.06);
         }
 
         .request-form input::placeholder,
         .request-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.25);
         }
 
         .request-form select {
             appearance: none;
             -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFD700' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4A843' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: left 18px center;
             padding-left: 45px;
@@ -336,18 +357,14 @@
         }
 
         .request-form select option {
-            background: var(--primary-dark);
+            background: #1B3A6B;
             color: #fff;
             padding: 10px;
         }
 
-        .request-form select option:hover {
-            background: rgba(255, 215, 0, 0.1);
-        }
-
         .request-form textarea {
             resize: vertical;
-            min-height: 130px;
+            min-height: 140px;
         }
 
         .request-form .form-row {
@@ -356,26 +373,28 @@
             gap: 20px;
         }
 
-        /* GPS Button */
+        /* ============================================================
+           GPS BUTTON
+           ============================================================ */
         .request-form .gps-btn {
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: rgba(212, 168, 67, 0.08);
+            border: 1px solid rgba(212, 168, 67, 0.15);
             color: var(--gold);
             padding: 5px 16px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-family: var(--font-arabic);
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 6px;
             margin-right: 8px;
-            height: 32px;
+            height: 30px;
         }
 
-        .request-form .gps-btn:hover {
-            background: rgba(255, 215, 0, 0.18);
+        .request-form .gps-btn:hover:not(:disabled) {
+            background: rgba(212, 168, 67, 0.18);
             border-color: var(--gold);
             transform: translateY(-1px);
         }
@@ -393,17 +412,19 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Submit Button */
+        /* ============================================================
+           SUBMIT BUTTON
+           ============================================================ */
         .btn-submit {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             font-size: 1.1rem;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 12px;
-            margin-top: 5px;
+            margin-top: 8px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -412,12 +433,12 @@
             transition: var(--transition);
             background: linear-gradient(135deg, var(--gold), var(--orange));
             color: var(--primary-dark);
-            box-shadow: 0 4px 25px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 4px 25px rgba(212, 168, 67, 0.25);
         }
 
         .btn-submit:hover:not(:disabled) {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 50px rgba(255, 215, 0, 0.35);
+            box-shadow: 0 10px 50px rgba(212, 168, 67, 0.35);
         }
 
         .btn-submit:disabled {
@@ -429,7 +450,7 @@
             display: none;
             width: 24px;
             height: 24px;
-            border: 3px solid rgba(10, 17, 40, 0.15);
+            border: 3px solid rgba(27, 58, 107, 0.15);
             border-top: 3px solid var(--primary-dark);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -443,10 +464,12 @@
             display: none;
         }
 
-        /* Success Message */
+        /* ============================================================
+           SUCCESS MESSAGE
+           ============================================================ */
         .form-success {
             display: none;
-            padding: 30px;
+            padding: 35px;
             background: rgba(46, 204, 113, 0.06);
             border: 1px solid rgba(46, 204, 113, 0.2);
             border-radius: 16px;
@@ -465,10 +488,18 @@
         }
 
         .form-success .success-icon {
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: #2ecc71;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            animation: success-bounce 0.8s ease;
+        }
+
+        @keyframes success-bounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
         }
 
         .form-success h3 {
@@ -480,7 +511,8 @@
         .form-success p {
             color: rgba(255, 255, 255, 0.6);
             font-size: 1rem;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
+            line-height: 1.8;
         }
 
         .form-success .btn-success {
@@ -504,6 +536,7 @@
             background: var(--gold);
             color: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 168, 67, 0.2);
         }
 
         /* ============================================================
@@ -539,7 +572,7 @@
         }
 
         .toast.info {
-            background: linear-gradient(135deg, var(--primary-blue), #0A1128);
+            background: linear-gradient(135deg, #2C5F8A, #1B3A6B);
             border: 1px solid var(--gold);
         }
 
@@ -553,7 +586,7 @@
             position: relative;
             z-index: 1;
             margin-top: auto;
-            background: rgba(10, 17, 40, 0.3);
+            background: rgba(27, 58, 107, 0.3);
         }
 
         .footer p {
@@ -623,10 +656,10 @@
         }
 
         .floating-btn.phone {
-            background: linear-gradient(135deg, var(--orange), #E65100);
+            background: linear-gradient(135deg, var(--orange), #C94A2A);
         }
 
-        .floating-btn.request {
+        .floating-btn.home {
             background: linear-gradient(135deg, var(--gold), var(--orange));
             color: var(--primary-dark);
         }
@@ -634,7 +667,7 @@
         .floating-btn .tooltip {
             position: absolute;
             right: 60px;
-            background: rgba(10, 17, 40, 0.95);
+            background: rgba(27, 58, 107, 0.95);
             backdrop-filter: blur(10px);
             color: #fff;
             padding: 5px 14px;
@@ -702,6 +735,13 @@
                 padding: 12px 16px;
                 font-size: 0.95rem;
             }
+            .request-header .icon-wrapper {
+                width: 65px;
+                height: 65px;
+            }
+            .request-header .icon-wrapper .icon {
+                font-size: 2.2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -725,14 +765,23 @@
                 padding: 90px 10px 90px;
             }
             .request-header .icon-wrapper {
-                width: 60px;
-                height: 60px;
+                width: 55px;
+                height: 55px;
             }
             .request-header .icon-wrapper .icon {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             .request-form label {
                 font-size: 0.85rem;
+            }
+            .form-success {
+                padding: 20px;
+            }
+            .form-success h3 {
+                font-size: 1.3rem;
+            }
+            .form-success .success-icon {
+                font-size: 3rem;
             }
         }
     </style>
@@ -769,7 +818,11 @@
                     <span class="icon"><i class="fas fa-tools"></i></span>
                 </div>
                 <h1>طلب صيانة غسالات</h1>
-                <p>املأ النموذج وسنقوم بالرد عليك خلال 30 دقيقة</p>
+                <p class="subtitle">
+                    <span>املأ النموذج وسنقوم بالرد عليك خلال 30 دقيقة</span>
+                    <span class="dot">•</span>
+                    <span style="color:var(--gold);">خدمة سريعة واحترافية</span>
+                </p>
             </div>
 
             <form class="request-form glass-card" id="requestForm" data-aos="fade-up" data-aos-delay="100" novalidate>
@@ -780,7 +833,9 @@
                             الاسم كاملاً
                             <span class="required">*</span>
                         </label>
-                        <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي" required autocomplete="name">
+                        <div class="input-wrapper">
+                            <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي" required autocomplete="name">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>
@@ -788,7 +843,9 @@
                             رقم التليفون
                             <span class="required">*</span>
                         </label>
-                        <input type="tel" id="phone" placeholder="مثال: 01012345678" required autocomplete="tel">
+                        <div class="input-wrapper">
+                            <input type="tel" id="phone" placeholder="مثال: 01012345678" required autocomplete="tel">
+                        </div>
                     </div>
                 </div>
 
@@ -797,7 +854,9 @@
                         <span class="label-icon"><i class="fas fa-home"></i></span>
                         العنوان
                     </label>
-                    <input type="text" id="address" placeholder="شارع، رقم المبنى، الحي" autocomplete="address-line1">
+                    <div class="input-wrapper">
+                        <input type="text" id="address" placeholder="شارع، رقم المبنى، الحي" autocomplete="address-line1">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -809,9 +868,11 @@
                             <i class="fas fa-location-dot"></i> تحديد الموقع
                         </button>
                     </label>
-                    <select id="area" required>
-                        <option value="">-- اختر المنطقة --</option>
-                    </select>
+                    <div class="input-wrapper">
+                        <select id="area" required>
+                            <option value="">-- اختر المنطقة --</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -819,7 +880,9 @@
                         <span class="label-icon"><i class="fas fa-tools"></i></span>
                         وصف المشكلة
                     </label>
-                    <textarea id="problem" placeholder="صف المشكلة بالتفصيل (اختياري)"></textarea>
+                    <div class="input-wrapper">
+                        <textarea id="problem" placeholder="صف المشكلة بالتفصيل (اختياري)"></textarea>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit" id="submitBtn">
@@ -856,7 +919,7 @@
             <i class="fas fa-phone"></i>
             <span class="tooltip">اتصل</span>
         </a>
-        <a href="index.html" class="floating-btn request">
+        <a href="index.html" class="floating-btn home">
             <i class="fas fa-home"></i>
             <span class="tooltip">الرئيسية</span>
         </a>
@@ -910,7 +973,7 @@
                 draw() {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`;
+                    ctx.fillStyle = `rgba(212, 168, 67, ${this.opacity})`;
                     ctx.fill();
                 }
             }
@@ -1137,7 +1200,9 @@
                 form.reset();
 
                 // Scroll to success message
-                successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
 
             } catch (err) {
                 console.error('Error:', err);
@@ -1163,8 +1228,8 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                background: linear-gradient(135deg, #FFD700, #FF6B35);
-                                color: #0A1128;
+                                background: linear-gradient(135deg, #D4A843, #E85D3A);
+                                color: #1B3A6B;
                                 font-size: 1.3rem;
                                 font-weight: 900;
                                 border-radius: 50%;
@@ -1185,9 +1250,10 @@
             }
         });
 
-        console.log('📝 TopLoad - صفحة طلب الصيانة');
+        console.log('📝 TopLoad - صفحة طلب الصيانة الاحترافية');
         console.log('📍 مناطق مخدومة:', AREAS.length);
         console.log('🔗 Supabase متصل:', !!supabase);
+        console.log('🎨 الألوان متوافقة مع لوجو TopLoad');
     </script>
 </body>
 </html>
