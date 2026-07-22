@@ -18,21 +18,26 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* ===== CSS Variables ===== */
+        /* ============================================================
+           CSS VARIABLES
+           ============================================================ */
         :root {
             --primary-dark: #0A1128;
             --primary-blue: #1A237E;
             --gold: #FFD700;
             --orange: #FF6B35;
             --gold-light: #FFE082;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
             --radius: 20px;
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-arabic: 'Cairo', sans-serif;
         }
 
-        /* ===== Reset & Base ===== */
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -44,11 +49,11 @@
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: var(--font-arabic);
             background: var(--primary-dark);
             color: #fff;
             overflow-x: hidden;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         ::-webkit-scrollbar {
@@ -73,20 +78,30 @@
             padding: 0 20px;
         }
 
-        /* ===== Scroll Progress Bar ===== */
+        /* ============================================================
+           PROGRESS BAR
+           ============================================================ */
         #progress-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 0%;
             height: 4px;
-            background: linear-gradient(90deg, var(--gold), var(--orange));
+            background: linear-gradient(90deg, var(--gold), var(--orange), var(--gold));
+            background-size: 200% 100%;
+            animation: shimmer-progress 2s linear infinite;
             z-index: 10000;
-            transition: width 0.1s;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
         }
 
-        /* ===== Particles Background ===== */
+        @keyframes shimmer-progress {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ============================================================
+           PARTICLES BACKGROUND
+           ============================================================ */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -97,7 +112,9 @@
             pointer-events: none;
         }
 
-        /* ===== Navigation ===== */
+        /* ============================================================
+           NAVBAR
+           ============================================================ */
         .navbar {
             position: fixed;
             top: 0;
@@ -108,13 +125,14 @@
             background: rgba(10, 17, 40, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
             transition: var(--transition);
         }
 
         .navbar.scrolled {
-            background: rgba(10, 17, 40, 0.95);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(10, 17, 40, 0.96);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+            border-bottom-color: rgba(255, 215, 0, 0.15);
         }
 
         .navbar .container {
@@ -126,21 +144,53 @@
         .navbar .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 1.6rem;
             font-weight: 900;
         }
 
-        .navbar .logo img {
-            height: 45px;
-            width: auto;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.2));
+        .navbar .logo .logo-wrapper {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
             transition: var(--transition);
+            flex-shrink: 0;
         }
 
-        .navbar .logo img:hover {
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
-            transform: scale(1.05);
+        .navbar .logo .logo-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--orange), var(--gold));
+            background-size: 300% 300%;
+            animation: rotate-border 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate-border {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar .logo .logo-wrapper:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .navbar .logo .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            position: relative;
+            z-index: 1;
         }
 
         .navbar .logo .brand-text {
@@ -148,11 +198,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar .logo .brand-text .dot {
+            color: var(--gold);
+            -webkit-text-fill-color: var(--gold);
         }
 
         .navbar .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 28px;
             align-items: center;
             list-style: none;
         }
@@ -165,41 +222,44 @@
             position: relative;
         }
 
+        .navbar .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--orange));
+            transition: var(--transition);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
         .navbar .nav-links a:hover {
             color: var(--gold);
         }
 
-        .navbar .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: var(--transition);
-        }
-
-        .navbar .nav-links a:hover::after {
+        .navbar .nav-links a:hover::before {
             width: 100%;
         }
 
         .navbar .nav-links .btn-nav {
-            padding: 10px 25px;
+            padding: 10px 28px;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             color: var(--primary-dark);
             border-radius: 50px;
             font-weight: 700;
             transition: var(--transition);
             -webkit-text-fill-color: var(--primary-dark);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
         }
 
         .navbar .nav-links .btn-nav:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 35px rgba(255, 215, 0, 0.3);
         }
 
-        .navbar .nav-links .btn-nav::after {
+        .navbar .nav-links .btn-nav::before {
             display: none;
         }
 
@@ -222,15 +282,19 @@
 
         .navbar .hamburger.active span:nth-child(1) {
             transform: rotate(45deg) translate(5px, 6px);
+            background: var(--gold);
         }
         .navbar .hamburger.active span:nth-child(2) {
             opacity: 0;
         }
         .navbar .hamburger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -6px);
+            background: var(--gold);
         }
 
-        /* ===== Section Titles ===== */
+        /* ============================================================
+           SECTION TITLES
+           ============================================================ */
         .section-title {
             font-size: 2.8rem;
             font-weight: 900;
@@ -240,16 +304,31 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            margin: 12px auto 0;
+            background: linear-gradient(90deg, var(--gold), var(--orange));
+            border-radius: 4px;
         }
 
         .section-subtitle {
             text-align: center;
             font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.6);
             margin-bottom: 50px;
         }
 
-        /* ===== Glassmorphism Card ===== */
+        /* ============================================================
+           GLASS CARD
+           ============================================================ */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -263,13 +342,17 @@
 
         .glass-card:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: var(--gold);
-            box-shadow: 0 12px 48px rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 12px 60px rgba(255, 215, 0, 0.08);
         }
 
-        /* ===== Buttons ===== */
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
         .btn-primary {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             padding: 16px 40px;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             color: #0A1128;
@@ -281,16 +364,34 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            font-family: 'Cairo', sans-serif;
+            font-family: var(--font-arabic);
+            box-shadow: 0 4px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 10px 50px rgba(255, 215, 0, 0.35);
         }
 
         .btn-secondary {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             padding: 14px 35px;
             background: transparent;
             color: var(--gold);
@@ -300,16 +401,19 @@
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
-            font-family: 'Cairo', sans-serif;
+            font-family: var(--font-arabic);
         }
 
         .btn-secondary:hover {
             background: var(--gold);
             color: var(--primary-dark);
             transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(255, 215, 0, 0.2);
         }
 
-        /* ===== HERO ===== */
+        /* ============================================================
+           HERO
+           ============================================================ */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -318,7 +422,7 @@
             justify-content: center;
             text-align: center;
             z-index: 1;
-            padding: 120px 20px 80px;
+            padding: 130px 20px 80px;
             overflow: hidden;
         }
 
@@ -326,10 +430,11 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(26, 35, 126, 0.6) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(255, 107, 53, 0.2) 0%, transparent 60%),
-                linear-gradient(180deg, rgba(10, 17, 40, 0.7) 0%, rgba(10, 17, 40, 0.9) 100%);
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(26, 35, 126, 0.5) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, rgba(10, 17, 40, 0.6) 0%, rgba(10, 17, 40, 0.9) 100%);
             z-index: 1;
         }
 
@@ -340,26 +445,28 @@
         }
 
         .hero-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 8px 25px;
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gold);
             margin-bottom: 25px;
             animation: pulse-border 2s ease-in-out infinite;
         }
 
         @keyframes pulse-border {
-            0%, 100% { border-color: rgba(255, 215, 0, 0.3); }
-            50% { border-color: rgba(255, 215, 0, 0.8); }
+            0%, 100% { border-color: rgba(255, 215, 0, 0.2); box-shadow: 0 0 20px rgba(255, 215, 0, 0); }
+            50% { border-color: rgba(255, 215, 0, 0.6); box-shadow: 0 0 40px rgba(255, 215, 0, 0.1); }
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.8rem, 7vw, 5rem);
             font-weight: 900;
-            line-height: 1.2;
+            line-height: 1.15;
             margin-bottom: 20px;
         }
 
@@ -368,13 +475,27 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--orange));
+            border-radius: 4px;
+            opacity: 0.4;
         }
 
         .hero p {
             font-size: clamp(1rem, 1.5vw, 1.3rem);
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.75);
             max-width: 700px;
             margin: 0 auto 35px;
+            line-height: 1.9;
         }
 
         .hero-buttons {
@@ -388,8 +509,10 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 40px;
+            gap: 50px;
             margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .hero-stat {
@@ -397,21 +520,25 @@
         }
 
         .hero-stat .number {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: block;
+            line-height: 1;
         }
 
         .hero-stat .label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 5px;
         }
 
-        /* ===== Floating Shapes ===== */
+        /* ============================================================
+           FLOATING SHAPES
+           ============================================================ */
         .floating-shapes {
             position: absolute;
             inset: 0;
@@ -423,43 +550,61 @@
         .floating-shapes .shape {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.1;
-            animation: float-shape 20s infinite ease-in-out;
+            opacity: 0.06;
+            animation: float-shape 25s infinite ease-in-out;
         }
 
         .floating-shapes .shape:nth-child(1) {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
             background: var(--gold);
-            top: -50px;
-            right: -50px;
+            top: -100px;
+            right: -100px;
             animation-delay: 0s;
         }
         .floating-shapes .shape:nth-child(2) {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             background: var(--orange);
-            bottom: -30px;
-            left: -30px;
-            animation-delay: -5s;
+            bottom: -80px;
+            left: -80px;
+            animation-delay: -7s;
         }
         .floating-shapes .shape:nth-child(3) {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             background: var(--primary-blue);
-            top: 50%;
-            left: 10%;
-            animation-delay: -10s;
+            top: 40%;
+            left: 5%;
+            animation-delay: -14s;
         }
 
         @keyframes float-shape {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -40px) scale(1.1); }
-            50% { transform: translate(-20px, 20px) scale(0.9); }
-            75% { transform: translate(40px, 30px) scale(1.05); }
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(40px, -60px) scale(1.1) rotate(10deg); }
+            50% { transform: translate(-30px, 30px) scale(0.9) rotate(-5deg); }
+            75% { transform: translate(50px, 40px) scale(1.05) rotate(8deg); }
         }
 
-        /* ===== Features ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 1.5rem;
+            animation: bounce-down 2.5s infinite;
+        }
+
+        @keyframes bounce-down {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.2; }
+            50% { transform: translateX(-50%) translateY(12px); opacity: 0.6; }
+        }
+
+        /* ============================================================
+           FEATURES
+           ============================================================ */
         .features {
             padding: 100px 0;
             position: relative;
@@ -468,7 +613,7 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 30px;
         }
 
@@ -477,47 +622,61 @@
             padding: 40px 25px;
         }
 
-        .feature-card .icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: inline-block;
+        .feature-card .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 107, 53, 0.1));
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .icon-wrapper {
+            transform: scale(1.1);
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
+        }
+
+        .feature-card .icon-wrapper .icon {
+            font-size: 2.5rem;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: float-icon 3s ease-in-out infinite;
-        }
-
-        @keyframes float-icon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .feature-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
         }
 
         .feature-card p {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.65);
             font-size: 0.95rem;
         }
 
-        /* ===== Services ===== */
+        /* ============================================================
+           SERVICES
+           ============================================================ */
         .services {
             padding: 100px 0;
             position: relative;
             z-index: 1;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.03) 0%, transparent 70%);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 30px;
         }
 
         .service-card {
-            padding: 30px;
+            padding: 35px 25px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -530,7 +689,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.04) 0%, transparent 70%);
             opacity: 0;
             transition: var(--transition);
         }
@@ -539,25 +698,50 @@
             opacity: 1;
         }
 
-        .service-card .icon {
-            font-size: 3.5rem;
+        .service-card .icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 107, 53, 0.08));
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .icon-wrapper {
+            transform: rotate(10deg) scale(1.05);
+            border-color: var(--gold);
+        }
+
+        .service-card .icon-wrapper .icon {
+            font-size: 2.2rem;
             color: var(--gold);
-            margin-bottom: 18px;
-            display: block;
         }
 
         .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
         }
 
         .service-card p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
             margin-bottom: 20px;
+            line-height: 1.7;
         }
 
-        /* ===== Areas ===== */
+        .service-card .btn-service {
+            padding: 10px 30px;
+            font-size: 0.85rem;
+            box-shadow: none;
+        }
+
+        /* ============================================================
+           AREAS
+           ============================================================ */
         .areas {
             padding: 100px 0;
             position: relative;
@@ -566,42 +750,46 @@
 
         .areas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+            gap: 12px;
+            margin-top: 30px;
         }
 
         .area-tag {
-            padding: 12px 20px;
+            padding: 12px 16px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: var(--transition);
             cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .area-tag:hover {
-            background: rgba(255, 215, 0, 0.15);
-            border-color: var(--gold);
+            background: rgba(255, 215, 0, 0.08);
+            border-color: rgba(255, 215, 0, 0.3);
             transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.05);
         }
 
         .area-tag .icon {
-            margin-left: 8px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--gold);
         }
 
         .area-category {
-            margin-top: 30px;
+            margin-top: 35px;
         }
 
         .area-category h4 {
             color: var(--gold);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -612,12 +800,12 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: linear-gradient(90deg, var(--gold), transparent);
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.3), transparent);
         }
 
         .areas-stats {
             text-align: center;
-            padding: 30px;
+            padding: 35px;
             margin-top: 40px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
@@ -632,13 +820,32 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: block;
+            line-height: 1;
         }
 
-        /* ===== Testimonials ===== */
+        .areas-stats p {
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 5px;
+        }
+
+        .area-tag.featured {
+            border-color: rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .area-tag.featured .icon {
+            color: var(--gold);
+        }
+
+        /* ============================================================
+           TESTIMONIALS
+           ============================================================ */
         .testimonials {
             padding: 100px 0;
             position: relative;
             z-index: 1;
+            background: radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.02) 0%, transparent 70%);
         }
 
         .testimonials-grid {
@@ -649,25 +856,38 @@
 
         .testimonial-card {
             padding: 30px;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 5rem;
+            color: rgba(255, 215, 0, 0.05);
+            font-family: serif;
+            line-height: 1;
         }
 
         .testimonial-card .stars {
             color: var(--gold);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 12px;
+            letter-spacing: 2px;
         }
 
         .testimonial-card .text {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 15px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .testimonial-card .author {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .testimonial-card .author .avatar {
@@ -681,24 +901,28 @@
             font-weight: 700;
             font-size: 1.2rem;
             color: var(--primary-dark);
+            flex-shrink: 0;
         }
 
         .testimonial-card .author .info .name {
             font-weight: 600;
+            font-size: 1rem;
         }
 
         .testimonial-card .author .info .role {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.4);
         }
 
-        /* ===== CTA Banner ===== */
+        /* ============================================================
+           CTA BANNER
+           ============================================================ */
         .cta-banner {
             padding: 80px 0;
             position: relative;
             z-index: 1;
             text-align: center;
-            background: linear-gradient(135deg, rgba(26, 35, 126, 0.3), rgba(255, 107, 53, 0.1));
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.2), rgba(255, 107, 53, 0.05));
             border-top: 1px solid var(--glass-border);
             border-bottom: 1px solid var(--glass-border);
         }
@@ -710,32 +934,50 @@
         }
 
         .cta-banner p {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 1.2rem;
             margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* ===== Footer ===== */
+        /* ============================================================
+           FOOTER
+           ============================================================ */
         .footer {
             padding: 50px 0 30px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
             position: relative;
             z-index: 1;
+            background: rgba(10, 17, 40, 0.5);
         }
 
         .footer .brand {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 1.8rem;
+            gap: 12px;
+            font-size: 1.6rem;
             font-weight: 900;
         }
 
-        .footer .brand img {
-            height: 40px;
-            width: auto;
+        .footer .brand .logo-wrapper {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .footer .brand .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
         }
 
         .footer .brand .brand-text {
@@ -748,31 +990,43 @@
         .footer .contact-info {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 35px;
             flex-wrap: wrap;
-            margin: 15px 0;
+            margin: 18px 0;
         }
 
-        .footer .contact-info a {
-            color: rgba(255, 255, 255, 0.6);
+        .footer .contact-info a,
+        .footer .contact-info span {
+            color: rgba(255, 255, 255, 0.5);
             transition: var(--transition);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .footer .contact-info a:hover {
             color: var(--gold);
         }
 
+        .footer .contact-info .icon {
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
         .footer p {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.85rem;
             margin-top: 10px;
         }
 
-        /* ===== Floating Buttons ===== */
+        /* ============================================================
+           FLOATING BUTTONS
+           ============================================================ */
         .floating-buttons {
             position: fixed;
             left: 20px;
-            bottom: 30px;
+            bottom: 90px;
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -780,15 +1034,15 @@
         }
 
         .floating-btn {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             border: none;
             color: #fff;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
             position: relative;
             display: flex;
             align-items: center;
@@ -796,11 +1050,11 @@
         }
 
         .floating-btn:hover {
-            transform: scale(1.15);
+            transform: scale(1.12);
         }
 
         .floating-btn.whatsapp {
-            background: #25D366;
+            background: linear-gradient(135deg, #25D366, #128C7E);
         }
 
         .floating-btn.whatsapp::after {
@@ -814,11 +1068,11 @@
 
         @keyframes pulse-ring {
             0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.6); opacity: 0; }
+            100% { transform: scale(1.5); opacity: 0; }
         }
 
         .floating-btn.phone {
-            background: var(--orange);
+            background: linear-gradient(135deg, var(--orange), #E65100);
         }
 
         .floating-btn.request {
@@ -828,37 +1082,42 @@
 
         .floating-btn .tooltip {
             position: absolute;
-            right: 70px;
+            right: 68px;
             background: rgba(10, 17, 40, 0.95);
+            backdrop-filter: blur(10px);
             color: #fff;
             padding: 6px 16px;
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
             transition: var(--transition);
-            font-family: 'Cairo', sans-serif;
+            font-family: var(--font-arabic);
+            border: 1px solid var(--glass-border);
         }
 
         .floating-btn:hover .tooltip {
             opacity: 1;
+            transform: translateX(-5px);
         }
 
-        /* ===== BOTTOM TICKER (شريط سفلي) ===== */
+        /* ============================================================
+           BOTTOM TICKER
+           ============================================================ */
         .bottom-ticker {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             z-index: 998;
-            background: linear-gradient(135deg, rgba(10, 17, 40, 0.95), rgba(26, 35, 126, 0.95));
+            background: linear-gradient(135deg, rgba(10, 17, 40, 0.97), rgba(26, 35, 126, 0.95));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 2px solid rgba(255, 215, 0, 0.2);
-            padding: 10px 0;
+            border-top: 1px solid rgba(255, 215, 0, 0.08);
+            padding: 8px 0;
             overflow: hidden;
-            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 -4px 40px rgba(0, 0, 0, 0.5);
         }
 
         .bottom-ticker .ticker-wrapper {
@@ -880,19 +1139,19 @@
 
         .bottom-ticker .ticker-wrapper::before {
             left: 0;
-            background: linear-gradient(90deg, rgba(10, 17, 40, 0.9), transparent);
+            background: linear-gradient(90deg, rgba(10, 17, 40, 0.95), transparent);
         }
 
         .bottom-ticker .ticker-wrapper::after {
             right: 0;
-            background: linear-gradient(270deg, rgba(10, 17, 40, 0.9), transparent);
+            background: linear-gradient(270deg, rgba(10, 17, 40, 0.95), transparent);
         }
 
         .bottom-ticker .ticker-content {
             display: inline-block;
             animation: ticker-scroll 50s linear infinite;
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
             padding: 0 20px;
         }
 
@@ -902,12 +1161,11 @@
 
         .bottom-ticker .ticker-content .item {
             display: inline-block;
-            margin: 0 30px;
+            margin: 0 25px;
         }
 
         .bottom-ticker .ticker-content .item .icon {
-            margin-left: 8px;
-            color: var(--gold);
+            margin-left: 6px;
         }
 
         .bottom-ticker .ticker-content .highlight {
@@ -917,19 +1175,19 @@
 
         .bottom-ticker .ticker-content .badge {
             display: inline-block;
-            padding: 2px 12px;
+            padding: 1px 10px;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             color: var(--primary-dark);
             border-radius: 50px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            margin-left: 8px;
+            margin-left: 6px;
+            vertical-align: middle;
         }
 
         .bottom-ticker .ticker-content .separator {
-            color: rgba(255, 215, 0, 0.15);
-            margin: 0 8px;
-            font-size: 0.6rem;
+            color: rgba(255, 215, 0, 0.1);
+            margin: 0 6px;
         }
 
         .bottom-ticker .ticker-content .location {
@@ -945,12 +1203,14 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* ===== Toast ===== */
+        /* ============================================================
+           TOAST
+           ============================================================ */
         .toast {
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 18px 30px;
+            padding: 16px 28px;
             border-radius: 12px;
             color: #fff;
             font-weight: 600;
@@ -958,7 +1218,8 @@
             transform: translateX(120%);
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow);
-            font-family: 'Cairo', sans-serif;
+            font-family: var(--font-arabic);
+            backdrop-filter: blur(20px);
         }
 
         .toast.show {
@@ -978,7 +1239,9 @@
             border: 1px solid var(--gold);
         }
 
-        /* ===== Responsive ===== */
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
         @media (max-width: 992px) {
             .navbar .nav-links {
                 position: fixed;
@@ -1006,39 +1269,40 @@
             }
 
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             .hero-stats {
-                gap: 20px;
+                gap: 30px;
             }
             .hero-stat .number {
-                font-size: 1.8rem;
-            }
-            .section-title {
                 font-size: 2rem;
             }
+            .section-title {
+                font-size: 2.2rem;
+            }
             .floating-buttons {
-                left: 10px;
-                bottom: 80px;
+                left: 12px;
+                bottom: 75px;
             }
             .floating-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
             }
             .floating-btn .tooltip {
                 display: none;
             }
             .areas-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             }
             .footer .contact-info {
+                gap: 15px;
                 flex-direction: column;
-                gap: 10px;
                 align-items: center;
             }
-            .navbar .logo img {
-                height: 35px;
+            .navbar .logo .logo-wrapper {
+                width: 40px;
+                height: 40px;
             }
             .navbar .logo .brand-text {
                 font-size: 1.2rem;
@@ -1047,7 +1311,7 @@
                 font-size: 0.8rem;
             }
             .bottom-ticker .ticker-content .item {
-                margin: 0 15px;
+                margin: 0 12px;
             }
             .bottom-ticker .ticker-wrapper::before,
             .bottom-ticker .ticker-wrapper::after {
@@ -1055,7 +1319,7 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .hero h1 {
                 font-size: 1.8rem;
             }
@@ -1063,53 +1327,57 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .btn-primary, .btn-secondary {
+            .btn-primary,
+            .btn-secondary {
                 width: 100%;
-                text-align: center;
+                justify-content: center;
                 padding: 14px 20px;
             }
             .cta-banner h2 {
                 font-size: 1.8rem;
             }
-            .navbar .logo img {
-                height: 30px;
+            .navbar .logo .logo-wrapper {
+                width: 35px;
+                height: 35px;
             }
-            .footer .brand img {
-                height: 30px;
+            .navbar .logo .brand-text {
+                font-size: 1rem;
+            }
+            .footer .brand .logo-wrapper {
+                width: 38px;
+                height: 38px;
             }
             .bottom-ticker {
-                padding: 8px 0;
+                padding: 6px 0;
             }
             .bottom-ticker .ticker-content {
                 font-size: 0.7rem;
             }
             .bottom-ticker .ticker-content .item {
-                margin: 0 10px;
+                margin: 0 8px;
             }
             .bottom-ticker .ticker-wrapper::before,
             .bottom-ticker .ticker-wrapper::after {
                 width: 20px;
             }
             .floating-buttons {
-                bottom: 70px;
+                bottom: 65px;
+                left: 10px;
             }
-        }
-
-        /* ===== Scroll indicator ===== */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 1.5rem;
-            animation: bounce-down 2s infinite;
-        }
-
-        @keyframes bounce-down {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+            .floating-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .hero-stat .number {
+                font-size: 1.6rem;
+            }
         }
     </style>
 </head>
@@ -1135,7 +1403,9 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="/" class="logo">
-                <img src="logo.png" alt="TopLoad Logo">
+                <div class="logo-wrapper">
+                    <img src="logo.png" alt="TopLoad">
+                </div>
                 <span class="brand-text">TopLoad</span>
             </a>
             <ul class="nav-links" id="navLinks">
@@ -1166,7 +1436,7 @@
                 <span class="highlight">الاسكندرية والساحل الشمالي</span>
             </h1>
             <p>
-                نخدم جميع المناطق - المنتزه، سموحة، سيدي بشر، مراسى، العلمين، 
+                نخدم جميع المناطق - المنتزه، سموحة، سيدي بشر، مراسى، العلمين،
                 وأكثر من 30 منطقة أخرى. خدمة سريعة واحترافية بأسعار تنافسية.
             </p>
             <div class="hero-buttons">
@@ -1206,25 +1476,33 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">لماذا تختار TopLoad؟</h2>
             <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">مميزات تجعلنا الخيار الأول لصيانة الغسالات</p>
-            
+
             <div class="features-grid">
                 <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="0">
-                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-clock"></i></span>
+                    </div>
                     <h3>خدمة سريعة</h3>
                     <p>الرد على طلبك خلال 30 دقيقة وزيارة فورية</p>
                 </div>
                 <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="100">
-                    <div class="icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-map-marked-alt"></i></span>
+                    </div>
                     <h3>تغطية شاملة</h3>
                     <p>نخدم جميع مناطق الاسكندرية والساحل الشمالي</p>
                 </div>
                 <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="200">
-                    <div class="icon"><i class="fas fa-user-check"></i></div>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-user-check"></i></span>
+                    </div>
                     <h3>فنيين محترفين</h3>
                     <p>فريق مدرب بخبرة عالية في جميع أنواع الغسالات</p>
                 </div>
                 <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="300">
-                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-shield-alt"></i></span>
+                    </div>
                     <h3>ضمان شامل</h3>
                     <p>ضمان على جميع خدمات الصيانة وقطع الغيار</p>
                 </div>
@@ -1237,31 +1515,39 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">خدماتنا</h2>
             <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">جميع أنواع صيانة الغسالات في مكان واحد</p>
-            
+
             <div class="services-grid">
                 <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="0">
-                    <span class="icon"><i class="fas fa-wrench"></i></span>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-wrench"></i></span>
+                    </div>
                     <h3>صيانة عامة</h3>
                     <p>إصلاح جميع الأعطال الشائعة في الغسالات الأوتوماتيك والنصف أوتوماتيك</p>
-                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary btn-service">اطلب الخدمة</a>
                 </div>
                 <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="100">
-                    <span class="icon"><i class="fas fa-tint"></i></span>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-tint"></i></span>
+                    </div>
                     <h3>تسريب مياه</h3>
                     <p>حل مشاكل تسريب المياه من الغسالة وفحص الخراطيم والمضخات</p>
-                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary btn-service">اطلب الخدمة</a>
                 </div>
                 <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="200">
-                    <span class="icon"><i class="fas fa-bolt"></i></span>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-bolt"></i></span>
+                    </div>
                     <h3>مشاكل كهربائية</h3>
                     <p>إصلاح الأعطال الكهربائية والموتور واللوحة الإلكترونية</p>
-                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary btn-service">اطلب الخدمة</a>
                 </div>
                 <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="300">
-                    <span class="icon"><i class="fas fa-sync-alt"></i></span>
+                    <div class="icon-wrapper">
+                        <span class="icon"><i class="fas fa-sync-alt"></i></span>
+                    </div>
                     <h3>قطع غيار أصلية</h3>
                     <p>توفير جميع قطع الغيار الأصلية بأسعار تنافسية</p>
-                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary btn-service">اطلب الخدمة</a>
                 </div>
             </div>
         </div>
@@ -1272,10 +1558,10 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">مناطق الخدمة</h2>
             <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">نغطي جميع مناطق الاسكندرية والساحل الشمالي</p>
-            
+
             <div class="areas-stats" data-aos="fade-up">
                 <span class="big-number">30+</span>
-                <p style="color:rgba(255,255,255,0.7);">منطقة مخدومة في الاسكندرية والساحل الشمالي</p>
+                <p>منطقة مخدومة في الاسكندرية والساحل الشمالي</p>
             </div>
 
             <div class="area-category" data-aos="fade-up">
@@ -1328,15 +1614,9 @@
             <div class="area-category" data-aos="fade-up" data-aos-delay="300">
                 <h4><i class="fas fa-umbrella-beach"></i> الساحل الشمالي</h4>
                 <div class="areas-grid">
-                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
-                        <i class="fas fa-star icon" style="color:var(--gold);"></i> مراسى
-                    </div>
-                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
-                        <i class="fas fa-star icon" style="color:var(--gold);"></i> العلمين
-                    </div>
-                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
-                        <i class="fas fa-star icon" style="color:var(--gold);"></i> سيدي عبد الرحمن
-                    </div>
+                    <div class="area-tag featured"><i class="fas fa-star icon"></i> مراسى</div>
+                    <div class="area-tag featured"><i class="fas fa-star icon"></i> العلمين</div>
+                    <div class="area-tag featured"><i class="fas fa-star icon"></i> سيدي عبد الرحمن</div>
                     <div class="area-tag"><i class="fas fa-map-pin icon"></i> رأس الحكمة</div>
                     <div class="area-tag"><i class="fas fa-map-pin icon"></i> الضبعة</div>
                     <div class="area-tag"><i class="fas fa-map-pin icon"></i> الحمام</div>
@@ -1359,7 +1639,7 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">آراء العملاء</h2>
             <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">ما يقوله عملاؤنا عن خدماتنا</p>
-            
+
             <div class="testimonials-grid">
                 <div class="testimonial-card glass-card" data-aos="fade-up" data-aos-delay="0">
                     <div class="stars">
@@ -1425,14 +1705,16 @@
     <footer class="footer">
         <div class="container">
             <div class="brand">
-                <img src="logo.png" alt="TopLoad Logo">
+                <div class="logo-wrapper">
+                    <img src="logo.png" alt="TopLoad">
+                </div>
                 <span class="brand-text">TopLoad</span>
             </div>
             <div class="contact-info">
-                <a href="tel:01021508336"><i class="fas fa-phone"></i> 01021508336</a>
-                <a href="https://wa.me/201021508336" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
-                <span><i class="fas fa-map-marker-alt"></i> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</span>
-                <span><i class="fas fa-clock"></i> 9 صباحاً - 11 مساءً</span>
+                <a href="tel:01021508336"><i class="fas fa-phone icon"></i> 01021508336</a>
+                <a href="https://wa.me/201021508336" target="_blank"><i class="fab fa-whatsapp icon"></i> واتساب</a>
+                <span><i class="fas fa-map-marker-alt icon"></i> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</span>
+                <span><i class="fas fa-clock icon"></i> 9 صباحاً - 11 مساءً</span>
             </div>
             <p>© 2025 جميع الحقوق محفوظة - صيانة غسالات الاسكندرية والساحل الشمالي</p>
         </div>
@@ -1454,7 +1736,7 @@
         </a>
     </div>
 
-    <!-- ===== BOTTOM TICKER (شريط سفلي) ===== -->
+    <!-- ===== BOTTOM TICKER ===== -->
     <div class="bottom-ticker">
         <div class="container" style="padding:0 20px;">
             <div class="ticker-wrapper">
@@ -1509,7 +1791,7 @@
                         <span class="separator">|</span>
                         <span>خدمة 24 ساعة</span>
                     </span>
-                    <!-- التكرار الثاني (للسلاسة) -->
+                    <!-- التكرار الثاني -->
                     <span class="item">
                         <span class="badge">📍</span>
                         <span class="location">14 شارع كنيسة الاورام، جناكليس، الاسكندرية</span>
@@ -1564,17 +1846,20 @@
         </div>
     </div>
 
-    <!-- ===== SCRIPTS ===== -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+    </script>
     <script>
-        // =====================================================
+        // ============================================================
         // 1. AOS
-        // =====================================================
+        // ============================================================
         AOS.init({ once: true, duration: 800, offset: 80 });
 
-        // =====================================================
+        // ============================================================
         // 2. Progress Bar
-        // =====================================================
+        // ============================================================
         const progressBar = document.getElementById('progress-bar');
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
@@ -1583,9 +1868,9 @@
             progressBar.style.width = progress + '%';
         });
 
-        // =====================================================
+        // ============================================================
         // 3. Navbar Scroll Effect
-        // =====================================================
+        // ============================================================
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1595,9 +1880,9 @@
             }
         });
 
-        // =====================================================
+        // ============================================================
         // 4. Hamburger Menu
-        // =====================================================
+        // ============================================================
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
 
@@ -1613,9 +1898,9 @@
             });
         });
 
-        // =====================================================
+        // ============================================================
         // 5. Particles
-        // =====================================================
+        // ============================================================
         (function initParticles() {
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
@@ -1636,9 +1921,9 @@
                     this.x = Math.random() * w;
                     this.y = Math.random() * h;
                     this.size = Math.random() * 2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.5;
-                    this.speedY = (Math.random() - 0.5) * 0.5;
-                    this.opacity = Math.random() * 0.5 + 0.1;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.speedY = (Math.random() - 0.5) * 0.4;
+                    this.opacity = Math.random() * 0.4 + 0.05;
                 }
                 update() {
                     this.x += this.speedX;
@@ -1655,7 +1940,7 @@
                 }
             }
 
-            const count = Math.min(100, Math.floor((w * h) / 15000));
+            const count = Math.min(80, Math.floor((w * h) / 18000));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
@@ -1666,11 +1951,11 @@
                         const dx = particles[i].x - particles[j].x;
                         const dy = particles[i].y - particles[j].y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 150) {
+                        if (dist < 140) {
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(255, 215, 0, ${0.08 * (1 - dist/150)})`;
+                            ctx.strokeStyle = `rgba(255, 215, 0, ${0.05 * (1 - dist/140)})`;
                             ctx.lineWidth = 0.5;
                             ctx.stroke();
                         }
@@ -1680,16 +1965,17 @@
 
             function animate() {
                 ctx.clearRect(0, 0, w, h);
-                particles.forEach(p => { p.update(); p.draw(); });
+                particles.forEach(p => { p.update();
+                    p.draw(); });
                 drawLines();
                 requestAnimationFrame(animate);
             }
             animate();
         })();
 
-        // =====================================================
+        // ============================================================
         // 6. Count Up
-        // =====================================================
+        // ============================================================
         (function initCountUp() {
             const counters = document.querySelectorAll('.hero-stat .number');
             const observer = new IntersectionObserver((entries) => {
@@ -1727,9 +2013,9 @@
             counters.forEach(c => observer.observe(c));
         })();
 
-        // =====================================================
+        // ============================================================
         // 7. Smooth Scroll
-        // =====================================================
+        // ============================================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -1744,16 +2030,35 @@
             });
         });
 
-        // =====================================================
+        // ============================================================
         // 8. Handle logo error
-        // =====================================================
+        // ============================================================
         document.querySelectorAll('img[src="logo.png"]').forEach(img => {
             img.addEventListener('error', function() {
                 this.style.display = 'none';
+                // Show fallback icon
+                const wrapper = this.closest('.logo-wrapper');
+                if (wrapper) {
+                    const fallback = document.createElement('div');
+                    fallback.style.cssText = `
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background: linear-gradient(135deg, var(--gold), var(--orange));
+                                color: var(--primary-dark);
+                                font-size: 1.5rem;
+                                font-weight: 900;
+                                border-radius: 50%;
+                            `;
+                    fallback.textContent = 'T';
+                    wrapper.appendChild(fallback);
+                }
             });
         });
 
-        console.log('🚀 TopLoad - الصفحة الرئيسية');
+        console.log('🚀 TopLoad - الصفحة الرئيسية الاحترافية');
         console.log('📍 العنوان: 14 شارع كنيسة الاورام، جناكليس، الاسكندرية');
         console.log('📞 01021508336');
         console.log('🔧 جميع أنواع الغسالات');
