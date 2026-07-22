@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://toploadalex.vercel.app/sitemap.xml
