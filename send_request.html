@@ -20,13 +20,14 @@
            ROOT VARIABLES
            ============================================================ */
         :root {
-            --primary: #1B3A6B;
+            --primary-dark: #0f172a;
+            --primary-blue: #1B3A6B;
             --primary-light: #2C5F8A;
             --gold: #D4A843;
             --gold-light: #E8C96E;
             --orange: #E85D3A;
             --orange-light: #F07A5A;
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             --radius: 16px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --font: 'Cairo', sans-serif;
@@ -47,7 +48,7 @@
 
         body {
             font-family: var(--font);
-            background: linear-gradient(135deg, #0f172a 0%, #1B3A6B 50%, #1a1a2e 100%);
+            background: linear-gradient(135deg, #0a0e1a 0%, #1B3A6B 50%, #0f172a 100%);
             color: #fff;
             min-height: 100vh;
             display: flex;
@@ -73,37 +74,37 @@
         .bg-animation .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: floatOrb 20s ease-in-out infinite alternate;
+            filter: blur(100px);
+            opacity: 0.12;
+            animation: floatOrb 25s ease-in-out infinite alternate;
         }
 
         .bg-animation .orb:nth-child(1) {
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
             background: var(--gold);
-            top: -10%;
-            right: -5%;
+            top: -15%;
+            right: -10%;
             animation-delay: 0s;
         }
 
         .bg-animation .orb:nth-child(2) {
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             background: var(--orange);
-            bottom: -10%;
-            left: -5%;
-            animation-delay: -7s;
+            bottom: -15%;
+            left: -10%;
+            animation-delay: -8s;
         }
 
         .bg-animation .orb:nth-child(3) {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
             background: var(--primary-light);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation-delay: -14s;
+            animation-delay: -16s;
         }
 
         @keyframes floatOrb {
@@ -111,14 +112,27 @@
                 transform: translate(0, 0) scale(1);
             }
             33% {
-                transform: translate(30px, -30px) scale(1.1);
+                transform: translate(40px, -40px) scale(1.1);
             }
             66% {
-                transform: translate(-20px, 20px) scale(0.9);
+                transform: translate(-30px, 30px) scale(0.9);
             }
             100% {
-                transform: translate(10px, -10px) scale(1.05);
+                transform: translate(20px, -20px) scale(1.05);
             }
+        }
+
+        /* ============================================================
+           PARTICLES (stars)
+           ============================================================ */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
         /* ============================================================
@@ -130,11 +144,11 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 16px 0;
-            background: rgba(15, 23, 42, 0.92);
+            padding: 14px 0;
+            background: rgba(10, 14, 26, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212, 168, 67, 0.1);
+            border-bottom: 2px solid rgba(212, 168, 67, 0.15);
         }
 
         .navbar .container {
@@ -149,29 +163,46 @@
         .navbar .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             font-weight: 900;
-            font-size: 1.4rem;
-            color: var(--gold);
+            font-size: 1.5rem;
             text-decoration: none;
         }
 
-        .navbar .logo .logo-icon {
-            width: 44px;
-            height: 44px;
+        .navbar .logo .logo-wrapper {
+            position: relative;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), var(--orange));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: var(--primary);
-            font-weight: 900;
-            flex-shrink: 0;
+            overflow: hidden;
+            border: 2px solid var(--gold);
             box-shadow: 0 0 30px rgba(212, 168, 67, 0.2);
+            flex-shrink: 0;
+            background: #fff;
         }
 
-        .navbar .logo span {
+        .navbar .logo .logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            padding: 4px;
+        }
+
+        .navbar .logo .logo-wrapper .fallback {
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 900;
+            border-radius: 50%;
+        }
+
+        .navbar .logo .brand-text {
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -209,7 +240,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 20px 80px;
+            padding: 130px 20px 80px;
             position: relative;
             z-index: 1;
             min-height: 100vh;
@@ -225,15 +256,15 @@
            ============================================================ */
         .request-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .request-header .icon-wrapper {
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(212, 168, 67, 0.15), rgba(232, 93, 58, 0.15));
-            border: 2px solid rgba(212, 168, 67, 0.2);
+            background: linear-gradient(135deg, rgba(212, 168, 67, 0.2), rgba(232, 93, 58, 0.2));
+            border: 2px solid rgba(212, 168, 67, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -242,7 +273,7 @@
         }
 
         .request-header .icon-wrapper i {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -250,7 +281,7 @@
         }
 
         .request-header h1 {
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
@@ -265,19 +296,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .request-header .subtitle .highlight {
             color: var(--gold);
+            font-weight: 600;
         }
 
         /* ============================================================
-           FORM CARD - واضح وجذاب
+           FORM CARD - تصميم أنيق وواضح
            ============================================================ */
         .form-card {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -289,11 +321,11 @@
 
         .form-card:hover {
             border-color: rgba(212, 168, 67, 0.15);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
         }
 
         /* ============================================================
-           FORM FIELDS - واضحة جداً
+           FORM FIELDS - واضحة جداً مع خلفية بيضاء
            ============================================================ */
         .request-form .form-group {
             margin-bottom: 22px;
@@ -304,9 +336,9 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .request-form label .required {
@@ -324,65 +356,67 @@
             position: relative;
         }
 
-        /* حقول الإدخال - خلفية بيضاء شفافة وواضحة */
+        /* حقول الإدخال - خلفية بيضاء ونص داكن للوضوح التام */
         .request-form input,
         .request-form select,
         .request-form textarea {
             width: 100%;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 18px;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
             border-radius: 12px;
-            color: #ffffff;
+            color: #1a202c;
             font-size: 1rem;
             font-family: var(--font);
             transition: var(--transition);
             outline: none;
+            font-weight: 500;
         }
 
         .request-form input::placeholder,
         .request-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.35);
+            color: #a0aec0;
+            font-weight: 400;
         }
 
         .request-form input:focus,
         .request-form select:focus,
         .request-form textarea:focus {
             border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 30px rgba(212, 168, 67, 0.05);
+            box-shadow: 0 0 0 4px rgba(212, 168, 67, 0.15);
+            background: #ffffff;
         }
 
         .request-form input:hover,
         .request-form select:hover,
         .request-form textarea:hover {
-            background: rgba(255, 255, 255, 0.1);
+            border-color: #cbd5e0;
         }
 
         .request-form select {
             appearance: none;
             -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4A843' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 12 12'%3E%3Cpath fill='%231B3A6B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: left 18px center;
             padding-left: 45px;
             cursor: pointer;
-            color: #fff;
+            color: #1a202c;
         }
 
         .request-form select option {
-            background: #1a1a2e;
-            color: #fff;
-            padding: 10px;
+            background: #ffffff;
+            color: #1a202c;
+            padding: 12px;
         }
 
         .request-form select option:hover {
-            background: var(--gold);
+            background: var(--gold-light);
         }
 
         .request-form textarea {
             resize: vertical;
-            min-height: 110px;
+            min-height: 120px;
         }
 
         .request-form .form-row {
@@ -395,10 +429,10 @@
            GPS BUTTON
            ============================================================ */
         .request-form .gps-btn {
-            background: rgba(212, 168, 67, 0.12);
-            border: 1px solid rgba(212, 168, 67, 0.2);
+            background: rgba(212, 168, 67, 0.15);
+            border: 1px solid rgba(212, 168, 67, 0.25);
             color: var(--gold);
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.78rem;
@@ -408,13 +442,13 @@
             align-items: center;
             gap: 6px;
             margin-right: 8px;
-            height: 28px;
+            height: 30px;
             white-space: nowrap;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .request-form .gps-btn:hover:not(:disabled) {
-            background: rgba(212, 168, 67, 0.2);
+            background: rgba(212, 168, 67, 0.25);
             border-color: var(--gold);
             transform: translateY(-1px);
         }
@@ -440,7 +474,7 @@
         .btn-submit {
             width: 100%;
             padding: 18px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             position: relative;
             display: flex;
             justify-content: center;
@@ -454,13 +488,13 @@
             font-weight: 700;
             transition: var(--transition);
             background: linear-gradient(135deg, var(--gold), var(--orange));
-            color: var(--primary);
-            box-shadow: 0 4px 30px rgba(212, 168, 67, 0.2);
+            color: var(--primary-dark);
+            box-shadow: 0 4px 30px rgba(212, 168, 67, 0.3);
         }
 
         .btn-submit:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 50px rgba(212, 168, 67, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 50px rgba(212, 168, 67, 0.4);
         }
 
         .btn-submit:active:not(:disabled) {
@@ -474,10 +508,10 @@
 
         .btn-submit .spinner {
             display: none;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border: 3px solid rgba(27, 58, 107, 0.15);
-            border-top: 3px solid var(--primary);
+            border-top: 3px solid var(--primary-dark);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -496,8 +530,8 @@
         .form-success {
             display: none;
             padding: 30px;
-            background: rgba(46, 204, 113, 0.08);
-            border: 1px solid rgba(46, 204, 113, 0.2);
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.25);
             border-radius: 12px;
             text-align: center;
             margin-top: 24px;
@@ -520,7 +554,7 @@
         }
 
         .form-success .success-icon {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             color: #2ecc71;
             display: block;
             margin-bottom: 10px;
@@ -544,12 +578,12 @@
 
         .form-success h3 {
             color: #2ecc71;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 6px;
         }
 
         .form-success p {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
             margin-bottom: 18px;
             line-height: 1.8;
@@ -574,9 +608,9 @@
 
         .form-success .btn-success:hover {
             background: var(--gold);
-            color: var(--primary);
+            color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(212, 168, 67, 0.2);
+            box-shadow: 0 8px 30px rgba(212, 168, 67, 0.3);
         }
 
         /* ============================================================
@@ -627,7 +661,7 @@
             position: relative;
             z-index: 1;
             margin-top: auto;
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(10, 14, 26, 0.6);
             backdrop-filter: blur(10px);
         }
 
@@ -660,8 +694,8 @@
         }
 
         .floating-btn {
-            width: 50px;
-            height: 50px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             border: none;
             color: #fff;
@@ -710,13 +744,13 @@
 
         .floating-btn.home {
             background: linear-gradient(135deg, var(--gold), var(--orange));
-            color: var(--primary);
+            color: var(--primary-dark);
         }
 
         .floating-btn .tooltip {
             position: absolute;
-            right: 58px;
-            background: rgba(15, 23, 42, 0.95);
+            right: 60px;
+            background: rgba(10, 14, 26, 0.95);
             backdrop-filter: blur(10px);
             color: #fff;
             padding: 4px 12px;
@@ -755,10 +789,9 @@
                 font-size: 1.2rem;
             }
 
-            .navbar .logo .logo-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 1rem;
+            .navbar .logo .logo-wrapper {
+                width: 40px;
+                height: 40px;
             }
 
             .navbar .back-link span {
@@ -793,22 +826,22 @@
             }
 
             .main {
-                padding: 100px 14px 70px;
+                padding: 110px 14px 70px;
             }
 
             .request-header .icon-wrapper {
-                width: 65px;
-                height: 65px;
+                width: 70px;
+                height: 70px;
             }
 
             .request-header .icon-wrapper i {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .request-form input,
             .request-form select,
             .request-form textarea {
-                padding: 12px 16px;
+                padding: 13px 16px;
                 font-size: 0.95rem;
             }
         }
@@ -825,7 +858,7 @@
             .request-form input,
             .request-form select,
             .request-form textarea {
-                padding: 10px 14px;
+                padding: 11px 14px;
                 font-size: 0.9rem;
             }
 
@@ -835,16 +868,16 @@
             }
 
             .main {
-                padding: 90px 10px 60px;
+                padding: 100px 10px 60px;
             }
 
             .request-header .icon-wrapper {
-                width: 55px;
-                height: 55px;
+                width: 60px;
+                height: 60px;
             }
 
             .request-header .icon-wrapper i {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
 
             .request-form label {
@@ -874,6 +907,9 @@
         <div class="orb"></div>
     </div>
 
+    <!-- PARTICLES (stars) -->
+    <canvas id="particles-canvas"></canvas>
+
     <!-- TOAST -->
     <div id="toast" class="toast"></div>
 
@@ -881,8 +917,11 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <div class="logo-icon">T</div>
-                <span>TopLoad</span>
+                <div class="logo-wrapper" id="logoWrapper">
+                    <img src="logo.png" alt="TopLoad" id="logoImg" />
+                    <div class="fallback" id="logoFallback">T</div>
+                </div>
+                <span class="brand-text">TopLoad</span>
             </a>
             <a href="index.html" class="back-link">
                 <i class="fas fa-arrow-right"></i>
@@ -1020,7 +1059,74 @@
         AOS.init({ once: true, duration: 800 });
 
         // ============================================================
-        // 2. Areas List
+        // 2. Particles (stars)
+        // ============================================================
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, particles = [];
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            const count = Math.min(80, Math.floor((w * h) / 15000));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update();
+                    p.draw(); });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ============================================================
+        // 3. Logo Fallback
+        // ============================================================
+        const logoImg = document.getElementById('logoImg');
+        const logoFallback = document.getElementById('logoFallback');
+
+        logoImg.addEventListener('error', function() {
+            this.style.display = 'none';
+            logoFallback.style.display = 'flex';
+        });
+
+        // ============================================================
+        // 4. Areas List
         // ============================================================
         const AREAS = [
             'المنتزه', 'سيدي بشر', 'ميامي', 'كليوباترا', 'الشاطبي',
@@ -1043,7 +1149,7 @@
         });
 
         // ============================================================
-        // 3. Supabase Config
+        // 5. Supabase Config
         // ============================================================
         const SUPABASE_URL = 'https://uzcllseejydmpwzsygjp.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
@@ -1051,7 +1157,7 @@
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         // ============================================================
-        // 4. Toast
+        // 6. Toast
         // ============================================================
         function showToast(message, type = 'info') {
             const toast = document.getElementById('toast');
@@ -1064,7 +1170,7 @@
         }
 
         // ============================================================
-        // 5. GPS
+        // 7. GPS
         // ============================================================
         const gpsBtn = document.getElementById('gpsBtn');
 
@@ -1143,7 +1249,7 @@
         setTimeout(() => gpsBtn.click(), 1500);
 
         // ============================================================
-        // 6. Form Submit to Supabase
+        // 8. Form Submit to Supabase
         // ============================================================
         const form = document.getElementById('requestForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -1214,7 +1320,7 @@
         });
 
         // ============================================================
-        // 7. Keyboard shortcut
+        // 9. Keyboard shortcut
         // ============================================================
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
