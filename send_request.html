@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب صيانة غسالات - TopLoad</title>
-    <meta name="description" content="طلب صيانة غسالات في الاسكندرية والساحل الشمالي. املأ النموذج وسنقوم بالرد خلال 30 دقيقة.">
+    <title>TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي</title>
+    <meta name="description" content="أفضل خدمة صيانة غسالات في الاسكندرية والساحل الشمالي. نخدم جميع المناطق: المنتزه، سموحة، سيدي بشر، مراسى، العلمين والمزيد. اتصل الآن: 01021508336">
+    <meta name="keywords" content="صيانة غسالات بالاسكندرية, تصليح غسالات, فني غسالات, مركز صيانة غسالات, صيانة غسالات اوتوماتيك">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي">
+    <meta property="og:description" content="خدمة صيانة غسالات محترفة في جميع مناطق الاسكندرية والساحل الشمالي">
+    <meta property="og:type" content="website">
     
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         /* ===== CSS Variables ===== */
@@ -21,6 +24,7 @@
             --primary-blue: #1A237E;
             --gold: #FFD700;
             --orange: #FF6B35;
+            --gold-light: #FFE082;
             --glass-bg: rgba(255, 255, 255, 0.08);
             --glass-border: rgba(255, 255, 255, 0.15);
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -28,20 +32,23 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ===== Reset & Base ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Cairo', sans-serif;
             background: var(--primary-dark);
             color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
+            line-height: 1.7;
         }
 
         ::-webkit-scrollbar {
@@ -66,7 +73,20 @@
             padding: 0 20px;
         }
 
-        /* ===== Particles ===== */
+        /* ===== Scroll Progress Bar ===== */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--orange));
+            z-index: 10000;
+            transition: width 0.1s;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ===== Particles Background ===== */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -77,17 +97,24 @@
             pointer-events: none;
         }
 
-        /* ===== Navbar ===== */
+        /* ===== Navigation ===== */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 999;
-            padding: 15px 0;
-            background: rgba(10, 17, 40, 0.9);
+            padding: 12px 0;
+            background: rgba(10, 17, 40, 0.85);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 17, 40, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .navbar .container {
@@ -97,227 +124,807 @@
         }
 
         .navbar .logo {
-            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
             font-weight: 900;
+        }
+
+        .navbar .logo img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.2));
+            transition: var(--transition);
+        }
+
+        .navbar .logo img:hover {
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+            transform: scale(1.05);
+        }
+
+        .navbar .logo .brand-text {
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .navbar .logo i {
-            -webkit-text-fill-color: var(--gold);
-            margin-left: 8px;
+        .navbar .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            list-style: none;
         }
 
-        .navbar .back-link {
-            color: rgba(255, 255, 255, 0.7);
+        .navbar .nav-links a {
             font-weight: 600;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
             transition: var(--transition);
+            position: relative;
         }
 
-        .navbar .back-link:hover {
+        .navbar .nav-links a:hover {
             color: var(--gold);
         }
 
-        .navbar .back-link i {
-            margin-left: 8px;
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
         }
 
-        /* ===== Main Content ===== */
-        .main {
-            flex: 1;
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .nav-links .btn-nav {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+            border-radius: 50px;
+            font-weight: 700;
+            transition: var(--transition);
+            -webkit-text-fill-color: var(--primary-dark);
+        }
+
+        .navbar .nav-links .btn-nav:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .navbar .nav-links .btn-nav::after {
+            display: none;
+        }
+
+        .navbar .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .navbar .hamburger span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #fff;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .navbar .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .navbar .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .navbar .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ===== Section Titles ===== */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+        }
+
+        /* ===== Glassmorphism Card ===== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--gold);
+            box-shadow: 0 12px 48px rgba(255, 215, 0, 0.15);
+        }
+
+        /* ===== Buttons ===== */
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: #0A1128;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 14px 35px;
+            background: transparent;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            z-index: 1;
             padding: 120px 20px 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(26, 35, 126, 0.6) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(255, 107, 53, 0.2) 0%, transparent 60%),
+                linear-gradient(180deg, rgba(10, 17, 40, 0.7) 0%, rgba(10, 17, 40, 0.9) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 25px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(255, 215, 0, 0.3); }
+            50% { border-color: rgba(255, 215, 0, 0.8); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== Floating Shapes ===== */
+        .floating-shapes {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float-shape 20s infinite ease-in-out;
+        }
+
+        .floating-shapes .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--gold);
+            top: -50px;
+            right: -50px;
+            animation-delay: 0s;
+        }
+        .floating-shapes .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: var(--orange);
+            bottom: -30px;
+            left: -30px;
+            animation-delay: -5s;
+        }
+        .floating-shapes .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            background: var(--primary-blue);
+            top: 50%;
+            left: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float-shape {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(40px, 30px) scale(1.05); }
+        }
+
+        /* ===== Features ===== */
+        .features {
+            padding: 100px 0;
             position: relative;
             z-index: 1;
         }
 
-        .request-wrapper {
-            width: 100%;
-            max-width: 800px;
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
 
-        .request-header {
+        .feature-card {
             text-align: center;
-            margin-bottom: 40px;
+            padding: 40px 25px;
         }
 
-        .request-header .icon {
-            font-size: 3.5rem;
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
             background: linear-gradient(135deg, var(--gold), var(--orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: block;
-            margin-bottom: 10px;
+            animation: float-icon 3s ease-in-out infinite;
         }
 
-        .request-header h1 {
-            font-size: 2.5rem;
-            font-weight: 900;
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .request-header p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.1rem;
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
         }
 
-        /* ===== Form ===== */
-        .request-form {
-            padding: 40px;
-        }
-
-        .request-form .form-group {
-            margin-bottom: 20px;
-        }
-
-        .request-form label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
         }
 
-        .request-form label .required {
-            color: var(--orange);
-        }
-
-        .request-form input,
-        .request-form select,
-        .request-form textarea {
-            width: 100%;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            font-family: 'Cairo', sans-serif;
-            transition: var(--transition);
-            outline: none;
-        }
-
-        .request-form input:focus,
-        .request-form select:focus,
-        .request-form textarea:focus {
-            border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
-        }
-
-        .request-form input::placeholder,
-        .request-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .request-form select option {
-            background: var(--primary-dark);
-            color: #fff;
-        }
-
-        .request-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .request-form .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .request-form .gps-btn {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            color: var(--gold);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-family: 'Cairo', sans-serif;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 5px;
-        }
-
-        .request-form .gps-btn:hover {
-            background: rgba(255, 215, 0, 0.2);
-        }
-
-        .request-form .gps-btn .fa-spinner {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            font-size: 1.1rem;
+        /* ===== Services ===== */
+        .services {
+            padding: 100px 0;
             position: relative;
+            z-index: 1;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card .icon {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* ===== Areas ===== */
+        .areas {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .area-tag {
+            padding: 12px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .area-tag:hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .area-tag .icon {
+            margin-left: 8px;
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        .area-category {
+            margin-top: 30px;
+        }
+
+        .area-category h4 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
             display: flex;
-            justify-content: center;
             align-items: center;
             gap: 10px;
         }
 
-        .btn-submit .spinner {
-            display: none;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(10, 17, 40, 0.2);
-            border-top: 3px solid var(--primary-dark);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        .area-category h4::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
         }
 
-        .btn-submit.loading .spinner {
-            display: block;
-        }
-
-        .btn-submit.loading .btn-text {
-            display: none;
-        }
-
-        .form-success {
-            display: none;
-            padding: 20px;
-            background: rgba(46, 204, 113, 0.15);
-            border: 1px solid #2ecc71;
-            border-radius: 12px;
+        .areas-stats {
             text-align: center;
-            margin-top: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
         }
 
-        .form-success.show {
-            display: block;
-            animation: fadeUp 0.5s ease;
+        .areas-stats .big-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .form-success .icon {
-            font-size: 3rem;
-            color: #2ecc71;
+        /* ===== Testimonials ===== */
+        .testimonials {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
         }
 
-        .form-success h3 {
-            color: #2ecc71;
-            margin: 10px 0;
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        .form-success p {
+        .testimonial-card {
+            padding: 30px;
+        }
+
+        .testimonial-card .stars {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-card .text {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-card .author .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+
+        .testimonial-card .author .info .name {
+            font-weight: 600;
+        }
+
+        .testimonial-card .author .info .role {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== CTA Banner ===== */
+        .cta-banner {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.3), rgba(255, 107, 53, 0.1));
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .cta-banner h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .cta-banner p {
             color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
         }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ===== Footer ===== */
+        .footer {
+            padding: 50px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+
+        .footer .brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .footer .brand .brand-text {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .footer .contact-info a {
+            color: rgba(255, 255, 255, 0.6);
+            transition: var(--transition);
+        }
+
+        .footer .contact-info a:hover {
+            color: var(--gold);
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* ===== Floating Buttons ===== */
+        .floating-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .floating-btn.whatsapp {
+            background: #25D366;
+        }
+
+        .floating-btn.whatsapp::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid #25D366;
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        .floating-btn.phone {
+            background: var(--orange);
+        }
+
+        .floating-btn.request {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+        }
+
+        .floating-btn .tooltip {
+            position: absolute;
+            right: 70px;
+            background: rgba(10, 17, 40, 0.95);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .floating-btn:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* ===== News Ticker ===== */
+        .news-ticker {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.05), rgba(255, 107, 53, 0.05), rgba(255, 215, 0, 0.05));
+            border-top: 1px solid rgba(255, 215, 0, 0.08);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+            padding: 12px 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            margin-top: 0;
+        }
+
+        .news-ticker::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.03), transparent);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .news-ticker .ticker-wrapper {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .news-ticker .ticker-content {
+            display: inline-block;
+            animation: ticker-scroll 40s linear infinite;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .news-ticker .ticker-content .item {
+            display: inline-block;
+            margin: 0 35px;
+        }
+
+        .news-ticker .ticker-content .item .icon {
+            margin-left: 8px;
+        }
+
+        .news-ticker .ticker-content .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .news-ticker .ticker-content .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        .news-ticker .ticker-content .separator {
+            color: rgba(255, 215, 0, 0.2);
+            margin: 0 5px;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Pause animation on hover */
+        .news-ticker:hover .ticker-content {
+            animation-play-state: paused;
         }
 
         /* ===== Toast ===== */
@@ -334,7 +941,6 @@
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow);
             font-family: 'Cairo', sans-serif;
-            max-width: 400px;
         }
 
         .toast.show {
@@ -354,144 +960,515 @@
             border: 1px solid var(--gold);
         }
 
-        /* ===== Footer ===== */
-        .footer {
-            padding: 30px 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            z-index: 1;
-            margin-top: auto;
-        }
-
-        .footer p {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.85rem;
-        }
-
-        .footer a {
-            color: var(--gold);
-        }
-
         /* ===== Responsive ===== */
-        @media (max-width: 768px) {
-            .request-header h1 {
+        @media (max-width: 992px) {
+            .navbar .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: rgba(10, 17, 40, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px;
+                transition: var(--transition);
+                border-left: 1px solid var(--glass-border);
+            }
+
+            .navbar .nav-links.open {
+                right: 0;
+            }
+
+            .navbar .hamburger {
+                display: flex;
+                z-index: 1000;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .hero-stat .number {
                 font-size: 1.8rem;
             }
-            .request-form .form-row {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 2rem;
             }
-            .request-form {
-                padding: 20px;
+            .floating-buttons {
+                left: 10px;
+                bottom: 20px;
             }
-            .navbar .logo {
-                font-size: 1.4rem;
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
             }
-            .navbar .back-link span {
+            .floating-btn .tooltip {
                 display: none;
+            }
+            .areas-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            .footer .contact-info {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            .navbar .logo img {
+                height: 35px;
+            }
+            .navbar .logo .brand-text {
+                font-size: 1.2rem;
             }
         }
 
         @media (max-width: 480px) {
-            .request-header h1 {
-                font-size: 1.5rem;
+            .hero h1 {
+                font-size: 1.8rem;
             }
-            .request-form {
-                padding: 15px;
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
             }
-            .btn-submit {
-                font-size: 1rem;
-                padding: 14px;
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
             }
+            .cta-banner h2 {
+                font-size: 1.8rem;
+            }
+            .news-ticker .ticker-content {
+                font-size: 0.8rem;
+            }
+            .news-ticker .ticker-content .item {
+                margin: 0 15px;
+            }
+            .navbar .logo img {
+                height: 30px;
+            }
+            .footer .brand img {
+                height: 30px;
+            }
+        }
+
+        /* ===== Scroll indicator ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.5rem;
+            animation: bounce-down 2s infinite;
+        }
+
+        @keyframes bounce-down {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== PROGRESS BAR ===== -->
+    <div id="progress-bar"></div>
+
     <!-- ===== PARTICLES ===== -->
     <canvas id="particles-canvas"></canvas>
+
+    <!-- ===== FLOATING SHAPES ===== -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
 
     <!-- ===== TOAST ===== -->
     <div id="toast" class="toast"></div>
 
     <!-- ===== NAVBAR ===== -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-wrench"></i> TopLoad
+            <a href="/" class="logo">
+                <img src="logo.png" alt="TopLoad Logo" onerror="this.style.display='none'">
+                <span class="brand-text">TopLoad</span>
             </a>
-            <a href="index.html" class="back-link">
-                <i class="fas fa-arrow-right"></i> <span>العودة للرئيسية</span>
-            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">الخدمات</a></li>
+                <li><a href="#areas">المناطق</a></li>
+                <li><a href="#testimonials">آراء العملاء</a></li>
+                <li><a href="send_request.html" class="btn-nav">
+                    <i class="fas fa-paper-plane"></i> طلب صيانة
+                </a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
-    <!-- ===== MAIN ===== -->
-    <main class="main">
-        <div class="request-wrapper">
-            <div class="request-header" data-aos="fade-up">
-                <span class="icon"><i class="fas fa-tools"></i></span>
-                <h1>طلب صيانة غسالات</h1>
-                <p>املأ النموذج وسنقوم بالرد عليك خلال 30 دقيقة</p>
+    <!-- ===== NEWS TICKER ===== -->
+    <div class="news-ticker" style="margin-top:0;">
+        <div class="container" style="padding:0 20px;">
+            <div class="ticker-wrapper">
+                <div class="ticker-content">
+                    <span class="item">
+                        <span class="badge">جديد</span>
+                        <span class="highlight">TopLoad</span> 
+                        <span class="separator">|</span>
+                        أفضل خدمة صيانة غسالات في الاسكندرية
+                    </span>
+                    <span class="item">
+                        <span class="icon">📞</span>
+                        <span class="highlight">01021508336</span> 
+                        <span class="separator">|</span>
+                        خصم <span class="highlight">20%</span> للطلبات الجديدة
+                    </span>
+                    <span class="item">
+                        <span class="icon">📍</span>
+                        نخدم <span class="highlight">30+</span> منطقة 
+                        <span class="separator">|</span>
+                        الاسكندرية والساحل الشمالي
+                    </span>
+                    <span class="item">
+                        <span class="icon">⏱️</span>
+                        الرد خلال <span class="highlight">30 دقيقة</span> 
+                        <span class="separator">|</span>
+                        خدمة سريعة وموثوقة
+                    </span>
+                    <span class="item">
+                        <span class="icon">⭐</span>
+                        تقييم <span class="highlight">4.9/5</span> 
+                        <span class="separator">|</span>
+                        من أكثر من 500 عميل سعيد
+                    </span>
+                    <span class="item">
+                        <span class="icon">🔧</span>
+                        صيانة جميع أنواع الغسالات 
+                        <span class="separator">|</span>
+                        أوتوماتيك، نصف أوتوماتيك، هوجن
+                    </span>
+                    <span class="item">
+                        <span class="badge">عرض</span>
+                        ضمان <span class="highlight">12 شهر</span> على جميع الخدمات
+                    </span>
+                    <span class="item">
+                        <span class="icon">🏆</span>
+                        خدمة معتمدة منذ <span class="highlight">2015</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="hero-badge">
+                <i class="fas fa-star"></i> خدمة معتمدة منذ 2015
+            </div>
+            <h1>
+                صيانة غسالات<br>
+                <span class="highlight">الاسكندرية والساحل الشمالي</span>
+            </h1>
+            <p>
+                نخدم جميع المناطق - المنتزه، سموحة، سيدي بشر، مراسى، العلمين، 
+                وأكثر من 30 منطقة أخرى. خدمة سريعة واحترافية بأسعار تنافسية.
+            </p>
+            <div class="hero-buttons">
+                <a href="send_request.html" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i> اطلب الصيانة الآن
+                </a>
+                <a href="tel:01021508336" class="btn-secondary">
+                    <i class="fas fa-phone"></i> 01021508336
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="number" data-count="500">0</span>
+                    <span class="label">عميل سعيد</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="number" data-count="4.9">0</span>
+                    <span class="label">تقييم / 5</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="number" data-count="30">0</span>
+                    <span class="label">منطقة مخدومة</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="number" data-count="98">0</span>
+                    <span class="label">% رضا العملاء</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">لماذا تختار TopLoad؟</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">مميزات تجعلنا الخيار الأول لصيانة الغسالات</p>
+            
+            <div class="features-grid">
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="0">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <h3>خدمة سريعة</h3>
+                    <p>الرد على طلبك خلال 30 دقيقة وزيارة فورية</p>
+                </div>
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="100">
+                    <div class="icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>تغطية شاملة</h3>
+                    <p>نخدم جميع مناطق الاسكندرية والساحل الشمالي</p>
+                </div>
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="200">
+                    <div class="icon"><i class="fas fa-user-check"></i></div>
+                    <h3>فنيين محترفين</h3>
+                    <p>فريق مدرب بخبرة عالية في جميع أنواع الغسالات</p>
+                </div>
+                <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="300">
+                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>ضمان شامل</h3>
+                    <p>ضمان على جميع خدمات الصيانة وقطع الغيار</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">خدماتنا</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">جميع أنواع صيانة الغسالات في مكان واحد</p>
+            
+            <div class="services-grid">
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="0">
+                    <span class="icon"><i class="fas fa-wrench"></i></span>
+                    <h3>صيانة عامة</h3>
+                    <p>إصلاح جميع الأعطال الشائعة في الغسالات الأوتوماتيك والنصف أوتوماتيك</p>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                </div>
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="100">
+                    <span class="icon"><i class="fas fa-tint"></i></span>
+                    <h3>تسريب مياه</h3>
+                    <p>حل مشاكل تسريب المياه من الغسالة وفحص الخراطيم والمضخات</p>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                </div>
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="200">
+                    <span class="icon"><i class="fas fa-bolt"></i></span>
+                    <h3>مشاكل كهربائية</h3>
+                    <p>إصلاح الأعطال الكهربائية والموتور واللوحة الإلكترونية</p>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                </div>
+                <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="300">
+                    <span class="icon"><i class="fas fa-sync-alt"></i></span>
+                    <h3>قطع غيار أصلية</h3>
+                    <p>توفير جميع قطع الغيار الأصلية بأسعار تنافسية</p>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AREAS ===== -->
+    <section class="areas" id="areas">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">مناطق الخدمة</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">نغطي جميع مناطق الاسكندرية والساحل الشمالي</p>
+            
+            <div class="areas-stats" data-aos="fade-up">
+                <span class="big-number">30+</span>
+                <p style="color:rgba(255,255,255,0.7);">منطقة مخدومة في الاسكندرية والساحل الشمالي</p>
             </div>
 
-            <form class="request-form glass-card" id="requestForm" data-aos="fade-up" data-aos-delay="100" novalidate>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="fullName">الاسم كاملاً <span class="required">*</span></label>
-                        <input type="text" id="fullName" placeholder="أدخل اسمك" required>
+            <div class="area-category" data-aos="fade-up">
+                <h4><i class="fas fa-city"></i> شرق الاسكندرية</h4>
+                <div class="areas-grid">
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> المنتزه</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سيدي بشر</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> ميامي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كليوباترا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الشاطبي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الابراهيمية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> زيزينيا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سبورتنج</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سموحة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كامب شيزار</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> جناكليس</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> فيكتوريا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الرمل</div>
+                </div>
+            </div>
+
+            <div class="area-category" data-aos="fade-up" data-aos-delay="100">
+                <h4><i class="fas fa-city"></i> غرب الاسكندرية</h4>
+                <div class="areas-grid">
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> بحري</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> العجمي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> محرم بك</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> القباري</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الدخيلة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> العامرية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> برج العرب</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الورديان</div>
+                </div>
+            </div>
+
+            <div class="area-category" data-aos="fade-up" data-aos-delay="200">
+                <h4><i class="fas fa-city"></i> وسط وشمال الاسكندرية</h4>
+                <div class="areas-grid">
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الظاهرية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> العطارين</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> المنشية</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الحضرة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> السيوف</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الانفوشي</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> القلعة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كوم الدكة</div>
+                </div>
+            </div>
+
+            <div class="area-category" data-aos="fade-up" data-aos-delay="300">
+                <h4><i class="fas fa-umbrella-beach"></i> الساحل الشمالي</h4>
+                <div class="areas-grid">
+                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
+                        <i class="fas fa-star icon" style="color:var(--gold);"></i> مراسى
                     </div>
-                    <div class="form-group">
-                        <label for="phone">رقم التليفون <span class="required">*</span></label>
-                        <input type="tel" id="phone" placeholder="مثال: 01012345678" required>
+                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
+                        <i class="fas fa-star icon" style="color:var(--gold);"></i> العلمين
                     </div>
+                    <div class="area-tag" style="border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.05);">
+                        <i class="fas fa-star icon" style="color:var(--gold);"></i> سيدي عبد الرحمن
+                    </div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> رأس الحكمة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الضبعة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> الحمام</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> مطروح</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> السلوم</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سيدي براني</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> النجيلة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> فوكة</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> مارينا</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> جرين بيتش</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> سان ستيفانو</div>
+                    <div class="area-tag"><i class="fas fa-map-pin icon"></i> كريستال بيتش</div>
                 </div>
-
-                <div class="form-group">
-                    <label for="address">العنوان</label>
-                    <input type="text" id="address" placeholder="شارع، رقم المبنى، الحي">
-                </div>
-
-                <div class="form-group">
-                    <label for="area">
-                        المنطقة <span class="required">*</span>
-                        <button type="button" class="gps-btn" id="gpsBtn">
-                            <i class="fas fa-location-dot"></i> تحديد الموقع
-                        </button>
-                    </label>
-                    <select id="area" required>
-                        <option value="">-- اختر المنطقة --</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="problem">وصف المشكلة</label>
-                    <textarea id="problem" placeholder="صف المشكلة بالتفصيل (اختياري)"></textarea>
-                </div>
-
-                <button type="submit" class="btn-primary btn-submit" id="submitBtn">
-                    <span class="btn-text"><i class="fas fa-paper-plane"></i> إرسال الطلب</span>
-                    <span class="spinner"></span>
-                </button>
-
-                <div class="form-success" id="formSuccess">
-                    <div class="icon"><i class="fas fa-check-circle"></i></div>
-                    <h3>تم إرسال طلبك بنجاح!</h3>
-                    <p>سنقوم بالتواصل معك خلال 30 دقيقة. شكراً لثقتك بـ TopLoad.</p>
-                    <a href="index.html" class="btn-secondary" style="margin-top:15px;display:inline-block;padding:10px 30px;font-size:0.9rem;">
-                        <i class="fas fa-arrow-right"></i> العودة للرئيسية
-                    </a>
-                </div>
-            </form>
+            </div>
         </div>
-    </main>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">آراء العملاء</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">ما يقوله عملاؤنا عن خدماتنا</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text">"خدمة ممتازة وسريعة، الفني وصل في نفس اليوم واصلح الغسالة في وقت قياسي. أنصح الجميع بـ TopLoad."</p>
+                    <div class="author">
+                        <div class="avatar">أ</div>
+                        <div class="info">
+                            <div class="name">أحمد محمد</div>
+                            <div class="role">المنتزه - الاسكندرية</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text">"قمت بالتواصل معهم لصيانة غسالة في فيلتي بمراسى، كانوا محترفين جداً وسعر مناسب. شكراً TopLoad."</p>
+                    <div class="author">
+                        <div class="avatar">ن</div>
+                        <div class="info">
+                            <div class="name">نادين خالد</div>
+                            <div class="role">مراسى - الساحل الشمالي</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text">"فني محترف وخلوق، شرح لي المشكلة بالتفصيل واصلحها في نفس اليوم. سعر معقول جداً مقارنة بغيرهم."</p>
+                    <div class="author">
+                        <div class="avatar">س</div>
+                        <div class="info">
+                            <div class="name">سارة علي</div>
+                            <div class="role">سموحة - الاسكندرية</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA BANNER ===== -->
+    <section class="cta-banner" data-aos="fade-up">
+        <div class="container">
+            <h2>جاهز لطلب الصيانة؟</h2>
+            <p>احصل على خدمة احترافية خلال 30 دقيقة في جميع مناطق الاسكندرية والساحل الشمالي</p>
+            <a href="send_request.html" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> اطلب الصيانة الآن
+            </a>
+        </div>
+    </section>
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
-            <p>© 2025 <a href="index.html">TopLoad</a> - صيانة غسالات الاسكندرية والساحل الشمالي</p>
+            <div class="brand">
+                <img src="logo.png" alt="TopLoad Logo" onerror="this.style.display='none'">
+                <span class="brand-text">TopLoad</span>
+            </div>
+            <div class="contact-info">
+                <a href="tel:01021508336"><i class="fas fa-phone"></i> 01021508336</a>
+                <a href="https://wa.me/201021508336" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+                <span><i class="fas fa-map-marker-alt"></i> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</span>
+                <span><i class="fas fa-clock"></i> 9 صباحاً - 11 مساءً</span>
+            </div>
+            <p>© 2025 جميع الحقوق محفوظة - صيانة غسالات الاسكندرية والساحل الشمالي</p>
         </div>
     </footer>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/201021508336" target="_blank" class="floating-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="tooltip">واتساب</span>
+        </a>
+        <a href="tel:01021508336" class="floating-btn phone">
+            <i class="fas fa-phone"></i>
+            <span class="tooltip">اتصل الآن</span>
+        </a>
+        <a href="send_request.html" class="floating-btn request">
+            <i class="fas fa-tools"></i>
+            <span class="tooltip">طلب صيانة</span>
+        </a>
+    </div>
 
     <!-- ===== SCRIPTS ===== -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -499,10 +1476,51 @@
         // =====================================================
         // 1. AOS
         // =====================================================
-        AOS.init({ once: true, duration: 800 });
+        AOS.init({ once: true, duration: 800, offset: 80 });
 
         // =====================================================
-        // 2. Particles
+        // 2. Progress Bar
+        // =====================================================
+        const progressBar = document.getElementById('progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+
+        // =====================================================
+        // 3. Navbar Scroll Effect
+        // =====================================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // =====================================================
+        // 4. Hamburger Menu
+        // =====================================================
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // =====================================================
+        // 5. Particles
         // =====================================================
         (function initParticles() {
             const canvas = document.getElementById('particles-canvas');
@@ -543,206 +1561,98 @@
                 }
             }
 
-            const count = Math.min(80, Math.floor((w * h) / 15000));
+            const count = Math.min(100, Math.floor((w * h) / 15000));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
+            }
+
+            function drawLines() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(255, 215, 0, ${0.08 * (1 - dist/150)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
             }
 
             function animate() {
                 ctx.clearRect(0, 0, w, h);
                 particles.forEach(p => { p.update(); p.draw(); });
+                drawLines();
                 requestAnimationFrame(animate);
             }
             animate();
         })();
 
         // =====================================================
-        // 3. Areas List
+        // 6. Count Up
         // =====================================================
-        const AREAS = [
-            // Alexandria - East
-            'المنتزه', 'سيدي بشر', 'ميامي', 'كليوباترا', 'الشاطبي',
-            'الابراهيمية', 'زيزينيا', 'سبورتنج', 'سموحة', 'كامب شيزار',
-            'جناكليس', 'فيكتوريا', 'الرمل',
-            // Alexandria - West
-            'بحري', 'العجمي', 'محرم بك', 'القباري', 'الدخيلة',
-            'العامرية', 'برج العرب', 'الورديان',
-            // Alexandria - Central / North
-            'الظاهرية', 'العطارين', 'المنشية', 'الحضرة', 'السيوف',
-            'الانفوشي', 'القلعة', 'كوم الدكة',
-            // North Coast
-            'مراسى', 'العلمين', 'سيدي عبد الرحمن', 'رأس الحكمة',
-            'الضبعة', 'الحمام', 'مطروح', 'السلوم', 'سيدي براني',
-            'النجيلة', 'فوكة', 'مارينا', 'جرين بيتش', 'سان ستيفانو',
-            'كريستال بيتش'
-        ];
+        (function initCountUp() {
+            const counters = document.querySelectorAll('.hero-stat .number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = parseFloat(el.getAttribute('data-count'));
+                        if (isNaN(target)) return;
+                        const duration = 2000;
+                        const startTime = performance.now();
 
-        const areaSelect = document.getElementById('area');
-        AREAS.forEach(area => {
-            const opt = document.createElement('option');
-            opt.value = area;
-            opt.textContent = area;
-            areaSelect.appendChild(opt);
-        });
+                        function updateCount(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = eased * target;
 
-        // =====================================================
-        // 4. Supabase
-        // =====================================================
-        const SUPABASE_URL = 'https://uzcllseejydmpwzsygjp.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
-
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // =====================================================
-        // 5. Toast
-        // =====================================================
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + type + ' show';
-            clearTimeout(toast._hideTimeout);
-            toast._hideTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 4500);
-        }
-
-        // =====================================================
-        // 6. GPS Location
-        // =====================================================
-        const gpsBtn = document.getElementById('gpsBtn');
-
-        gpsBtn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            icon.className = 'fas fa-spinner fa-spin';
-
-            if (!navigator.geolocation) {
-                showToast('متصفحك لا يدعم تحديد الموقع', 'error');
-                icon.className = 'fas fa-location-dot';
-                return;
-            }
-
-            navigator.geolocation.getCurrentPosition(
-                async (pos) => {
-                    const { latitude, longitude } = pos.coords;
-                    try {
-                        const resp = await fetch(
-                            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar`
-                        );
-                        const data = await resp.json();
-                        let matchedArea = '';
-                        let locationName = '';
-
-                        if (data && data.address) {
-                            const parts = [];
-                            if (data.address.city) parts.push(data.address.city);
-                            if (data.address.town) parts.push(data.address.town);
-                            if (data.address.village) parts.push(data.address.village);
-                            if (data.address.suburb) parts.push(data.address.suburb);
-                            if (data.address.road) parts.push(data.address.road);
-                            locationName = parts.join(' - ') || data.display_name || 'موقعك الحالي';
-
-                            for (const area of AREAS) {
-                                if (locationName.includes(area)) {
-                                    matchedArea = area;
-                                    break;
-                                }
+                            if (Number.isInteger(target)) {
+                                el.textContent = Math.floor(current);
+                            } else {
+                                el.textContent = current.toFixed(1);
                             }
 
-                            if (!matchedArea) {
-                                for (const area of AREAS) {
-                                    if (locationName.includes(area.substring(0, 3))) {
-                                        matchedArea = area;
-                                        break;
-                                    }
-                                }
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                el.textContent = target;
                             }
                         }
-
-                        if (matchedArea) {
-                            document.getElementById('area').value = matchedArea;
-                            showToast(`✅ تم تحديد منطقتك: ${matchedArea}`, 'success');
-                        } else {
-                            showToast('📍 تعذر تحديد المنطقة، اخترها يدوياً', 'info');
-                        }
-                    } catch (e) {
-                        showToast('❌ حدث خطأ في تحديد الموقع', 'error');
+                        requestAnimationFrame(updateCount);
+                        observer.unobserve(el);
                     }
-                    icon.className = 'fas fa-location-dot';
-                },
-                () => {
-                    showToast('يرجى السماح بتحديد الموقع أو اختيار المنطقة يدوياً', 'info');
-                    icon.className = 'fas fa-location-dot';
-                },
-                { enableHighAccuracy: true, timeout: 10000 }
-            );
-        });
-
-        // Try auto-location after 2 seconds
-        setTimeout(() => gpsBtn.click(), 2000);
-
-        // =====================================================
-        // 7. Form Submit to Supabase
-        // =====================================================
-        const form = document.getElementById('requestForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const successDiv = document.getElementById('formSuccess');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const fullName = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const area = document.getElementById('area').value;
-            const problem = document.getElementById('problem').value.trim();
-
-            if (!fullName || !phone || !area) {
-                showToast('⚠️ الاسم ورقم التليفون والمنطقة مطلوبة', 'error');
-                return;
-            }
-
-            if (phone.length < 10) {
-                showToast('⚠️ رقم التليفون غير صحيح', 'error');
-                return;
-            }
-
-            submitBtn.classList.add('loading');
-            submitBtn.disabled = true;
-            successDiv.classList.remove('show');
-
-            try {
-                const { data, error } = await supabase
-                    .from('maintenance_requests')
-                    .insert([{
-                        full_name: fullName,
-                        phone: phone,
-                        address: address || null,
-                        area: area,
-                        problem_description: problem || null,
-                        status: 'جديد',
-                        created_at: new Date().toISOString()
-                    }])
-                    .select();
-
-                if (error) throw error;
-
-                successDiv.classList.add('show');
-                showToast('✅ تم إرسال طلبك بنجاح!', 'success');
-                form.querySelectorAll('input, textarea, select').forEach(el => {
-                    if (el.type !== 'submit') el.value = '';
                 });
+            }, { threshold: 0.5 });
+            counters.forEach(c => observer.observe(c));
+        })();
 
-            } catch (err) {
-                console.error('Supabase Error:', err);
-                showToast('❌ حدث خطأ أثناء الإرسال، حاول مرة أخرى', 'error');
-            } finally {
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-            }
+        // =====================================================
+        // 7. Smooth Scroll
+        // =====================================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
         });
 
-        console.log('📝 TopLoad - صفحة طلب الصيانة');
-        console.log('📍 مناطق مخدومة:', AREAS.length);
+        console.log('🚀 TopLoad - الصفحة الرئيسية');
+        console.log('📍 30+ منطقة مخدومة');
+        console.log('📞 01021508336');
     </script>
 </body>
 </html>
