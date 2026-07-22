@@ -5,22 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي</title>
     <meta name="description" content="أفضل خدمة صيانة غسالات في الاسكندرية والساحل الشمالي. نخدم جميع المناطق: المنتزه، سموحة، سيدي بشر، مراسى، العلمين والمزيد. اتصل الآن: 01021508336">
-    <meta name="keywords" content="صيانة غسالات بالاسكندرية, تصليح غسالات, فني غسالات, مركز صيانة غسالات, صيانة غسالات اوتوماتيك, صيانة غسالات المنتزه, صيانة غسالات سموحة, صيانة غسالات مراسى">
-    <link rel="canonical" href="https://topload-maintenance.com">
+    <meta name="keywords" content="صيانة غسالات بالاسكندرية, تصليح غسالات, فني غسالات, مركز صيانة غسالات, صيانة غسالات اوتوماتيك">
     
     <!-- Open Graph -->
     <meta property="og:title" content="TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي">
     <meta property="og:description" content="خدمة صيانة غسالات محترفة في جميع مناطق الاسكندرية والساحل الشمالي">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://topload-maintenance.com">
     
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         /* ===== CSS Variables ===== */
@@ -101,6 +96,125 @@
             pointer-events: none;
         }
 
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 15px 0;
+            background: rgba(10, 17, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 17, 40, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar .logo i {
+            -webkit-text-fill-color: var(--gold);
+            margin-left: 8px;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .navbar .nav-links a {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .navbar .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .nav-links .btn-nav {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: var(--primary-dark);
+            border-radius: 50px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .navbar .nav-links .btn-nav:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .navbar .nav-links .btn-nav::after {
+            display: none;
+        }
+
+        .navbar .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .navbar .hamburger span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #fff;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .navbar .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .navbar .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .navbar .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
         /* ===== Section Titles ===== */
         .section-title {
             font-size: 2.8rem;
@@ -160,10 +274,6 @@
             box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
         }
 
-        .btn-primary:active {
-            transform: scale(0.95);
-        }
-
         .btn-secondary {
             display: inline-block;
             padding: 14px 35px;
@@ -184,7 +294,7 @@
             transform: translateY(-3px);
         }
 
-        /* ===== HERO SECTION ===== */
+        /* ===== HERO ===== */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -193,7 +303,7 @@
             justify-content: center;
             text-align: center;
             z-index: 1;
-            padding: 100px 20px 80px;
+            padding: 120px 20px 80px;
             overflow: hidden;
         }
 
@@ -378,14 +488,6 @@
             font-size: 0.95rem;
         }
 
-        .feature-card .count-up {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--gold);
-            display: block;
-            margin-top: 15px;
-        }
-
         /* ===== Services ===== */
         .services {
             padding: 100px 0;
@@ -440,12 +542,7 @@
             margin-bottom: 20px;
         }
 
-        .service-card .btn-service {
-            padding: 10px 30px;
-            font-size: 0.9rem;
-        }
-
-        /* ===== Areas Section ===== */
+        /* ===== Areas ===== */
         .areas {
             padding: 100px 0;
             position: relative;
@@ -454,7 +551,7 @@
 
         .areas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
             margin-top: 40px;
         }
@@ -580,173 +677,68 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* ===== Contact Form ===== */
-        .contact {
-            padding: 100px 0;
+        /* ===== CTA Banner ===== */
+        .cta-banner {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.3), rgba(255, 107, 53, 0.1));
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .cta-banner h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .cta-banner p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 50px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 1;
         }
 
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        .contact-info h3 {
+        .footer .brand {
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .contact-info p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 25px;
-        }
-
-        .contact-detail {
+        .footer .contact-info {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
-
-        .contact-detail .icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            color: var(--gold);
-            font-size: 1.1rem;
-            flex-shrink: 0;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 15px 0;
         }
 
-        .contact-detail .text {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .contact-detail .text strong {
-            color: #fff;
-        }
-
-        .contact-form {
-            padding: 40px;
-        }
-
-        .contact-form .form-group {
-            margin-bottom: 20px;
-        }
-
-        .contact-form label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .contact-form input,
-        .contact-form select,
-        .contact-form textarea {
-            width: 100%;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            font-family: 'Cairo', sans-serif;
+        .footer .contact-info a {
+            color: rgba(255, 255, 255, 0.6);
             transition: var(--transition);
-            outline: none;
         }
 
-        .contact-form input:focus,
-        .contact-form select:focus,
-        .contact-form textarea:focus {
-            border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
+        .footer .contact-info a:hover {
+            color: var(--gold);
         }
 
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .contact-form select option {
-            background: var(--primary-dark);
-            color: #fff;
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .contact-form .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .contact-form .btn-submit {
-            width: 100%;
-            padding: 16px;
-            font-size: 1.1rem;
-            position: relative;
-        }
-
-        .contact-form .btn-submit .spinner {
-            display: none;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(10, 17, 40, 0.2);
-            border-top: 3px solid var(--primary-dark);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-form .btn-submit.loading .spinner {
-            display: block;
-        }
-
-        .contact-form .btn-submit.loading .btn-text {
-            display: none;
-        }
-
-        .contact-form .btn-submit.loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .form-success {
-            display: none;
-            padding: 20px;
-            background: rgba(46, 204, 113, 0.15);
-            border: 1px solid #2ecc71;
-            border-radius: 12px;
-            text-align: center;
-            color: #2ecc71;
-            margin-top: 15px;
-        }
-
-        .form-success.show {
-            display: block;
-            animation: fadeUp 0.5s ease;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
 
         /* ===== Floating Buttons ===== */
@@ -826,89 +818,6 @@
             opacity: 1;
         }
 
-        /* ===== Footer ===== */
-        .footer {
-            padding: 50px 0 30px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer .brand {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--gold), var(--orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer p {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 992px) {
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            .hero-stats {
-                gap: 20px;
-            }
-            .hero-stat .number {
-                font-size: 1.8rem;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .contact-form .form-row {
-                grid-template-columns: 1fr;
-            }
-            .floating-buttons {
-                left: 10px;
-                bottom: 20px;
-            }
-            .floating-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-            .floating-btn .tooltip {
-                display: none;
-            }
-            .areas-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                text-align: center;
-                padding: 14px 20px;
-            }
-            .contact-form {
-                padding: 20px;
-            }
-        }
-
         /* ===== News Ticker ===== */
         .news-ticker {
             background: rgba(255, 215, 0, 0.05);
@@ -918,12 +827,13 @@
             overflow: hidden;
             position: relative;
             z-index: 1;
+            margin-top: 80px;
         }
 
         .news-ticker .ticker-content {
             display: inline-block;
             white-space: nowrap;
-            animation: ticker-scroll 30s linear infinite;
+            animation: ticker-scroll 35s linear infinite;
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
         }
@@ -941,7 +851,7 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* ===== Toast Notification ===== */
+        /* ===== Toast ===== */
         .toast {
             position: fixed;
             top: 20px;
@@ -973,17 +883,96 @@
             background: linear-gradient(135deg, var(--primary-blue), #0A1128);
             border: 1px solid var(--gold);
         }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 992px) {
+            .navbar .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: rgba(10, 17, 40, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px;
+                transition: var(--transition);
+                border-left: 1px solid var(--glass-border);
+            }
+
+            .navbar .nav-links.open {
+                right: 0;
+            }
+
+            .navbar .hamburger {
+                display: flex;
+                z-index: 1000;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .hero-stat .number {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .floating-buttons {
+                left: 10px;
+                bottom: 20px;
+            }
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            .floating-btn .tooltip {
+                display: none;
+            }
+            .areas-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            .footer .contact-info {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
+            }
+            .cta-banner h2 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Progress Bar -->
+    <!-- ===== PROGRESS BAR ===== -->
     <div id="progress-bar"></div>
 
-    <!-- Particles Canvas -->
+    <!-- ===== PARTICLES ===== -->
     <canvas id="particles-canvas"></canvas>
 
-    <!-- Floating Shapes -->
+    <!-- ===== FLOATING SHAPES ===== -->
     <div class="floating-shapes">
         <div class="shape"></div>
         <div class="shape"></div>
@@ -993,8 +982,31 @@
     <!-- ===== TOAST ===== -->
     <div id="toast" class="toast"></div>
 
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-wrench"></i> TopLoad
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">الخدمات</a></li>
+                <li><a href="#areas">المناطق</a></li>
+                <li><a href="#testimonials">آراء العملاء</a></li>
+                <li><a href="send_request.html" class="btn-nav">
+                    <i class="fas fa-paper-plane"></i> طلب صيانة
+                </a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
     <!-- ===== NEWS TICKER ===== -->
-    <div class="news-ticker">
+    <div class="news-ticker" style="margin-top:0;">
         <div class="container" style="overflow:hidden; white-space:nowrap;">
             <div class="ticker-content">
                 <span>🏆 <span class="highlight">TopLoad</span> - أفضل خدمة صيانة غسالات في الاسكندرية</span>
@@ -1002,6 +1014,7 @@
                 <span>📍 نخدم <span class="highlight">30+</span> منطقة في الاسكندرية والساحل الشمالي</span>
                 <span>⏱️ الرد خلال <span class="highlight">30 دقيقة</span> - خدمة سريعة وموثوقة</span>
                 <span>⭐ تقييم <span class="highlight">4.9/5</span> من أكثر من 500 عميل</span>
+                <span>🔧 صيانة جميع أنواع الغسالات - أوتوماتيك، نصف أوتوماتيك، هوجن</span>
             </div>
         </div>
     </div>
@@ -1021,7 +1034,7 @@
                 وأكثر من 30 منطقة أخرى. خدمة سريعة واحترافية بأسعار تنافسية.
             </p>
             <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">
+                <a href="send_request.html" class="btn-primary">
                     <i class="fas fa-paper-plane"></i> اطلب الصيانة الآن
                 </a>
                 <a href="tel:01021508336" class="btn-secondary">
@@ -1060,29 +1073,21 @@
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <h3>خدمة سريعة</h3>
                     <p>الرد على طلبك خلال 30 دقيقة وزيارة فورية</p>
-                    <span class="count-up" data-count="30">0</span>
-                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">دقيقة للرد</span>
                 </div>
                 <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="100">
                     <div class="icon"><i class="fas fa-map-marked-alt"></i></div>
                     <h3>تغطية شاملة</h3>
                     <p>نخدم جميع مناطق الاسكندرية والساحل الشمالي</p>
-                    <span class="count-up" data-count="30">0</span>
-                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">منطقة مخدومة</span>
                 </div>
                 <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="200">
                     <div class="icon"><i class="fas fa-user-check"></i></div>
                     <h3>فنيين محترفين</h3>
                     <p>فريق مدرب بخبرة عالية في جميع أنواع الغسالات</p>
-                    <span class="count-up" data-count="15">0</span>
-                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">فني متخصص</span>
                 </div>
                 <div class="feature-card glass-card" data-aos="flip-up" data-aos-delay="300">
                     <div class="icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>ضمان شامل</h3>
                     <p>ضمان على جميع خدمات الصيانة وقطع الغيار</p>
-                    <span class="count-up" data-count="12">0</span>
-                    <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;">شهر ضمان</span>
                 </div>
             </div>
         </div>
@@ -1099,25 +1104,25 @@
                     <span class="icon"><i class="fas fa-wrench"></i></span>
                     <h3>صيانة عامة</h3>
                     <p>إصلاح جميع الأعطال الشائعة في الغسالات الأوتوماتيك والنصف أوتوماتيك</p>
-                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
                 </div>
                 <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="100">
                     <span class="icon"><i class="fas fa-tint"></i></span>
                     <h3>تسريب مياه</h3>
                     <p>حل مشاكل تسريب المياه من الغسالة وفحص الخراطيم والمضخات</p>
-                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
                 </div>
                 <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="200">
                     <span class="icon"><i class="fas fa-bolt"></i></span>
                     <h3>مشاكل كهربائية</h3>
                     <p>إصلاح الأعطال الكهربائية والموتور واللوحة الإلكترونية</p>
-                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
                 </div>
                 <div class="service-card glass-card" data-aos="zoom-in" data-aos-delay="300">
                     <span class="icon"><i class="fas fa-sync-alt"></i></span>
                     <h3>قطع غيار أصلية</h3>
                     <p>توفير جميع قطع الغيار الأصلية بأسعار تنافسية</p>
-                    <a href="#contact" class="btn-primary btn-service">اطلب الخدمة</a>
+                    <a href="send_request.html" class="btn-primary" style="padding:12px 30px;font-size:0.9rem;">اطلب الخدمة</a>
                 </div>
             </div>
         </div>
@@ -1266,91 +1271,28 @@
         </div>
     </section>
 
-    <!-- ===== CONTACT / FORM ===== -->
-    <section class="contact" id="contact">
+    <!-- ===== CTA BANNER ===== -->
+    <section class="cta-banner" data-aos="fade-up">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">اطلب الصيانة الآن</h2>
-            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">املأ النموذج وسنقوم بالرد عليك خلال 30 دقيقة</p>
-            
-            <div class="contact-wrapper">
-                <div class="contact-info" data-aos="fade-left">
-                    <h3>تواصل معنا</h3>
-                    <p>نحن هنا لمساعدتك في أي وقت. اتصل بنا أو املأ النموذج وسنكون سعداء بخدمتك.</p>
-                    
-                    <div class="contact-detail">
-                        <div class="icon"><i class="fas fa-phone"></i></div>
-                        <div class="text"><strong>الهاتف:</strong> <a href="tel:01021508336" style="color:var(--gold);">01021508336</a></div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="icon"><i class="fas fa-whatsapp"></i></div>
-                        <div class="text"><strong>واتساب:</strong> <a href="https://wa.me/201021508336" target="_blank" style="color:#25D366;">01021508336</a></div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="text"><strong>العنوان:</strong> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</div>
-                    </div>
-                    <div class="contact-detail">
-                        <div class="icon"><i class="fas fa-clock"></i></div>
-                        <div class="text"><strong>ساعات العمل:</strong> 9 صباحاً - 11 مساءً (جميع الأيام)</div>
-                    </div>
-
-                    <div style="margin-top:30px;padding:20px;background:var(--glass-bg);border-radius:12px;border:1px solid var(--glass-border);">
-                        <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);">
-                            <i class="fas fa-check-circle" style="color:var(--gold);"></i> 
-                            نخدم جميع مناطق الاسكندرية والساحل الشمالي
-                        </p>
-                        <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);margin-top:5px;">
-                            <i class="fas fa-check-circle" style="color:var(--gold);"></i> 
-                            ضمان على جميع الخدمات لمدة 12 شهر
-                        </p>
-                    </div>
-                </div>
-
-                <form class="contact-form glass-card" id="requestForm" data-aos="fade-right" novalidate>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="fullName"><i class="fas fa-user" style="color:var(--gold);"></i> الاسم كاملاً *</label>
-                            <input type="text" id="fullName" placeholder="أدخل اسمك" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone"><i class="fas fa-phone" style="color:var(--gold);"></i> رقم التليفون *</label>
-                            <input type="tel" id="phone" placeholder="مثال: 01012345678" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="address"><i class="fas fa-home" style="color:var(--gold);"></i> العنوان</label>
-                        <input type="text" id="address" placeholder="شارع، رقم المبنى، الحي">
-                    </div>
-                    <div class="form-group">
-                        <label for="area"><i class="fas fa-map-pin" style="color:var(--gold);"></i> المنطقة *</label>
-                        <select id="area" required>
-                            <option value="">-- اختر المنطقة --</option>
-                            <!-- Populated by JS -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="problem"><i class="fas fa-tools" style="color:var(--gold);"></i> وصف المشكلة</label>
-                        <textarea id="problem" placeholder="صف المشكلة بالتفصيل"></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary btn-submit" id="submitBtn">
-                        <span class="btn-text"><i class="fas fa-paper-plane"></i> إرسال الطلب</span>
-                        <span class="spinner"></span>
-                    </button>
-                    <div class="form-success" id="formSuccess">
-                        <i class="fas fa-check-circle" style="font-size:2rem;"></i>
-                        <p style="margin-top:10px;">تم إرسال طلبك بنجاح! سنقوم بالتواصل معك خلال 30 دقيقة.</p>
-                    </div>
-                </form>
-            </div>
+            <h2>جاهز لطلب الصيانة؟</h2>
+            <p>احصل على خدمة احترافية خلال 30 دقيقة في جميع مناطق الاسكندرية والساحل الشمالي</p>
+            <a href="send_request.html" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> اطلب الصيانة الآن
+            </a>
         </div>
     </section>
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
-            <div class="brand">TopLoad</div>
-            <p>صيانة غسالات - الاسكندرية والساحل الشمالي</p>
-            <p style="margin-top:5px;font-size:0.8rem;">© 2025 جميع الحقوق محفوظة</p>
+            <div class="brand"><i class="fas fa-wrench"></i> TopLoad</div>
+            <div class="contact-info">
+                <a href="tel:01021508336"><i class="fas fa-phone"></i> 01021508336</a>
+                <a href="https://wa.me/201021508336" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+                <span><i class="fas fa-map-marker-alt"></i> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</span>
+                <span><i class="fas fa-clock"></i> 9 صباحاً - 11 مساءً</span>
+            </div>
+            <p>© 2025 جميع الحقوق محفوظة - صيانة غسالات الاسكندرية والساحل الشمالي</p>
         </div>
     </footer>
 
@@ -1364,7 +1306,7 @@
             <i class="fas fa-phone"></i>
             <span class="tooltip">اتصل الآن</span>
         </a>
-        <a href="#contact" class="floating-btn request">
+        <a href="send_request.html" class="floating-btn request">
             <i class="fas fa-tools"></i>
             <span class="tooltip">طلب صيانة</span>
         </a>
@@ -1374,16 +1316,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // =====================================================
-        // 1. AOS Initialization
+        // 1. AOS
         // =====================================================
-        AOS.init({
-            once: true,
-            duration: 800,
-            offset: 80,
-        });
+        AOS.init({ once: true, duration: 800, offset: 80 });
 
         // =====================================================
-        // 2. Scroll Progress Bar
+        // 2. Progress Bar
         // =====================================================
         const progressBar = document.getElementById('progress-bar');
         window.addEventListener('scroll', () => {
@@ -1394,7 +1332,38 @@
         });
 
         // =====================================================
-        // 3. Particles Background
+        // 3. Navbar Scroll Effect
+        // =====================================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // =====================================================
+        // 4. Hamburger Menu
+        // =====================================================
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // =====================================================
+        // 5. Particles
         // =====================================================
         (function initParticles() {
             const canvas = document.getElementById('particles-canvas');
@@ -1468,11 +1437,10 @@
         })();
 
         // =====================================================
-        // 4. Count Up Animation (Intersection Observer)
+        // 6. Count Up
         // =====================================================
         (function initCountUp() {
-            const counters = document.querySelectorAll('.count-up, .hero-stat .number');
-            
+            const counters = document.querySelectorAll('.hero-stat .number');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1481,19 +1449,19 @@
                         if (isNaN(target)) return;
                         const duration = 2000;
                         const startTime = performance.now();
-                        
+
                         function updateCount(currentTime) {
                             const elapsed = currentTime - startTime;
                             const progress = Math.min(elapsed / duration, 1);
                             const eased = 1 - Math.pow(1 - progress, 3);
                             const current = eased * target;
-                            
+
                             if (Number.isInteger(target)) {
                                 el.textContent = Math.floor(current);
                             } else {
                                 el.textContent = current.toFixed(1);
                             }
-                            
+
                             if (progress < 1) {
                                 requestAnimationFrame(updateCount);
                             } else {
@@ -1505,215 +1473,28 @@
                     }
                 });
             }, { threshold: 0.5 });
-            
             counters.forEach(c => observer.observe(c));
         })();
 
         // =====================================================
-        // 5. Areas List (for dropdown and display)
-        // =====================================================
-        const AREAS = [
-            // Alexandria - East
-            'المنتزه', 'سيدي بشر', 'ميامي', 'كليوباترا', 'الشاطبي',
-            'الابراهيمية', 'زيزينيا', 'سبورتنج', 'سموحة', 'كامب شيزار',
-            'جناكليس', 'فيكتوريا', 'الرمل',
-            // Alexandria - West
-            'بحري', 'العجمي', 'محرم بك', 'القباري', 'الدخيلة',
-            'العامرية', 'برج العرب', 'الورديان',
-            // Alexandria - Central / North
-            'الظاهرية', 'العطارين', 'المنشية', 'الحضرة', 'السيوف',
-            'الانفوشي', 'القلعة', 'كوم الدكة',
-            // North Coast
-            'مراسى', 'العلمين', 'سيدي عبد الرحمن', 'رأس الحكمة',
-            'الضبعة', 'الحمام', 'مطروح', 'السلوم', 'سيدي براني',
-            'النجيلة', 'فوكة', 'مارينا', 'جرين بيتش', 'سان ستيفانو',
-            'كريستال بيتش'
-        ];
-
-        // Populate select dropdown
-        const areaSelect = document.getElementById('area');
-        AREAS.forEach(area => {
-            const opt = document.createElement('option');
-            opt.value = area;
-            opt.textContent = area;
-            areaSelect.appendChild(opt);
-        });
-
-        // =====================================================
-        // 6. Supabase Configuration
-        // =====================================================
-        const SUPABASE_URL = 'https://uzcllseejydmpwzsygjp.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
-
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // =====================================================
-        // 7. Toast Notification
-        // =====================================================
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + type + ' show';
-            clearTimeout(toast._hideTimeout);
-            toast._hideTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 4500);
-        }
-
-        // =====================================================
-        // 8. Form Submission with Supabase
-        // =====================================================
-        const form = document.getElementById('requestForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const successDiv = document.getElementById('formSuccess');
-
-        // GPS Location (get area from coordinates - simplified)
-        function getLocation() {
-            if (!navigator.geolocation) {
-                showToast('متصفحك لا يدعم تحديد الموقع', 'error');
-                return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                async (pos) => {
-                    const { latitude, longitude } = pos.coords;
-                    try {
-                        // Reverse geocode using OpenStreetMap Nominatim
-                        const resp = await fetch(
-                            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar`
-                        );
-                        const data = await resp.json();
-                        if (data && data.address) {
-                            const parts = [];
-                            if (data.address.city) parts.push(data.address.city);
-                            if (data.address.town) parts.push(data.address.town);
-                            if (data.address.village) parts.push(data.address.village);
-                            if (data.address.suburb) parts.push(data.address.suburb);
-                            if (data.address.road) parts.push(data.address.road);
-                            const locationName = parts.join(' - ') || data.display_name || 'موقعك الحالي';
-                            
-                            // Try to match with AREAS list
-                            let matchedArea = '';
-                            for (const area of AREAS) {
-                                if (locationName.includes(area)) {
-                                    matchedArea = area;
-                                    break;
-                                }
-                            }
-                            if (matchedArea) {
-                                document.getElementById('area').value = matchedArea;
-                                showToast(`تم تحديد منطقتك: ${matchedArea}`, 'success');
-                            } else {
-                                // Try to find by partial match
-                                const areaNames = AREAS.join(' ');
-                                for (const area of AREAS) {
-                                    if (areaNames.includes(area) && locationName.includes(area.substring(0, 3))) {
-                                        document.getElementById('area').value = area;
-                                        showToast(`تم تحديد منطقتك: ${area}`, 'success');
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    } catch (e) {
-                        showToast('تعذر تحديد المنطقة تلقائياً، اخترها يدوياً', 'error');
-                    }
-                },
-                () => {
-                    showToast('يرجى السماح بتحديد الموقع أو اختيار المنطقة يدوياً', 'info');
-                },
-                { enableHighAccuracy: true, timeout: 10000 }
-            );
-        }
-
-        // Try to get location on page load (after a moment)
-        setTimeout(getLocation, 1500);
-
-        // Manual GPS button (click on the area select label icon)
-        document.querySelector('label[for="area"] i')?.addEventListener('click', getLocation);
-
-        // Form submit
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Get values
-            const fullName = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const area = document.getElementById('area').value;
-            const problem = document.getElementById('problem').value.trim();
-
-            // Validate
-            if (!fullName || !phone || !area) {
-                showToast('الاسم ورقم التليفون والمنطقة مطلوبة', 'error');
-                return;
-            }
-
-            if (phone.length < 10) {
-                showToast('رقم التليفون غير صحيح', 'error');
-                return;
-            }
-
-            // Loading state
-            submitBtn.classList.add('loading');
-            submitBtn.disabled = true;
-            successDiv.classList.remove('show');
-
-            try {
-                const { data, error } = await supabase
-                    .from('maintenance_requests')
-                    .insert([{
-                        full_name: fullName,
-                        phone: phone,
-                        address: address || null,
-                        area: area,
-                        problem_description: problem || null,
-                        status: 'جديد',
-                        created_at: new Date().toISOString()
-                    }])
-                    .select();
-
-                if (error) throw error;
-
-                // Success
-                successDiv.classList.add('show');
-                showToast('✅ تم إرسال طلبك بنجاح! سنتواصل معك خلال 30 دقيقة.', 'success');
-                form.reset();
-
-                // Reset success after 5 seconds
-                setTimeout(() => {
-                    successDiv.classList.remove('show');
-                }, 6000);
-
-            } catch (err) {
-                console.error('Supabase Error:', err);
-                showToast('❌ حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.', 'error');
-            } finally {
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-            }
-        });
-
-        // =====================================================
-        // 9. Smooth anchor scrolling
+        // 7. Smooth Scroll
         // =====================================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (href === '#') return;
                 e.preventDefault();
                 const target = document.querySelector(href);
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
                 }
             });
         });
 
-        // =====================================================
-        // 10. Log (optional: check connection)
-        // =====================================================
-        console.log('🚀 TopLoad - صيانة غسالات بالاسكندرية والساحل الشمالي');
-        console.log('📦 Supabase connected:', !!supabase);
-        console.log('📍 Areas count:', AREAS.length);
+        console.log('🚀 TopLoad - الصفحة الرئيسية');
+        console.log('📍 30+ منطقة مخدومة');
     </script>
 </body>
 </html>
