@@ -213,6 +213,7 @@
             gap: 8px;
         }
         .location-btn:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3); }
+        .location-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         
         .section-title {
             font-size: 2.5rem;
@@ -226,10 +227,50 @@
             margin: 0 auto;
         }
         
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .contact-btn:hover { transform: translateY(-3px) scale(1.02); }
+        
+        .floating-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 100px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .floating-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .floating-btn:hover { transform: scale(1.1); }
+        
         @media (max-width: 768px) {
             .section-title { font-size: 2rem; }
             .whatsapp-float { width: 56px; height: 56px; font-size: 28px; bottom: 20px; left: 20px; }
             .toast { right: 16px; left: 16px; max-width: none; }
+            .floating-buttons { bottom: 90px; left: 12px; }
+            .floating-btn { width: 48px; height: 48px; font-size: 22px; }
         }
     </style>
 </head>
@@ -252,12 +293,30 @@
                     <a href="#contact" class="text-gray-700 hover:text-[#F59E0B] font-semibold transition">اتصل بنا</a>
                 </div>
                 
-                <a href="#request" class="btn-primary text-sm px-6 py-3">
-                    <i class="fas fa-tools ml-2"></i>طلب صيانة
-                </a>
+                <div class="flex items-center gap-3">
+                    <a href="tel:01021508336" class="hidden sm:flex items-center gap-2 bg-[#0A2647] text-white px-4 py-2 rounded-xl hover:bg-[#1B3A6B] transition text-sm font-bold">
+                        <i class="fas fa-phone"></i> 01021508336
+                    </a>
+                    <a href="#request" class="btn-primary text-sm px-6 py-3">
+                        <i class="fas fa-tools ml-2"></i>طلب صيانة
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Floating Contact Buttons -->
+    <div class="floating-buttons">
+        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="floating-btn" style="background: #25D366;" title="واتساب">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tel:01021508336" class="floating-btn" style="background: #0A2647;" title="اتصال">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="#request" class="floating-btn" style="background: linear-gradient(135deg, #F59E0B, #FBBF24); color: #0A2647;" title="طلب صيانة">
+            <i class="fas fa-tools"></i>
+        </a>
+    </div>
 
     <!-- Main Content -->
     <main class="mt-20">
@@ -275,12 +334,15 @@
                     <p class="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
                         فنيين معتمدين • قطع غيار أصلية • ضمان 6 شهور • خدمة فورية
                     </p>
-                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <div class="flex flex-wrap justify-center items-center gap-4">
                         <a href="#request" class="btn-primary text-lg px-12 py-4">
                             <i class="fas fa-paper-plane ml-2"></i> اطلب صيانة الآن
                         </a>
-                        <a href="#services" class="btn-outline text-lg px-10 py-3.5">
-                            <i class="fas fa-arrow-left ml-2"></i> خدماتنا
+                        <a href="tel:01021508336" class="btn-outline text-lg px-10 py-3.5">
+                            <i class="fas fa-phone ml-2"></i> اتصل الآن
+                        </a>
+                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="btn-outline text-lg px-10 py-3.5" style="border-color: #25D366; color: #25D366;">
+                            <i class="fab fa-whatsapp ml-2"></i> واتساب
                         </a>
                     </div>
                     <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm opacity-80">
@@ -288,6 +350,21 @@
                         <span><i class="fas fa-check-circle text-[#F59E0B] ml-1"></i> ضمان 3 شهور على الخدمة</span>
                         <span><i class="fas fa-check-circle text-[#F59E0B] ml-1"></i> خدمة سريعة خلال 24 ساعة</span>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Contact Bar -->
+        <section class="py-4 bg-[#F59E0B] text-[#0A2647]">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center items-center gap-6 text-sm md:text-base font-bold">
+                    <span><i class="fas fa-clock ml-2"></i> متاحين 24 ساعة</span>
+                    <span>|</span>
+                    <a href="tel:01021508336" class="hover:underline"><i class="fas fa-phone ml-2"></i> 01021508336</a>
+                    <span>|</span>
+                    <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="hover:underline"><i class="fab fa-whatsapp ml-2"></i> واتساب</a>
+                    <span>|</span>
+                    <span><i class="fas fa-map-pin ml-2"></i> 14 شارع كنيسة الاورام، جناكليس</span>
                 </div>
             </div>
         </section>
@@ -330,21 +407,48 @@
                         <div class="service-icon"><i class="fas fa-washing-machine"></i></div>
                         <h3 class="text-xl font-bold mb-3 text-gray-800">غسالات أوتوماتيك</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">صيانة المحرك، الطرمبة، برامج الغسيل، تسريب المياه، لوحات التحكم</p>
+                        <div class="mt-4">
+                            <a href="tel:01021508336" class="text-[#F59E0B] font-bold text-sm hover:underline"><i class="fas fa-phone ml-1"></i> اتصل الآن</a>
+                        </div>
                     </div>
                     <div class="service-card">
                         <div class="service-icon"><i class="fas fa-water"></i></div>
                         <h3 class="text-xl font-bold mb-3 text-gray-800">غسالات نصف أوتوماتيك</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">تصليح أعطال المحرك، التايمر، طرمبة الصرف، صيانة الحلة الداخلية</p>
+                        <div class="mt-4">
+                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-[#25D366] font-bold text-sm hover:underline"><i class="fab fa-whatsapp ml-1"></i> واتساب</a>
+                        </div>
                     </div>
                     <div class="service-card">
                         <div class="service-icon"><i class="fas fa-microchip"></i></div>
                         <h3 class="text-xl font-bold mb-3 text-gray-800">لوحات إلكترونية</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">تصليح وصيانة لوحات التحكم الإلكترونية وبرمجتها</p>
+                        <div class="mt-4">
+                            <a href="#request" class="text-[#F59E0B] font-bold text-sm hover:underline"><i class="fas fa-pen ml-1"></i> طلب صيانة</a>
+                        </div>
                     </div>
                     <div class="service-card">
                         <div class="service-icon"><i class="fas fa-clock"></i></div>
                         <h3 class="text-xl font-bold mb-3 text-gray-800">خدمة طوارئ 24 ساعة</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">فريق جاهز للتحرك الفوري لأي عطل طارئ في جميع مناطق الاسكندرية</p>
+                        <div class="mt-4">
+                            <a href="tel:01021508336" class="text-red-500 font-bold text-sm hover:underline"><i class="fas fa-phone ml-1"></i> طوارئ</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact CTA after services -->
+                <div class="mt-12 text-center">
+                    <div class="inline-flex flex-wrap justify-center gap-4">
+                        <a href="tel:01021508336" class="contact-btn" style="background: #0A2647; color: white;">
+                            <i class="fas fa-phone"></i> اتصل بنا
+                        </a>
+                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%طلب%خدمة%صيانة%غسالات" target="_blank" class="contact-btn" style="background: #25D366; color: white;">
+                            <i class="fab fa-whatsapp"></i> واتساب
+                        </a>
+                        <a href="#request" class="contact-btn" style="background: var(--gradient-accent); color: var(--primary);">
+                            <i class="fas fa-paper-plane"></i> طلب صيانة
+                        </a>
                     </div>
                 </div>
             </div>
@@ -375,22 +479,34 @@
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-10 h-10 rounded-full bg-[#F59E0B]/20 flex items-center justify-center text-[#F59E0B]"><i class="fas fa-check"></i></div>
-                                <span>أسعار شفافة بدون رسوم خفية</span>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#F59E0B]/20 flex items-center justify-center text-[#F59E0B]"><i class="fas fa-check"></i></div>
                                 <span>خدمة سريعة في جميع مناطق الاسكندرية</span>
                             </div>
                         </div>
-                        <a href="#request" class="btn-primary mt-8 inline-block">
-                            <i class="fas fa-calendar-check ml-2"></i> احجز موعد الصيانة
-                        </a>
+                        <div class="flex flex-wrap gap-4 mt-8">
+                            <a href="#request" class="btn-primary inline-block">
+                                <i class="fas fa-calendar-check ml-2"></i> احجز موعد الصيانة
+                            </a>
+                            <a href="tel:01021508336" class="btn-outline inline-block">
+                                <i class="fas fa-phone ml-2"></i> اتصل بنا
+                            </a>
+                        </div>
                     </div>
                     <div class="lg:w-1/2">
                         <div class="glass-card p-4 rounded-3xl">
                             <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=1350&auto=format&fit=crop" 
                                  alt="فني صيانة غسالات في الاسكندرية" 
                                  class="rounded-2xl w-full shadow-2xl">
+                        </div>
+                        <!-- Contact buttons under image -->
+                        <div class="flex justify-center gap-4 mt-6">
+                            <a href="tel:01021508336" class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-white/20 transition">
+                                <i class="fas fa-phone text-[#F59E0B]"></i>
+                                <span>01021508336</span>
+                            </a>
+                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%طلب%خدمة%صيانة%غسالات" target="_blank" class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-white/20 transition">
+                                <i class="fab fa-whatsapp text-[#25D366]"></i>
+                                <span>واتساب</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -409,12 +525,12 @@
                     <div class="glass-card p-8 md:p-10">
                         <form id="requestForm" class="space-y-6">
                             <div>
-                                <label class="form-label"><i class="fas fa-user ml-2"></i>الاسم كاملاً</label>
+                                <label class="form-label"><i class="fas fa-user ml-2"></i>الاسم كاملاً *</label>
                                 <input type="text" id="fullName" class="form-input" placeholder="أدخل اسمك بالكامل" required>
                             </div>
                             
                             <div>
-                                <label class="form-label"><i class="fas fa-phone ml-2"></i>رقم التليفون</label>
+                                <label class="form-label"><i class="fas fa-phone ml-2"></i>رقم التليفون *</label>
                                 <input type="tel" id="phone" class="form-input" placeholder="مثال: 01012345678" required>
                             </div>
                             
@@ -422,10 +538,11 @@
                                 <label class="form-label"><i class="fas fa-map-pin ml-2"></i>العنوان</label>
                                 <div class="flex flex-col sm:flex-row gap-3">
                                     <input type="text" id="address" class="form-input flex-1" placeholder="أدخل عنوانك بالتفصيل">
-                                    <button type="button" onclick="getLocation()" class="location-btn justify-center">
+                                    <button type="button" onclick="getLocation()" class="location-btn justify-center" id="locationBtn">
                                         <i class="fas fa-location-dot"></i> تحديد الموقع
                                     </button>
                                 </div>
+                                <div id="locationStatus" class="text-xs mt-2 text-gray-400"></div>
                             </div>
                             
                             <div>
@@ -443,10 +560,26 @@
                                 <textarea id="problemDesc" rows="4" class="form-input" placeholder="اشرح المشكلة بالتفصيل لنساعدك بشكل أسرع" style="resize: vertical;"></textarea>
                             </div>
                             
-                            <button type="submit" class="btn-primary w-full text-center text-lg py-4">
+                            <button type="submit" class="btn-primary w-full text-center text-lg py-4" id="submitBtn">
                                 <i class="fas fa-paper-plane ml-2"></i> إرسال الطلب
                             </button>
                         </form>
+                        
+                        <!-- Contact options under form -->
+                        <div class="mt-6 pt-6 border-t border-white/10 text-center">
+                            <p class="text-sm text-gray-400 mb-3">أو تواصل معنا مباشرة عبر:</p>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                <a href="tel:01021508336" class="bg-white/10 px-5 py-2.5 rounded-xl hover:bg-white/20 transition flex items-center gap-2 text-sm">
+                                    <i class="fas fa-phone text-[#F59E0B]"></i> اتصال
+                                </a>
+                                <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="bg-white/10 px-5 py-2.5 rounded-xl hover:bg-white/20 transition flex items-center gap-2 text-sm">
+                                    <i class="fab fa-whatsapp text-[#25D366]"></i> واتساب
+                                </a>
+                                <a href="#" class="bg-white/10 px-5 py-2.5 rounded-xl hover:bg-white/20 transition flex items-center gap-2 text-sm">
+                                    <i class="fas fa-comment text-[#F59E0B]"></i> تواصل الآن
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -461,13 +594,18 @@
                     <p class="section-subtitle text-gray-600">نحن هنا للإجابة على استفساراتك على مدار الساعة</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition">
-                        <div class="w-16 h-16 rounded-2xl bg-[#F59E0B]/10 flex items-center justify-center text-3xl text-[#F59E0B] mx-auto mb-4">
+                        <div class="w-16 h-16 rounded-2xl bg-[#0A2647]/10 flex items-center justify-center text-3xl text-[#0A2647] mx-auto mb-4">
                             <i class="fas fa-phone"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-2 text-gray-800">اتصال</h3>
-                        <a href="tel:01063060576" class="text-2xl font-bold text-[#0A2647] hover:text-[#F59E0B] transition">01063060576</a>
+                        <a href="tel:01021508336" class="text-2xl font-bold text-[#0A2647] hover:text-[#F59E0B] transition">01021508336</a>
+                        <div class="mt-3">
+                            <a href="tel:01021508336" class="inline-block bg-[#0A2647] text-white px-6 py-2 rounded-xl hover:bg-[#1B3A6B] transition text-sm font-bold">
+                                <i class="fas fa-phone ml-1"></i> اتصل الآن
+                            </a>
+                        </div>
                     </div>
                     
                     <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition">
@@ -475,35 +613,67 @@
                             <i class="fab fa-whatsapp"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-2 text-gray-800">واتساب</h3>
-                        <a href="https://api.whatsapp.com/send/?phone=201063060576&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-2xl font-bold text-[#0A2647] hover:text-[#25D366] transition">01063060576</a>
+                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-2xl font-bold text-[#0A2647] hover:text-[#25D366] transition">01021508336</a>
+                        <div class="mt-3">
+                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="inline-block bg-[#25D366] text-white px-6 py-2 rounded-xl hover:bg-[#20b85a] transition text-sm font-bold">
+                                <i class="fab fa-whatsapp ml-1"></i> تواصل واتساب
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-8 rounded-3xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition">
+                        <div class="w-16 h-16 rounded-2xl bg-[#F59E0B]/10 flex items-center justify-center text-3xl text-[#F59E0B] mx-auto mb-4">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">تواصل سريع</h3>
+                        <p class="text-gray-600 text-sm mb-3">تواصل معنا عبر النموذج أو وسائل التواصل</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <a href="#request" class="inline-block bg-[#F59E0B] text-[#0A2647] px-4 py-2 rounded-xl hover:bg-[#FBBF24] transition text-sm font-bold">
+                                <i class="fas fa-pen ml-1"></i> طلب صيانة
+                            </a>
+                            <a href="tel:01021508336" class="inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded-xl hover:bg-gray-300 transition text-sm font-bold">
+                                <i class="fas fa-phone ml-1"></i> اتصال
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="max-w-2xl mx-auto mt-12 bg-gray-50 rounded-3xl p-8 shadow-lg border border-gray-100">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#F59E0B]/10 flex items-center justify-center text-2xl text-[#F59E0B] flex-shrink-0">
+                <!-- Address Card -->
+                <div class="max-w-3xl mx-auto mt-12 bg-gray-50 rounded-3xl p-8 shadow-lg border border-gray-100">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div class="w-16 h-16 rounded-2xl bg-[#F59E0B]/10 flex items-center justify-center text-3xl text-[#F59E0B] flex-shrink-0">
                             <i class="fas fa-location-dot"></i>
                         </div>
-                        <div class="text-right">
+                        <div class="text-center md:text-right flex-1">
                             <h4 class="font-bold text-gray-800 text-lg mb-1">عنوان المركز الرئيسي</h4>
                             <p class="text-gray-700">14 شارع كنيسة الاورام، جناكليس، الاسكندرية</p>
                             <p class="text-gray-500 text-sm mt-2"><i class="far fa-clock ml-1"></i> متاحين طوال أيام الأسبوع من 9 صباحاً حتى 11 مساءً</p>
                         </div>
+                        <div>
+                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="inline-block bg-[#25D366] text-white px-6 py-2.5 rounded-xl hover:bg-[#20b85a] transition text-sm font-bold">
+                                <i class="fab fa-whatsapp ml-1"></i> تواصل الآن
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="flex justify-center gap-4 mt-12">
-                    <a href="https://api.whatsapp.com/send/?phone=201063060576&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" 
-                       class="bg-[#25D366] text-white w-14 h-14 rounded-2xl flex items-center justify-center text-3xl hover:scale-110 transition shadow-lg hover:shadow-xl">
-                        <i class="fab fa-whatsapp"></i>
+                <!-- Social Contact Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mt-12">
+                    <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" 
+                       class="bg-[#25D366] text-white px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
+                        <i class="fab fa-whatsapp text-2xl"></i> واتساب
                     </a>
-                    <a href="tel:01063060576" 
-                       class="bg-[#0A2647] text-white w-14 h-14 rounded-2xl flex items-center justify-center text-3xl hover:scale-110 transition shadow-lg hover:shadow-xl">
-                        <i class="fas fa-phone"></i>
+                    <a href="tel:01021508336" 
+                       class="bg-[#0A2647] text-white px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
+                        <i class="fas fa-phone text-2xl"></i> اتصال
+                    </a>
+                    <a href="#request" 
+                       class="bg-[#F59E0B] text-[#0A2647] px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
+                        <i class="fas fa-paper-plane text-2xl"></i> طلب صيانة
                     </a>
                     <a href="#" 
-                       class="bg-[#1877F2] text-white w-14 h-14 rounded-2xl flex items-center justify-center text-3xl hover:scale-110 transition shadow-lg hover:shadow-xl">
-                        <i class="fab fa-facebook"></i>
+                       class="bg-[#1877F2] text-white px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
+                        <i class="fab fa-facebook text-2xl"></i> فيسبوك
                     </a>
                 </div>
             </div>
@@ -511,7 +681,7 @@
     </main>
 
     <!-- WhatsApp Float Button -->
-    <a href="https://api.whatsapp.com/send/?phone=201063060576&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="whatsapp-float" aria-label="تواصل واتساب">
+    <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="whatsapp-float" aria-label="تواصل واتساب">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -526,8 +696,12 @@
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed">خدمة صيانة غسالات متخصصة في جميع مناطق الاسكندرية بضمان الجودة والأسعار المنافسة.</p>
                     <div class="flex gap-3 mt-4">
-                        <a href="https://api.whatsapp.com/send/?phone=201063060576&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-gray-400 hover:text-[#25D366] transition text-xl"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="text-gray-400 hover:text-[#25D366] transition text-xl"><i class="fab fa-whatsapp"></i></a>
+                        <a href="tel:01021508336" class="text-gray-400 hover:text-white transition text-xl"><i class="fas fa-phone"></i></a>
                         <a href="#" class="text-gray-400 hover:text-[#1877F2] transition text-xl"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <div class="mt-4">
+                        <a href="tel:01021508336" class="text-[#F59E0B] font-bold text-lg">01021508336</a>
                     </div>
                 </div>
                 
@@ -557,10 +731,14 @@
                 <div>
                     <h4 class="text-lg font-bold mb-4">معلومات الاتصال</h4>
                     <ul class="space-y-3 text-gray-400">
-                        <li><i class="fas fa-phone ml-2 text-[#F59E0B]"></i> <a href="tel:01063060576" class="hover:text-white transition">01063060576</a></li>
-                        <li><i class="fas fa-whatsapp ml-2 text-[#F59E0B]"></i> <a href="https://api.whatsapp.com/send/?phone=201063060576&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="hover:text-white transition">01063060576</a></li>
+                        <li><i class="fas fa-phone ml-2 text-[#F59E0B]"></i> <a href="tel:01021508336" class="hover:text-white transition">01021508336</a></li>
+                        <li><i class="fas fa-whatsapp ml-2 text-[#25D366]"></i> <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="hover:text-white transition">01021508336</a></li>
                         <li><i class="fas fa-map-marker-alt ml-2 text-[#F59E0B]"></i> 14 شارع كنيسة الاورام، جناكليس، الاسكندرية</li>
                     </ul>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <a href="tel:01021508336" class="bg-white/10 px-4 py-2 rounded-xl hover:bg-white/20 transition text-sm">اتصال</a>
+                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="bg-white/10 px-4 py-2 rounded-xl hover:bg-white/20 transition text-sm">واتساب</a>
+                    </div>
                 </div>
             </div>
             
@@ -576,78 +754,122 @@
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Supabase Config
+        // ============== SUPABASE CONFIG ==============
         const SUPABASE_URL = 'https://uzcllseejydmpwzsygjp.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Toast System
+        // ============== TOAST SYSTEM ==============
         function showToast(message, type = 'info') {
             const toast = document.getElementById('toast');
-            const colors = { success: 'bg-green-500', error: 'bg-red-500', warning: 'bg-yellow-500', info: 'bg-blue-500' };
+            const colors = { 
+                success: 'bg-green-500', 
+                error: 'bg-red-500', 
+                warning: 'bg-yellow-500', 
+                info: 'bg-blue-500' 
+            };
             toast.className = `toast text-white ${colors[type]}`;
             toast.innerHTML = message;
             toast.classList.remove('hidden');
             clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => toast.classList.add('hidden'), 4000);
+            toast._timeout = setTimeout(() => toast.classList.add('hidden'), 5000);
         }
 
-        // Get Location with improved accuracy
+        // ============== LOCATION SERVICE ==============
         window.getLocation = function() {
-            const btn = document.querySelector('.location-btn');
+            const btn = document.getElementById('locationBtn');
+            const status = document.getElementById('locationStatus');
             const originalText = btn.innerHTML;
+            
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ التحديد...';
             btn.disabled = true;
+            status.textContent = '⏳ جاري الحصول على موقعك...';
+            status.className = 'text-xs mt-2 text-yellow-400';
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const { latitude, longitude } = position.coords;
-                        try {
-                            // Using OpenStreetMap Nominatim for Arabic addresses
-                            const response = await fetch(
-                                `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar`
-                            );
-                            const data = await response.json();
-                            
-                            let address = '';
-                            if (data.display_name) {
-                                const parts = data.display_name.split(',');
-                                // Get meaningful parts: street, city, governorate
-                                address = parts.slice(0, 4).join('،');
-                            } else {
-                                address = `خط عرض ${latitude.toFixed(5)}، خط طول ${longitude.toFixed(5)}`;
-                            }
-                            
-                            document.getElementById('address').value = address + '، الاسكندرية';
-                            showToast('✅ تم تحديد موقعك بنجاح', 'success');
-                        } catch (error) {
-                            console.error('Geocoding error:', error);
-                            document.getElementById('address').value = `خط عرض ${latitude.toFixed(5)}، خط طول ${longitude.toFixed(5)}`;
-                            showToast('تم تحديد الإحداثيات، يرجى إكمال العنوان', 'info');
-                        }
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    },
-                    (error) => {
-                        console.error('Geolocation error:', error);
-                        let message = 'يرجى السماح بتحديد الموقع';
-                        if (error.code === 1) message = 'يرجى السماح بالوصول إلى الموقع في إعدادات المتصفح';
-                        else if (error.code === 2) message = 'تعذر تحديد الموقع، حاول مرة أخرى';
-                        showToast(message, 'warning');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    },
-                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-                );
-            } else {
-                showToast('المتصفح لا يدعم تحديد الموقع', 'error');
+            if (!navigator.geolocation) {
+                status.textContent = '❌ المتصفح لا يدعم تحديد الموقع';
+                status.className = 'text-xs mt-2 text-red-400';
                 btn.innerHTML = originalText;
                 btn.disabled = false;
+                showToast('المتصفح لا يدعم تحديد الموقع', 'error');
+                return;
             }
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    status.textContent = '⏳ جاري تحديد العنوان...';
+                    
+                    try {
+                        // Try OpenStreetMap Nominatim first
+                        const response = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar&zoom=18`
+                        );
+                        const data = await response.json();
+                        
+                        let address = '';
+                        if (data.display_name) {
+                            const parts = data.display_name.split(',');
+                            // Get meaningful parts: street, neighborhood, city
+                            const relevantParts = parts.slice(0, 5);
+                            address = relevantParts.join('،');
+                        } else {
+                            address = `خط عرض ${latitude.toFixed(6)}، خط طول ${longitude.toFixed(6)}`;
+                        }
+                        
+                        // Add Alexandria if not present
+                        if (!address.includes('الاسكندرية') && !address.includes('Alexandria')) {
+                            address += '، الاسكندرية';
+                        }
+                        
+                        document.getElementById('address').value = address;
+                        status.textContent = '✅ تم تحديد موقعك بنجاح';
+                        status.className = 'text-xs mt-2 text-green-400';
+                        showToast('✅ تم تحديد موقعك بنجاح', 'success');
+                        
+                    } catch (error) {
+                        console.error('Geocoding error:', error);
+                        // Fallback: use coordinates
+                        document.getElementById('address').value = `خط عرض ${latitude.toFixed(6)}، خط طول ${longitude.toFixed(6)}، الاسكندرية`;
+                        status.textContent = '✅ تم تحديد الإحداثيات (يرجى مراجعة العنوان)';
+                        status.className = 'text-xs mt-2 text-yellow-400';
+                        showToast('تم تحديد الإحداثيات، يرجى التحقق من العنوان', 'info');
+                    }
+                    
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                },
+                (error) => {
+                    console.error('Geolocation error:', error);
+                    let message = 'يرجى السماح بتحديد الموقع';
+                    let className = 'text-xs mt-2 text-yellow-400';
+                    
+                    if (error.code === 1) {
+                        message = '⚠️ يرجى السماح بالوصول إلى الموقع في إعدادات المتصفح';
+                        className = 'text-xs mt-2 text-red-400';
+                    } else if (error.code === 2) {
+                        message = '⚠️ تعذر تحديد الموقع، حاول مرة أخرى أو أدخل العنوان يدوياً';
+                        className = 'text-xs mt-2 text-yellow-400';
+                    } else if (error.code === 3) {
+                        message = '⚠️ انتهت مهلة تحديد الموقع، حاول مرة أخرى';
+                        className = 'text-xs mt-2 text-yellow-400';
+                    }
+                    
+                    status.textContent = message;
+                    status.className = className;
+                    showToast(message, 'warning');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                },
+                { 
+                    enableHighAccuracy: true, 
+                    timeout: 15000, 
+                    maximumAge: 0 
+                }
+            );
         };
 
-        // Handle Form Submit
+        // ============== FORM SUBMIT ==============
         document.getElementById('requestForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -656,7 +878,9 @@
             const address = document.getElementById('address').value.trim();
             const machineType = document.getElementById('machineType').value;
             const problemDesc = document.getElementById('problemDesc').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
 
+            // Validation
             if (!fullName || !phone) {
                 showToast('⚠️ الاسم ورقم التليفون مطلوبان', 'warning');
                 return;
@@ -667,6 +891,7 @@
                 return;
             }
 
+            // Prepare data
             const requestData = {
                 full_name: fullName,
                 phone: phone,
@@ -677,24 +902,40 @@
                 created_at: new Date().toISOString()
             };
 
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري الإرسال...';
+
             try {
                 const { data, error } = await supabase
                     .from('maintenance_requests')
                     .insert([requestData]);
 
-                if (error) throw error;
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw new Error(error.message);
+                }
 
                 showToast('✅ تم إرسال الطلب بنجاح! سنتواصل معك خلال دقائق', 'success');
                 document.getElementById('requestForm').reset();
+                document.getElementById('locationStatus').textContent = '';
+                
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane ml-2"></i> إرسال الطلب';
+                
+                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (error) {
-                console.error('Supabase Error:', error);
-                showToast('❌ حدث خطأ في إرسال الطلب، يرجى المحاولة مرة أخرى', 'error');
+                console.error('Submit error:', error);
+                showToast('❌ حدث خطأ في إرسال الطلب: ' + error.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane ml-2"></i> إرسال الطلب';
             }
         });
 
-        // Smooth scroll for anchor links
+        // ============== SMOOTH SCROLL ==============
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -704,6 +945,29 @@
                 }
             });
         });
+
+        // ============== TEST SUPABASE CONNECTION ==============
+        async function testSupabaseConnection() {
+            try {
+                const { data, error } = await supabase
+                    .from('maintenance_requests')
+                    .select('count')
+                    .limit(1);
+                    
+                if (error) {
+                    console.warn('Supabase connection test:', error.message);
+                } else {
+                    console.log('✅ Supabase connected successfully');
+                }
+            } catch (e) {
+                console.warn('Supabase test failed:', e.message);
+            }
+        }
+        testSupabaseConnection();
+
+        console.log('🔧 TopLoad - صيانة غسالات بالاسكندرية');
+        console.log('📞 رقم التليفون: 01021508336');
+        console.log('📍 العنوان: 14 شارع كنيسة الاورام، جناكليس، الاسكندرية');
     </script>
 
 </body>
