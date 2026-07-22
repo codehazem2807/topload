@@ -173,6 +173,7 @@
       gap: 8px;
       cursor: pointer;
       font-family: 'Cairo', sans-serif;
+      text-decoration: none;
     }
     .btn-back i {
       transform: scaleX(-1);
@@ -426,6 +427,7 @@
       transition: all 0.2s ease;
       cursor: pointer;
       position: relative;
+      text-decoration: none;
     }
     .float-btn:hover {
       transform: scale(1.08);
@@ -487,6 +489,14 @@
     @media (max-width: 480px) {
       .hero-title { font-size: 1.7rem; }
     }
+
+    /* Hide form when success is shown */
+    #requestForm.hidden {
+      display: none;
+    }
+    #successBox.visible {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -507,7 +517,7 @@
       </div>
       <span class="logo-text">TopLoad</span>
     </div>
-    <button class="btn-back" id="backHomeBtn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</button>
+    <a href="index.html" class="btn-back" id="backHomeBtn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
   </nav>
 
   <!-- TOAST container -->
@@ -566,21 +576,21 @@
           <div class="check-icon"><i class="fas fa-check-circle"></i></div>
           <h2 style="margin:12px 0 4px;color:#D4A843;">تم إرسال طلبك بنجاح!</h2>
           <p style="color:#ccd9f0;font-size:1.1rem;">شكراً لك، سنتواصل معك خلال 30 دقيقة.</p>
-          <button class="btn-back" style="margin:20px auto 0;border-color:#D4A843;color:#D4A843;" id="successBackBtn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</button>
+          <a href="index.html" class="btn-back" style="margin:20px auto 0;border-color:#D4A843;color:#D4A843;display:inline-flex;" id="successBackBtn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
         </div>
       </div>
     </div>
 
     <footer class="footer">
-      <p>© 2026 TopLoad · <a href="#" id="footerHomeLink">الرئيسية</a></p>
+      <p>© 2026 TopLoad · <a href="index.html" id="footerHomeLink">الرئيسية</a></p>
     </footer>
   </main>
 
   <!-- FLOATING BUTTONS -->
   <div class="floating-buttons">
-    <button class="float-btn whatsapp" id="whatsappBtn"><i class="fab fa-whatsapp"></i><span class="tooltip">واتساب</span></button>
-    <button class="float-btn call" id="callBtn"><i class="fas fa-phone"></i><span class="tooltip">اتصال</span></button>
-    <button class="float-btn home" id="floatHomeBtn"><i class="fas fa-home"></i><span class="tooltip">الرئيسية</span></button>
+    <a href="https://wa.me/201234567890" target="_blank" class="float-btn whatsapp" id="whatsappBtn"><i class="fab fa-whatsapp"></i><span class="tooltip">واتساب</span></a>
+    <a href="tel:+201234567890" class="float-btn call" id="callBtn"><i class="fas fa-phone"></i><span class="tooltip">اتصال</span></a>
+    <a href="index.html" class="float-btn home" id="floatHomeBtn"><i class="fas fa-home"></i><span class="tooltip">الرئيسية</span></a>
   </div>
 
   <!-- SUPABASE SDK -->
@@ -597,7 +607,6 @@
       const logoImg = document.getElementById('logoImg');
       const logoFallback = document.getElementById('logoFallback');
       
-      // Try to load logo.png
       logoImg.onload = function() {
         logoImg.style.display = 'block';
         logoFallback.style.display = 'none';
@@ -606,7 +615,6 @@
         logoImg.style.display = 'none';
         logoFallback.style.display = 'flex';
       };
-      // Set src to trigger load/error
       logoImg.src = 'logo.png';
 
       // ========== SUPABASE ==========
@@ -665,16 +673,13 @@
           async (pos) => {
             const { latitude, longitude } = pos.coords;
             try {
-              // Use Nominatim to get address
               const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar`);
               const data = await resp.json();
               
               let fullAddress = data.display_name || '';
-              // Extract area/city from address
               const addressParts = fullAddress.split(',').map(s => s.trim());
               let area = '';
               
-              // Try to find area from address parts
               const areaKeywords = ['الإسكندرية', 'الساحل الشمالي', 'مرسى مطروح', 'العلمين', 'سيدي عبد الرحمن', 
                                    'رأس الحكمة', 'فوكة', 'الضبعة', 'نجيلة', 'الحمام', 'سيدي كرير', 'برج العرب'];
               
@@ -688,12 +693,10 @@
                 if (area) break;
               }
               
-              // If no area found, use the first part
               if (!area && addressParts.length > 0) {
                 area = addressParts[0];
               }
               
-              // Build full address with area
               let finalAddress = fullAddress;
               if (area && !fullAddress.includes(area)) {
                 finalAddress = area + '، ' + fullAddress;
@@ -770,8 +773,8 @@
           
           if (error) throw error;
           
-          form.style.display = 'none';
-          successBox.style.display = 'block';
+          form.classList.add('hidden');
+          successBox.classList.add('visible');
           showToast('تم إرسال طلبك بنجاح!', 'success');
           successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } catch (err) {
@@ -784,84 +787,24 @@
         }
       });
 
-      // ========== RESET TO FORM ==========
-      function resetToForm() {
-        form.style.display = 'block';
-        successBox.style.display = 'none';
+      // ========== RESET FORM (for when coming back from other pages) ==========
+      function resetFormState() {
+        form.classList.remove('hidden');
+        successBox.classList.remove('visible');
         form.reset();
-        // Clear errors
         nameError.textContent = '';
         phoneError.textContent = '';
         addressError.textContent = '';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      
-      document.getElementById('successBackBtn').addEventListener('click', resetToForm);
-      document.getElementById('backHomeBtn').addEventListener('click', resetToForm);
-      document.getElementById('footerHomeLink').addEventListener('click', (e) => { 
-        e.preventDefault(); 
-        resetToForm(); 
-      });
-      document.getElementById('floatHomeBtn').addEventListener('click', resetToForm);
+
+      // Check if we're coming back to this page (e.g., from success)
+      if (window.performance && window.performance.navigation.type === 2) {
+        resetFormState();
+      }
 
       // ========== FLOATING BUTTONS ==========
-      document.getElementById('whatsappBtn').addEventListener('click', () => {
-        window.open('https://wa.me/201234567890', '_blank');
-      });
-      document.getElementById('callBtn').addEventListener('click', () => {
-        window.location.href = 'tel:+201234567890';
-      });
-
-      // ========== PARTICLES (canvas) ==========
-      const canvas = document.getElementById('particles-canvas');
-      const ctx = canvas.getContext('2d');
-      let w, h;
-      function resize() { 
-        w = canvas.width = window.innerWidth; 
-        h = canvas.height = window.innerHeight; 
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      const particles = [];
-      const count = 120;
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: Math.random() * 1.8 + 0.8,
-          dx: (Math.random() - 0.5) * 0.25,
-          dy: (Math.random() - 0.5) * 0.25,
-          alpha: Math.random() * 0.6 + 0.2,
-        });
-      }
-      
-      function drawParticles() {
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => {
-          p.x += p.dx;
-          p.y += p.dy;
-          if (p.x < 0 || p.x > w) p.dx *= -1;
-          if (p.y < 0 || p.y > h) p.dy *= -1;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-          ctx.fill();
-        });
-        requestAnimationFrame(drawParticles);
-      }
-      drawParticles();
-
-      // Close toasts on Escape
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          const toasts = toastContainer.querySelectorAll('.toast');
-          toasts.forEach(t => { 
-            t.style.opacity = '0'; 
-            setTimeout(() => t.remove(), 300); 
-          });
-        }
-      });
+      // All floating buttons and back buttons now use <a> tags with href="index.html"
+      // So they work natively without JS intervention
 
     })();
   </script>
