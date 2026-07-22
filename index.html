@@ -46,6 +46,7 @@
             cursor: pointer;
         }
         .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 35px rgba(245, 158, 11, 0.5); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
         
         .btn-outline {
             border: 2px solid white;
@@ -158,6 +159,10 @@
             background: rgba(255, 255, 255, 0.15);
             box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
         }
+        .form-input.error {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
         .form-input option { color: var(--primary); }
         .form-label {
             display: block;
@@ -166,6 +171,7 @@
             color: rgba(255, 255, 255, 0.9);
             font-size: 15px;
         }
+        .form-label .required { color: #ef4444; margin-right: 4px; }
         
         .toast {
             position: fixed; bottom: 30px; right: 30px; padding: 18px 28px;
@@ -212,7 +218,7 @@
             align-items: center;
             gap: 8px;
         }
-        .location-btn:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3); }
+        .location-btn:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3); }
         .location-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         
         .section-title {
@@ -265,6 +271,18 @@
         }
         .floating-btn:hover { transform: scale(1.1); }
         
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
         @media (max-width: 768px) {
             .section-title { font-size: 2rem; }
             .whatsapp-float { width: 56px; height: 56px; font-size: 28px; bottom: 20px; left: 20px; }
@@ -281,7 +299,7 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <img src="logo.png" alt="TopLoad - صيانة غسالات" class="w-14 h-14 rounded-2xl object-cover shadow-lg">
+                    <img src="logo.png" alt="TopLoad - صيانة غسالات" class="w-14 h-14 rounded-2xl object-cover shadow-lg" onerror="this.src='https://via.placeholder.com/56/0A2647/F59E0B?text=TL'">
                     <span class="text-2xl font-black text-gray-800">Top<span class="text-gradient">Load</span></span>
                 </div>
                 
@@ -437,13 +455,12 @@
                     </div>
                 </div>
                 
-                <!-- Contact CTA after services -->
                 <div class="mt-12 text-center">
                     <div class="inline-flex flex-wrap justify-center gap-4">
                         <a href="tel:01021508336" class="contact-btn" style="background: #0A2647; color: white;">
                             <i class="fas fa-phone"></i> اتصل بنا
                         </a>
-                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%طلب%خدمة%صيانة%غسالات" target="_blank" class="contact-btn" style="background: #25D366; color: white;">
+                        <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="contact-btn" style="background: #25D366; color: white;">
                             <i class="fab fa-whatsapp"></i> واتساب
                         </a>
                         <a href="#request" class="contact-btn" style="background: var(--gradient-accent); color: var(--primary);">
@@ -497,13 +514,12 @@
                                  alt="فني صيانة غسالات في الاسكندرية" 
                                  class="rounded-2xl w-full shadow-2xl">
                         </div>
-                        <!-- Contact buttons under image -->
                         <div class="flex justify-center gap-4 mt-6">
                             <a href="tel:01021508336" class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-white/20 transition">
                                 <i class="fas fa-phone text-[#F59E0B]"></i>
                                 <span>01021508336</span>
                             </a>
-                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%طلب%خدمة%صيانة%غسالات" target="_blank" class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-white/20 transition">
+                            <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl flex items-center gap-2 hover:bg-white/20 transition">
                                 <i class="fab fa-whatsapp text-[#25D366]"></i>
                                 <span>واتساب</span>
                             </a>
@@ -525,12 +541,12 @@
                     <div class="glass-card p-8 md:p-10">
                         <form id="requestForm" class="space-y-6">
                             <div>
-                                <label class="form-label"><i class="fas fa-user ml-2"></i>الاسم كاملاً *</label>
+                                <label class="form-label"><i class="fas fa-user ml-2"></i>الاسم كاملاً <span class="required">*</span></label>
                                 <input type="text" id="fullName" class="form-input" placeholder="أدخل اسمك بالكامل" required>
                             </div>
                             
                             <div>
-                                <label class="form-label"><i class="fas fa-phone ml-2"></i>رقم التليفون *</label>
+                                <label class="form-label"><i class="fas fa-phone ml-2"></i>رقم التليفون <span class="required">*</span></label>
                                 <input type="tel" id="phone" class="form-input" placeholder="مثال: 01012345678" required>
                             </div>
                             
@@ -565,7 +581,6 @@
                             </button>
                         </form>
                         
-                        <!-- Contact options under form -->
                         <div class="mt-6 pt-6 border-t border-white/10 text-center">
                             <p class="text-sm text-gray-400 mb-3">أو تواصل معنا مباشرة عبر:</p>
                             <div class="flex flex-wrap justify-center gap-3">
@@ -575,7 +590,7 @@
                                 <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" class="bg-white/10 px-5 py-2.5 rounded-xl hover:bg-white/20 transition flex items-center gap-2 text-sm">
                                     <i class="fab fa-whatsapp text-[#25D366]"></i> واتساب
                                 </a>
-                                <a href="#" class="bg-white/10 px-5 py-2.5 rounded-xl hover:bg-white/20 transition flex items-center gap-2 text-sm">
+                                <a href="#request" class="bg-white/10 px-5 py-2.5 rounded-xl hover:bg-white/20 transition flex items-center gap-2 text-sm">
                                     <i class="fas fa-comment text-[#F59E0B]"></i> تواصل الآن
                                 </a>
                             </div>
@@ -638,7 +653,6 @@
                     </div>
                 </div>
                 
-                <!-- Address Card -->
                 <div class="max-w-3xl mx-auto mt-12 bg-gray-50 rounded-3xl p-8 shadow-lg border border-gray-100">
                     <div class="flex flex-col md:flex-row items-center gap-6">
                         <div class="w-16 h-16 rounded-2xl bg-[#F59E0B]/10 flex items-center justify-center text-3xl text-[#F59E0B] flex-shrink-0">
@@ -657,7 +671,6 @@
                     </div>
                 </div>
                 
-                <!-- Social Contact Buttons -->
                 <div class="flex flex-wrap justify-center gap-4 mt-12">
                     <a href="https://api.whatsapp.com/send/?phone=201021508336&text=أريد%20طلب%20خدمة%20صيانة%20غسالات" target="_blank" 
                        class="bg-[#25D366] text-white px-8 py-4 rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg hover:shadow-xl text-lg font-bold">
@@ -691,7 +704,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <img src="logo.png" alt="TopLoad" class="w-12 h-12 rounded-2xl object-cover">
+                        <img src="logo.png" alt="TopLoad" class="w-12 h-12 rounded-2xl object-cover" onerror="this.src='https://via.placeholder.com/48/0A2647/F59E0B?text=TL'">
                         <span class="text-2xl font-black">Top<span class="text-[#F59E0B]">Load</span></span>
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed">خدمة صيانة غسالات متخصصة في جميع مناطق الاسكندرية بضمان الجودة والأسعار المنافسة.</p>
@@ -754,12 +767,18 @@
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ============== SUPABASE CONFIG ==============
+        // =============================================
+        // SUPPABASE CONFIGURATION
+        // =============================================
         const SUPABASE_URL = 'https://uzcllseejydmpwzsygjp.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
+        
+        // Initialize Supabase client
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // ============== TOAST SYSTEM ==============
+        // =============================================
+        // TOAST SYSTEM
+        // =============================================
         function showToast(message, type = 'info') {
             const toast = document.getElementById('toast');
             const colors = { 
@@ -772,15 +791,18 @@
             toast.innerHTML = message;
             toast.classList.remove('hidden');
             clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => toast.classList.add('hidden'), 5000);
+            toast._timeout = setTimeout(() => toast.classList.add('hidden'), 6000);
         }
 
-        // ============== LOCATION SERVICE ==============
+        // =============================================
+        // LOCATION SERVICE - FIXED
+        // =============================================
         window.getLocation = function() {
             const btn = document.getElementById('locationBtn');
             const status = document.getElementById('locationStatus');
             const originalText = btn.innerHTML;
             
+            // Show loading state
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ التحديد...';
             btn.disabled = true;
             status.textContent = '⏳ جاري الحصول على موقعك...';
@@ -801,23 +823,29 @@
                     status.textContent = '⏳ جاري تحديد العنوان...';
                     
                     try {
-                        // Try OpenStreetMap Nominatim first
+                        // Using OpenStreetMap Nominatim for Arabic addresses
                         const response = await fetch(
                             `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=ar&zoom=18`
                         );
                         const data = await response.json();
                         
                         let address = '';
-                        if (data.display_name) {
-                            const parts = data.display_name.split(',');
-                            // Get meaningful parts: street, neighborhood, city
-                            const relevantParts = parts.slice(0, 5);
-                            address = relevantParts.join('،');
-                        } else {
+                        if (data.address) {
+                            const parts = [];
+                            if (data.address.road) parts.push(data.address.road);
+                            if (data.address.neighbourhood) parts.push(data.address.neighbourhood);
+                            if (data.address.suburb) parts.push(data.address.suburb);
+                            if (data.address.city) parts.push(data.address.city);
+                            if (data.address.state) parts.push(data.address.state);
+                            if (data.address.country) parts.push(data.address.country);
+                            address = parts.join('، ');
+                        }
+                        
+                        if (!address || address.length < 5) {
                             address = `خط عرض ${latitude.toFixed(6)}، خط طول ${longitude.toFixed(6)}`;
                         }
                         
-                        // Add Alexandria if not present
+                        // Ensure Alexandria is mentioned
                         if (!address.includes('الاسكندرية') && !address.includes('Alexandria')) {
                             address += '، الاسكندرية';
                         }
@@ -869,7 +897,9 @@
             );
         };
 
-        // ============== FORM SUBMIT ==============
+        // =============================================
+        // FORM SUBMIT - FIXED WITH BETTER ERROR HANDLING
+        // =============================================
         document.getElementById('requestForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -881,17 +911,23 @@
             const submitBtn = document.getElementById('submitBtn');
 
             // Validation
-            if (!fullName || !phone) {
-                showToast('⚠️ الاسم ورقم التليفون مطلوبان', 'warning');
+            if (!fullName) {
+                showToast('⚠️ يرجى إدخال الاسم كاملاً', 'warning');
+                document.getElementById('fullName').focus();
+                document.getElementById('fullName').classList.add('error');
                 return;
             }
+            document.getElementById('fullName').classList.remove('error');
 
-            if (phone.length < 10) {
+            if (!phone || phone.length < 10) {
                 showToast('⚠️ يرجى إدخال رقم تليفون صحيح (10 أرقام على الأقل)', 'warning');
+                document.getElementById('phone').focus();
+                document.getElementById('phone').classList.add('error');
                 return;
             }
+            document.getElementById('phone').classList.remove('error');
 
-            // Prepare data
+            // Prepare data for Supabase
             const requestData = {
                 full_name: fullName,
                 phone: phone,
@@ -904,38 +940,65 @@
 
             // Disable button and show loading
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري الإرسال...';
+            submitBtn.innerHTML = '<span class="spinner"></span> جاري الإرسال...';
 
             try {
+                console.log('📤 إرسال البيانات إلى Supabase:', requestData);
+                
+                // Try to insert data
                 const { data, error } = await supabase
                     .from('maintenance_requests')
-                    .insert([requestData]);
+                    .insert([requestData])
+                    .select();
 
                 if (error) {
-                    console.error('Supabase error:', error);
+                    console.error('❌ خطأ في Supabase:', error);
                     throw new Error(error.message);
                 }
 
+                console.log('✅ تم الإرسال بنجاح:', data);
                 showToast('✅ تم إرسال الطلب بنجاح! سنتواصل معك خلال دقائق', 'success');
+                
+                // Reset form
                 document.getElementById('requestForm').reset();
                 document.getElementById('locationStatus').textContent = '';
                 
-                // Reset button
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane ml-2"></i> إرسال الطلب';
-                
-                // Scroll to top
+                // Scroll to top to show success message
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (error) {
-                console.error('Submit error:', error);
-                showToast('❌ حدث خطأ في إرسال الطلب: ' + error.message, 'error');
+                console.error('❌ فشل الإرسال:', error);
+                
+                // More specific error messages
+                let errorMessage = 'حدث خطأ في إرسال الطلب';
+                if (error.message.includes('permission denied') || error.message.includes('policy')) {
+                    errorMessage = '⚠️ مشكلة في صلاحيات قاعدة البيانات. يرجى التواصل مع الدعم الفني.';
+                } else if (error.message.includes('network')) {
+                    errorMessage = '⚠️ مشكلة في الاتصال بالإنترنت. يرجى التحقق من الاتصال والمحاولة مرة أخرى.';
+                } else if (error.message.includes('timeout')) {
+                    errorMessage = '⚠️ انتهت مهلة الاتصال. يرجى المحاولة مرة أخرى.';
+                } else {
+                    errorMessage = `⚠️ ${error.message}`;
+                }
+                
+                showToast(errorMessage, 'error');
+            } finally {
+                // Re-enable button
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane ml-2"></i> إرسال الطلب';
             }
         });
 
-        // ============== SMOOTH SCROLL ==============
+        // Remove error class on focus
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.classList.remove('error');
+            });
+        });
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -946,28 +1009,56 @@
             });
         });
 
-        // ============== TEST SUPABASE CONNECTION ==============
+        // =============================================
+        // TEST SUPABASE CONNECTION
+        // =============================================
         async function testSupabaseConnection() {
             try {
+                console.log('🔌 جاري اختبار الاتصال بـ Supabase...');
+                
+                // Try a simple insert test with dummy data
+                const testData = {
+                    full_name: 'اختبار اتصال',
+                    phone: '0000000000',
+                    address: 'اختبار',
+                    machine_type: 'اختبار',
+                    problem_description: 'اختبار اتصال قاعدة البيانات',
+                    status: 'اختبار',
+                    created_at: new Date().toISOString()
+                };
+                
                 const { data, error } = await supabase
                     .from('maintenance_requests')
-                    .select('count')
-                    .limit(1);
-                    
+                    .insert([testData])
+                    .select();
+                
                 if (error) {
-                    console.warn('Supabase connection test:', error.message);
+                    console.warn('⚠️ فشل اختبار الاتصال:', error.message);
+                    console.warn('⚠️ يرجى تنفيذ كود SQL لإنشاء السياسات في Supabase');
                 } else {
-                    console.log('✅ Supabase connected successfully');
+                    console.log('✅ اتصال Supabase يعمل بنجاح');
+                    
+                    // Delete test data
+                    if (data && data.length > 0) {
+                        await supabase
+                            .from('maintenance_requests')
+                            .delete()
+                            .eq('id', data[0].id);
+                        console.log('🗑️ تم حذف بيانات الاختبار');
+                    }
                 }
             } catch (e) {
-                console.warn('Supabase test failed:', e.message);
+                console.warn('⚠️ فشل اختبار الاتصال:', e.message);
             }
         }
-        testSupabaseConnection();
+        
+        // Run connection test after page load
+        setTimeout(testSupabaseConnection, 2000);
 
         console.log('🔧 TopLoad - صيانة غسالات بالاسكندرية');
         console.log('📞 رقم التليفون: 01021508336');
         console.log('📍 العنوان: 14 شارع كنيسة الاورام، جناكليس، الاسكندرية');
+        console.log('📦 قاعدة البيانات: Supabase');
     </script>
 
 </body>
