@@ -123,17 +123,17 @@
            CSS VARIABLES - متوافقة مع لوجو TopLoad
            ============================================================ */
         :root {
-            --primary-dark: #1B3A6B;
-            --primary-blue: #2C5F8A;
-            --primary-light: #4A7FAB;
-            --gold: #D4A843;
-            --gold-light: #E8C96E;
-            --orange: #E85D3A;
-            --orange-light: #F07A5A;
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-            --radius: 20px;
+            --primary-dark: #071a1c;
+            --primary-blue: #123b42;
+            --primary-light: #1d6870;
+            --gold: #2dd4bf;
+            --gold-light: #99f6e4;
+            --orange: #ff7a59;
+            --orange-light: #ff9a7a;
+            --glass-bg: rgba(14, 48, 54, 0.72);
+            --glass-border: rgba(153, 246, 228, 0.14);
+            --shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
+            --radius: 16px;
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --font-arabic: 'Cairo', sans-serif;
         }
@@ -236,6 +236,143 @@
             background: rgba(27, 58, 107, 0.97);
             box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
             border-bottom-color: rgba(212, 168, 67, 0.25);
+        
+            /* ===== TRUST-LED AQUA VISUAL SYSTEM ===== */
+            body {
+                background:
+                    radial-gradient(circle at 12% 8%, rgba(45, 212, 191, 0.12), transparent 28%),
+                    radial-gradient(circle at 88% 34%, rgba(255, 122, 89, 0.08), transparent 24%),
+                    var(--primary-dark);
+            }
+        
+            .navbar {
+                background: rgba(7, 26, 28, 0.88);
+                border-bottom-color: rgba(153, 246, 228, 0.12);
+            }
+        
+            .navbar.scrolled {
+                background: rgba(7, 26, 28, 0.97);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            }
+        
+            .navbar .logo .logo-wrapper {
+                box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.09), 0 8px 25px rgba(45, 212, 191, 0.14);
+            }
+        
+            .hero {
+                min-height: 92vh;
+            }
+        
+            .hero::before {
+                background:
+                    radial-gradient(ellipse at 18% 48%, rgba(45, 212, 191, 0.18) 0%, transparent 48%),
+                    radial-gradient(ellipse at 82% 50%, rgba(255, 122, 89, 0.1) 0%, transparent 42%),
+                    linear-gradient(180deg, rgba(7, 26, 28, 0.2) 0%, rgba(7, 26, 28, 0.88) 100%);
+            }
+        
+            .hero-badge {
+                background: rgba(45, 212, 191, 0.09);
+                border-color: rgba(45, 212, 191, 0.3);
+                color: var(--gold-light);
+            }
+        
+            .hero h1 .highlight,
+            .section-title,
+            .hero-stat .number {
+                background: linear-gradient(135deg, #99f6e4 0%, #2dd4bf 52%, #ff9a7a 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+            }
+        
+            .hero p,
+            .section-subtitle {
+                color: rgba(235, 255, 252, 0.72);
+            }
+        
+            .btn-primary {
+                background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+                color: #062326;
+                box-shadow: 0 10px 30px rgba(20, 184, 166, 0.24);
+            }
+        
+            .btn-primary:hover {
+                box-shadow: 0 14px 38px rgba(20, 184, 166, 0.38);
+            }
+        
+            .btn-secondary {
+                color: var(--gold-light);
+                border-color: rgba(153, 246, 228, 0.55);
+                background: rgba(45, 212, 191, 0.04);
+            }
+        
+            .btn-secondary:hover {
+                background: var(--gold);
+                color: #062326;
+                border-color: var(--gold);
+            }
+        
+            .glass-card {
+                background: linear-gradient(145deg, rgba(18, 59, 66, 0.78), rgba(8, 32, 36, 0.82));
+                border-color: rgba(153, 246, 228, 0.13);
+                box-shadow: 0 16px 45px rgba(0, 0, 0, 0.22);
+            }
+        
+            .glass-card:hover {
+                transform: translateY(-6px);
+                border-color: rgba(45, 212, 191, 0.48);
+                box-shadow: 0 20px 55px rgba(20, 184, 166, 0.12);
+            }
+        
+            .feature-card .icon-wrapper,
+            .service-card .icon-wrapper {
+                background: rgba(45, 212, 191, 0.08);
+                border-color: rgba(45, 212, 191, 0.2);
+            }
+        
+            .feature-card .icon-wrapper .icon,
+            .service-card .icon-wrapper .icon {
+                background: linear-gradient(135deg, #99f6e4, #2dd4bf);
+                background-clip: text;
+                -webkit-background-clip: text;
+            }
+        
+            .trust-strip {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+                max-width: 760px;
+                margin: 34px auto 0;
+            }
+        
+            .trust-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 9px;
+                padding: 12px 14px;
+                border: 1px solid rgba(153, 246, 228, 0.12);
+                border-radius: 12px;
+                background: rgba(11, 42, 47, 0.56);
+                color: rgba(235, 255, 252, 0.78);
+                font-size: 0.86rem;
+            }
+        
+            .trust-item i {
+                color: var(--gold);
+                font-size: 1rem;
+            }
+        
+            @media (max-width: 576px) {
+                .trust-strip {
+                    grid-template-columns: 1fr;
+                    gap: 8px;
+                    margin-top: 26px;
+                }
+            
+                .trust-item {
+                    justify-content: flex-start;
+                }
+            }
         }
 
         .navbar .container {
@@ -1199,6 +1336,16 @@
             transform: scale(1.12);
         }
 
+        .floating-btn.whatsapp,
+        .floating-btn.phone {
+            display: none;
+        }
+
+        .footer .contact-info a[href^="tel:"],
+        .footer .contact-info a[href*="wa.me"] {
+            display: none;
+        }
+
         .floating-btn.whatsapp {
             background: linear-gradient(135deg, #25D366, #128C7E);
         }
@@ -1528,6 +1675,180 @@
                 grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             }
         }
+
+        /* ===== FINAL AQUA TRUST OVERRIDES ===== */
+        body {
+            background:
+                radial-gradient(circle at 12% 8%, rgba(45, 212, 191, 0.12), transparent 28%),
+                radial-gradient(circle at 88% 34%, rgba(255, 122, 89, 0.08), transparent 24%),
+                var(--primary-dark);
+        }
+
+        .navbar {
+            background: rgba(7, 26, 28, 0.88);
+            border-bottom-color: rgba(153, 246, 228, 0.12);
+        }
+
+        .navbar.scrolled {
+            background: rgba(7, 26, 28, 0.97);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .navbar .nav-links.open {
+            background: rgba(7, 26, 28, 0.98);
+        }
+
+        .hero {
+            min-height: 92vh;
+        }
+
+        .hero::before {
+            background:
+                radial-gradient(ellipse at 18% 48%, rgba(45, 212, 191, 0.18) 0%, transparent 48%),
+                radial-gradient(ellipse at 82% 50%, rgba(255, 122, 89, 0.1) 0%, transparent 42%),
+                linear-gradient(180deg, rgba(7, 26, 28, 0.2) 0%, rgba(7, 26, 28, 0.88) 100%);
+        }
+
+        .hero-badge {
+            background: rgba(45, 212, 191, 0.09);
+            border-color: rgba(45, 212, 191, 0.3);
+            color: var(--gold-light);
+        }
+
+        .hero h1 .highlight,
+        .section-title,
+        .hero-stat .number {
+            background: linear-gradient(135deg, #99f6e4 0%, #2dd4bf 52%, #ff9a7a 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .hero p,
+        .section-subtitle {
+            color: rgba(235, 255, 252, 0.72);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+            color: #062326;
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.24);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 14px 38px rgba(20, 184, 166, 0.38);
+        }
+
+        .btn-secondary {
+            color: var(--gold-light);
+            border-color: rgba(153, 246, 228, 0.55);
+            background: rgba(45, 212, 191, 0.04);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: #062326;
+            border-color: var(--gold);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(18, 59, 66, 0.78), rgba(8, 32, 36, 0.82));
+            border-color: rgba(153, 246, 228, 0.13);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.22);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(45, 212, 191, 0.48);
+            box-shadow: 0 20px 55px rgba(20, 184, 166, 0.12);
+        }
+
+        .feature-card .icon-wrapper,
+        .service-card .icon-wrapper {
+            background: rgba(45, 212, 191, 0.08);
+            border-color: rgba(45, 212, 191, 0.2);
+        }
+
+        .feature-card .icon-wrapper .icon,
+        .service-card .icon-wrapper .icon {
+            background: linear-gradient(135deg, #99f6e4, #2dd4bf);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .trust-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            max-width: 760px;
+            margin: 34px auto 0;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 12px 14px;
+            border: 1px solid rgba(153, 246, 228, 0.12);
+            border-radius: 12px;
+            background: rgba(11, 42, 47, 0.56);
+            color: rgba(235, 255, 252, 0.78);
+            font-size: 0.86rem;
+        }
+
+        .trust-item i {
+            color: var(--gold);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 576px) {
+            .trust-strip {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                margin-top: 26px;
+            }
+
+            .trust-item {
+                justify-content: flex-start;
+            }
+        }
+
+        /* ===== WHITE TYPOGRAPHY ===== */
+        body,
+        .navbar .nav-links a,
+        .hero h1,
+        .hero p,
+        .section-title,
+        .section-subtitle,
+        .feature-card h3,
+        .feature-card p,
+        .service-card h3,
+        .service-card p,
+        .brand-tag,
+        .area-category h4,
+        .area-tag,
+        .testimonial-card .text,
+        .testimonial-card .name,
+        .testimonial-card .role,
+        .cta-banner h2,
+        .cta-banner p,
+        .footer,
+        .footer p,
+        .footer .contact-info a,
+        .footer .contact-info span,
+        .hero-stat .label,
+        .trust-item span {
+            color: #ffffff;
+        }
+
+        .navbar .logo .brand-text,
+        .footer .brand .brand-text,
+        .hero h1 .highlight,
+        .section-title,
+        .hero-stat .number {
+            background: none;
+            -webkit-text-fill-color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -1597,6 +1918,11 @@
                 <a href="tel:01228876359" class="btn-secondary">
                     <i class="fas fa-phone"></i> 01228876359
                 </a>
+            </div>
+            <div class="trust-strip" aria-label="مميزات الخدمة">
+                <div class="trust-item"><i class="fas fa-shield-alt"></i><span>ضمان على الخدمة</span></div>
+                <div class="trust-item"><i class="fas fa-bolt"></i><span>رد سريع خلال 30 دقيقة</span></div>
+                <div class="trust-item"><i class="fas fa-user-check"></i><span>فنيون متخصصون</span></div>
             </div>
             <div class="hero-stats">
                 <div class="hero-stat">

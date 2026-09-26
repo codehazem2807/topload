@@ -21,7 +21,7 @@
     }
     body {
       font-family: 'Cairo', sans-serif;
-      background: #0a0e1a;
+      background: #071a1c;
       color: #f0f4fa;
       min-height: 100vh;
       overflow-x: hidden;
@@ -35,7 +35,7 @@
       position: fixed;
       inset: 0;
       z-index: -2;
-      background: linear-gradient(145deg, #0a0e1a 0%, #1B3A6B 100%);
+      background: linear-gradient(145deg, #071a1c 0%, #123b42 58%, #0b252d 100%);
       overflow: hidden;
     }
     .orb {
@@ -48,7 +48,7 @@
     .orb-1 {
       width: 550px;
       height: 550px;
-      background: #D4A843;
+      background: #14b8a6;
       top: -8%;
       left: -6%;
       animation-duration: 26s;
@@ -56,7 +56,7 @@
     .orb-2 {
       width: 480px;
       height: 480px;
-      background: #E85D3A;
+      background: #ff7a59;
       bottom: -5%;
       right: -4%;
       animation-duration: 20s;
@@ -65,7 +65,7 @@
     .orb-3 {
       width: 420px;
       height: 420px;
-      background: #2C5F8A;
+      background: #2dd4bf;
       top: 40%;
       right: 20%;
       animation-duration: 24s;
@@ -99,15 +99,15 @@
       background: rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(16px) saturate(160%);
       -webkit-backdrop-filter: blur(16px) saturate(160%);
-      border: 1px solid rgba(255, 215, 100, 0.15);
+      border: 1px solid rgba(45, 212, 191, 0.2);
       border-radius: 40px;
       padding: 2.2rem 2rem;
       transition: all 0.3s ease;
       box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
     }
     .glass-form:hover {
-      border-color: rgba(212, 168, 67, 0.4);
-      box-shadow: 0 40px 70px rgba(212, 168, 67, 0.15);
+      border-color: rgba(45, 212, 191, 0.55);
+      box-shadow: 0 40px 70px rgba(20, 184, 166, 0.18);
     }
 
     /* ----- NAVBAR (fixed, glass) ----- */
@@ -121,7 +121,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.8rem 2.5rem;
-      background: rgba(10, 14, 26, 0.55);
+      background: rgba(7, 26, 28, 0.72);
       backdrop-filter: blur(18px) saturate(180%);
       -webkit-backdrop-filter: blur(18px) saturate(180%);
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -135,14 +135,14 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #D4A843, #E85D3A);
+      background: linear-gradient(135deg, #2dd4bf, #ff7a59);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 28px;
       font-weight: 800;
-      color: #0a0e1a;
-      box-shadow: 0 0 0 2px rgba(212, 168, 67, 0.3);
+      color: #071a1c;
+      box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.35);
       overflow: hidden;
     }
     .logo-circle img {
@@ -153,7 +153,7 @@
     .logo-text {
       font-size: 1.7rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #D4A843, #E85D3A);
+      background: linear-gradient(135deg, #2dd4bf, #ff7a59);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -179,9 +179,9 @@
       transform: scaleX(-1);
     }
     .btn-back:hover {
-      border-color: #D4A843;
-      color: #D4A843;
-      background: rgba(212, 168, 67, 0.08);
+      border-color: #2dd4bf;
+      color: #2dd4bf;
+      background: rgba(45, 212, 191, 0.1);
       transform: translateX(-4px);
     }
 
@@ -200,7 +200,7 @@
       align-items: center;
       justify-content: center;
       font-size: 42px;
-      color: #D4A843;
+      color: #5eead4;
       border: 1px solid rgba(212,168,67,0.2);
       margin-bottom: 12px;
       box-shadow: 0 0 40px rgba(212,168,67,0.1);
@@ -208,7 +208,7 @@
     .hero-title {
       font-size: 2.6rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #D4A843, #E85D3A);
+      background: linear-gradient(135deg, #5eead4, #ff9a7a);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -227,12 +227,12 @@
       display: inline-block;
       width: 8px;
       height: 8px;
-      background: #D4A843;
+      background: #2dd4bf;
       border-radius: 50%;
       margin: 0 4px;
     }
     .highlight-text {
-      color: #D4A843;
+      color: #5eead4;
       font-weight: 700;
     }
 
@@ -259,15 +259,15 @@
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid #d0d7e6;
-      color: #0a0e1a;
+      color: #071a1c;
       font-size: 1rem;
       font-family: 'Cairo', sans-serif;
       transition: all 0.25s ease;
       outline: none;
     }
     .form-control:focus {
-      border-color: #D4A843;
-      box-shadow: 0 0 0 4px rgba(212, 168, 67, 0.2);
+      border-color: #14b8a6;
+      box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2);
       background: #ffffff;
     }
     .form-control::placeholder {
@@ -282,8 +282,8 @@
     /* location button */
     .btn-location {
       background: transparent;
-      border: 1.5px solid #D4A843;
-      color: #D4A843;
+      border: 1.5px solid #2dd4bf;
+      color: #5eead4;
       padding: 0.7rem 1.6rem;
       border-radius: 60px;
       font-weight: 600;
@@ -296,8 +296,8 @@
       margin-top: 0.25rem;
     }
     .btn-location:hover {
-      background: rgba(212, 168, 67, 0.1);
-      box-shadow: 0 0 20px rgba(212, 168, 67, 0.2);
+      background: rgba(45, 212, 191, 0.1);
+      box-shadow: 0 0 20px rgba(45, 212, 191, 0.22);
       transform: translateY(-2px);
     }
     .btn-location i {
@@ -314,8 +314,8 @@
       padding: 1.1rem;
       border: none;
       border-radius: 60px;
-      background: linear-gradient(135deg, #D4A843, #E85D3A);
-      color: #0a0e1a;
+      background: linear-gradient(135deg, #2dd4bf, #ff7a59);
+      color: #071a1c;
       font-weight: 800;
       font-size: 1.25rem;
       font-family: 'Cairo', sans-serif;
@@ -326,11 +326,11 @@
       transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
       cursor: pointer;
       margin-top: 1rem;
-      box-shadow: 0 8px 25px rgba(212, 168, 67, 0.25);
+      box-shadow: 0 8px 25px rgba(20, 184, 166, 0.28);
     }
     .btn-submit:hover:not(:disabled) {
       transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 20px 40px rgba(212, 168, 67, 0.4);
+      box-shadow: 0 20px 40px rgba(20, 184, 166, 0.42);
     }
     .btn-submit:active:not(:disabled) {
       transform: scale(0.97);
@@ -392,7 +392,7 @@
     }
     .toast.success { border-right: 6px solid #4caf84; }
     .toast.error { border-right: 6px solid #f44336; }
-    .toast.info { border-right: 6px solid #2C5F8A; }
+    .toast.info { border-right: 6px solid #2dd4bf; }
     .toast i { font-size: 24px; }
     .toast.success i { color: #4caf84; }
     .toast.error i { color: #f44336; }
@@ -414,12 +414,12 @@
       z-index: 900;
     }
     .float-btn {
-      width: 58px;
-      height: 58px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       border: none;
       color: #fff;
-      font-size: 26px;
+      font-size: 19px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -451,9 +451,9 @@
       opacity: 1;
       transform: translateX(4px);
     }
-    .float-btn.whatsapp { background: #25D366; animation: pulse 2.2s infinite; }
-    .float-btn.call { background: #E85D3A; }
-    .float-btn.home { background: linear-gradient(135deg, #D4A843, #E85D3A); color: #0a0e1a; }
+    .float-btn.whatsapp { background: #25D366; animation: none; }
+    .float-btn.call { background: #ff7a59; }
+    .float-btn.home { background: linear-gradient(135deg, #2dd4bf, #ff7a59); color: #071a1c; }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
       70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
@@ -470,7 +470,7 @@
       color: #b0bedb;
     }
     .footer a {
-      color: #D4A843;
+      color: #5eead4;
       text-decoration: none;
       font-weight: 600;
     }
@@ -483,7 +483,7 @@
       .btn-back { padding: 0.3rem 1rem; font-size: 0.85rem; }
       .hero-title { font-size: 2rem; }
       .glass-form { padding: 1.5rem 1.2rem; }
-      .float-btn { width: 50px; height: 50px; font-size: 22px; }
+      .float-btn { width: 42px; height: 42px; font-size: 18px; }
       .floating-buttons { bottom: 20px; left: 18px; gap: 12px; }
     }
     @media (max-width: 480px) {
@@ -542,17 +542,17 @@
         <!-- FORM -->
         <form id="requestForm" novalidate>
           <div class="form-group">
-            <label for="fullName"><i class="fas fa-user" style="margin-left:8px;color:#D4A843;"></i>الاسم كاملاً</label>
+            <label for="fullName"><i class="fas fa-user" style="margin-left:8px;color:#5eead4;"></i>الاسم كاملاً</label>
             <input type="text" id="fullName" class="form-control" placeholder="أدخل اسمك الثلاثي" required minlength="3" />
             <div style="font-size:0.8rem;color:#e85d3a;margin-top:4px;" id="nameError"></div>
           </div>
           <div class="form-group">
-            <label for="phone"><i class="fas fa-phone-alt" style="margin-left:8px;color:#D4A843;"></i>رقم التليفون</label>
+            <label for="phone"><i class="fas fa-phone-alt" style="margin-left:8px;color:#5eead4;"></i>رقم التليفون</label>
             <input type="tel" id="phone" class="form-control" placeholder="مثال: 01012345678" required minlength="10" />
             <div style="font-size:0.8rem;color:#e85d3a;margin-top:4px;" id="phoneError"></div>
           </div>
           <div class="form-group">
-            <label for="address"><i class="fas fa-map-pin" style="margin-left:8px;color:#D4A843;"></i>العنوان والمنطقة</label>
+            <label for="address"><i class="fas fa-map-pin" style="margin-left:8px;color:#5eead4;"></i>العنوان والمنطقة</label>
             <input type="text" id="address" class="form-control" placeholder="العنوان التفصيلي والمنطقة" required />
             <div style="font-size:0.8rem;color:#e85d3a;margin-top:4px;" id="addressError"></div>
           </div>
@@ -563,7 +563,27 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="problemDesc"><i class="fas fa-pen" style="margin-left:8px;color:#D4A843;"></i>وصف المشكلة</label>
+            <label for="deviceType"><i class="fas fa-washing-machine" style="margin-left:8px;color:#5eead4;"></i>نوع الجهاز</label>
+            <input type="text" id="deviceType" class="form-control" value="غسالة" required />
+          </div>
+          <div class="form-group">
+            <label for="deviceModel"><i class="fas fa-tag" style="margin-left:8px;color:#5eead4;"></i>موديل الجهاز</label>
+            <input type="text" id="deviceModel" class="form-control" placeholder="مثال: Samsung EcoBubble" />
+          </div>
+          <div class="form-group">
+            <label for="serialNumber"><i class="fas fa-barcode" style="margin-left:8px;color:#5eead4;"></i>الرقم التسلسلي <span style="font-weight:400;color:#8a94a8;">(اختياري)</span></label>
+            <input type="text" id="serialNumber" class="form-control" placeholder="إن وُجد على الجهاز" />
+          </div>
+          <div class="form-group">
+            <label for="visitDate"><i class="fas fa-calendar-check" style="margin-left:8px;color:#5eead4;"></i>موعد الزيارة</label>
+            <input type="date" id="visitDate" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="visitTime"><i class="fas fa-clock" style="margin-left:8px;color:#5eead4;"></i>وقت الزيارة</label>
+            <input type="time" id="visitTime" class="form-control" value="10:00" required />
+          </div>
+          <div class="form-group">
+            <label for="problemDesc"><i class="fas fa-pen" style="margin-left:8px;color:#5eead4;"></i>وصف المشكلة</label>
             <textarea id="problemDesc" class="form-control" placeholder="صف المشكلة بالتفصيل..."></textarea>
           </div>
           <button type="submit" class="btn-submit" id="submitBtn">
@@ -574,9 +594,10 @@
         <!-- SUCCESS -->
         <div class="success-box" id="successBox">
           <div class="check-icon"><i class="fas fa-check-circle"></i></div>
-          <h2 style="margin:12px 0 4px;color:#D4A843;">تم إرسال طلبك بنجاح!</h2>
+          <h2 style="margin:12px 0 4px;color:#5eead4;">تم إرسال طلبك بنجاح!</h2>
           <p style="color:#ccd9f0;font-size:1.1rem;">شكراً لك، سنتواصل معك خلال 30 دقيقة.</p>
-          <a href="index.html" class="btn-back" style="margin:20px auto 0;border-color:#D4A843;color:#D4A843;display:inline-flex;" id="successBackBtn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+          <a href="#" target="_blank" rel="noopener" class="btn-back" style="margin:20px auto 0;border-color:#25D366;color:#25D366;display:inline-flex;" id="successWhatsappBtn"><i class="fab fa-whatsapp"></i> تأكيد الطلب عبر واتساب</a>
+          <a href="index.html" class="btn-back" style="margin:20px auto 0;border-color:#2dd4bf;color:#5eead4;display:inline-flex;" id="successBackBtn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
         </div>
       </div>
     </div>
@@ -588,9 +609,9 @@
 
   <!-- FLOATING BUTTONS -->
   <div class="floating-buttons">
-    <a href="https://wa.me/201234567890" target="_blank" class="float-btn whatsapp" id="whatsappBtn"><i class="fab fa-whatsapp"></i><span class="tooltip">واتساب</span></a>
     <a href="tel:+201234567890" class="float-btn call" id="callBtn"><i class="fas fa-phone"></i><span class="tooltip">اتصال</span></a>
     <a href="index.html" class="float-btn home" id="floatHomeBtn"><i class="fas fa-home"></i><span class="tooltip">الرئيسية</span></a>
+    <a href="https://wa.me/201228876359" target="_blank" rel="noopener" class="float-btn whatsapp" id="whatsappBtn"><i class="fab fa-whatsapp"></i><span class="tooltip">واتساب المركز</span></a>
   </div>
 
   <!-- SUPABASE SDK -->
@@ -618,8 +639,8 @@
       logoImg.src = 'logo.png';
 
       // ========== SUPABASE ==========
-      const supabaseUrl = 'https://uzcllseejydmpwzsygjp.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
+      const supabaseUrl = 'https://nlcgbazlqfqyyawvsgio.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sY2diYXpscWZxeXlhd3ZzZ2lvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzMzYzNTMsImV4cCI6MjEwNTkxMjM1M30.kePOnMFsyq11rrqGa2mkKSKmB0XmWbC7C6OSzkQhmnI';
       const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
       // ========== DOM REFS ==========
@@ -627,7 +648,26 @@
       const fullName = document.getElementById('fullName');
       const phone = document.getElementById('phone');
       const address = document.getElementById('address');
+      const deviceType = document.getElementById('deviceType');
+      const deviceModel = document.getElementById('deviceModel');
+      const serialNumber = document.getElementById('serialNumber');
+      const visitDate = document.getElementById('visitDate');
+      const visitTime = document.getElementById('visitTime');
       const problemDesc = document.getElementById('problemDesc');
+      const successWhatsappBtn = document.getElementById('successWhatsappBtn');
+      const notificationUserId = new URLSearchParams(window.location.search).get('notification_user_id') || localStorage.getItem('notification_user_id') || 'cf15ec8b-e74d-4ec5-82a5-bd23906fa18d';
+      const centerWhatsappNumber = '201228876359';
+
+      function getLocalDateString(date = new Date()) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+
+      const today = getLocalDateString();
+      visitDate.value = today;
+      visitDate.min = today;
       const locateBtn = document.getElementById('locateBtn');
       const submitBtn = document.getElementById('submitBtn');
       const spinner = document.getElementById('submitSpinner');
@@ -742,6 +782,16 @@
           addressError.textContent = 'الرجاء إدخال العنوان والمنطقة';
           valid = false;
         } else addressError.textContent = '';
+
+        if (deviceType.value.trim().length < 2) {
+          showToast('الرجاء إدخال نوع الجهاز', 'error');
+          valid = false;
+        }
+
+        if (!visitDate.value || !visitTime.value) {
+          showToast('الرجاء اختيار موعد الزيارة', 'error');
+          valid = false;
+        }
         
         return valid;
       }
@@ -758,20 +808,82 @@
         spinner.classList.remove('spinner-hidden');
         submitBtn.querySelector('i.fa-paper-plane').style.display = 'none';
 
-        const payload = {
-          full_name: fullName.value.trim(),
-          phone: phone.value.trim(),
-          address: address.value.trim(),
-          problem_description: problemDesc.value.trim() || 'لا يوجد وصف',
-          status: 'جديد'
-        };
-
         try {
-          const { data, error } = await supabase
-            .from('maintenance_requests')
-            .insert([payload]);
-          
-          if (error) throw error;
+          const customerQuery = await supabase
+            .from('customers')
+            .select('id')
+            .eq('phone', phone.value.trim())
+            .limit(1);
+
+          if (customerQuery.error) throw customerQuery.error;
+
+          let customerId = customerQuery.data?.[0]?.id;
+          if (!customerId) {
+            const { data: customer, error: customerError } = await supabase
+              .from('customers')
+              .insert([{
+                name: fullName.value.trim(),
+                phone: phone.value.trim(),
+                address: address.value.trim(),
+                notes: null
+              }])
+              .select('id')
+              .single();
+
+            if (customerError) throw customerError;
+            customerId = customer.id;
+          }
+
+          const visitAt = new Date(`${visitDate.value}T${visitTime.value}:00`).toISOString();
+          const trackingNumber = `R-${Date.now().toString().slice(-6)}`;
+          const { data: repair, error: repairError } = await supabase
+            .from('repair_orders')
+            .insert([{
+              customer_id: customerId,
+              device_type: deviceType.value.trim(),
+              device_model: deviceModel.value.trim() || null,
+              serial_number: serialNumber.value.trim() || null,
+              problem: problemDesc.value.trim() || 'لا يوجد وصف',
+              status: 'received',
+              visit_at: visitAt
+            }])
+            .select('id')
+            .single();
+
+          if (repairError) throw repairError;
+
+          const notification = {
+            user_id: notificationUserId || null,
+            type: 'new_repair',
+            title: 'طلب صيانة جديد من الموقع',
+            message: `قام العميل ${fullName.value.trim()} بعمل طلب صيانة من الموقع. الجهاز: ${deviceType.value.trim()}. رقم التتبع: ${trackingNumber}`,
+            data: {
+              repair_order_id: repair.id,
+              tracking_number: trackingNumber,
+              customer_name: fullName.value.trim(),
+              phone: phone.value.trim(),
+              visit_at: visitAt
+            },
+            read: false
+          };
+
+          const { error: notificationError } = await supabase
+            .from('notifications')
+            .insert([notification]);
+
+          if (notificationError) {
+            console.warn('Notification was not created:', notificationError.message);
+          }
+
+          const whatsappMessage = [
+            'مرحباً، هذا طلب صيانة جديد من الموقع',
+            `رقم التتبع: ${trackingNumber}`,
+            `العميل: ${fullName.value.trim()}`,
+            `الهاتف: ${phone.value.trim()}`,
+            `الجهاز: ${deviceType.value.trim()}${deviceModel.value.trim() ? ` - ${deviceModel.value.trim()}` : ''}`,
+            `موعد الزيارة: ${visitDate.value} ${visitTime.value}`
+          ].join('\n');
+          successWhatsappBtn.href = `https://wa.me/${centerWhatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
           
           form.classList.add('hidden');
           successBox.classList.add('visible');
@@ -792,6 +904,9 @@
         form.classList.remove('hidden');
         successBox.classList.remove('visible');
         form.reset();
+        visitDate.value = getLocalDateString();
+        visitDate.min = visitDate.value;
+        visitTime.value = '10:00';
         nameError.textContent = '';
         phoneError.textContent = '';
         addressError.textContent = '';

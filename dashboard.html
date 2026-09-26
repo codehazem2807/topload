@@ -332,10 +332,10 @@
         <input type="text" id="searchInput" placeholder="🔍 بحث بالاسم أو رقم التليفون..." />
         <select id="statusFilter">
             <option value="">جميع الحالات</option>
-            <option value="جديد">جديد</option>
-            <option value="قيد التنفيذ">قيد التنفيذ</option>
-            <option value="مكتمل">مكتمل</option>
-            <option value="ملغي">ملغي</option>
+                <option value="received">مستلم</option>
+                <option value="in_progress">قيد التنفيذ</option>
+                <option value="completed">مكتمل</option>
+                <option value="cancelled">ملغي</option>
         </select>
         <select id="sortFilter">
             <option value="newest">الأحدث أولاً</option>
@@ -384,8 +384,8 @@
             'use strict';
 
             // ========== SUPABASE CONFIG ==========
-            const supabaseUrl = 'https://uzcllseejydmpwzsygjp.supabase.co';
-            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6Y2xsc2VlanlkbXB3enN5Z2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MTM5MzMsImV4cCI6MjEwMDI4OTkzM30.uRxevCNLHM2OSqCRBcnmOHsmhFOgSiphBqKGaw261wA';
+            const supabaseUrl = 'https://nlcgbazlqfqyyawvsgio.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sY2diYXpscWZxeXlhd3ZzZ2lvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzMzYzNTMsImV4cCI6MjEwNTkxMjM1M30.kePOnMFsyq11rrqGa2mkKSKmB0XmWbC7C6OSzkQhmnI';
             const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
             // ========== DOM REFS ==========
@@ -442,13 +442,13 @@
             // ========== GET STATUS BADGE ==========
             function getStatusBadge(status) {
                 const statusMap = {
-                    'جديد': { class: 'status-new', icon: 'fa-clock' },
-                    'قيد التنفيذ': { class: 'status-progress', icon: 'fa-spinner' },
-                    'مكتمل': { class: 'status-done', icon: 'fa-check' },
-                    'ملغي': { class: 'status-cancel', icon: 'fa-times' }
+                    received: { label: 'مستلم', class: 'status-new', icon: 'fa-inbox' },
+                    in_progress: { label: 'قيد التنفيذ', class: 'status-progress', icon: 'fa-spinner' },
+                    completed: { label: 'مكتمل', class: 'status-done', icon: 'fa-check' },
+                    cancelled: { label: 'ملغي', class: 'status-cancel', icon: 'fa-times' }
                 };
-                const s = statusMap[status] || statusMap['جديد'];
-                return `<span class="status-badge ${s.class}"><i class="fas ${s.icon}"></i> ${status || 'جديد'}</span>`;
+                const s = statusMap[status] || statusMap.received;
+                return `<span class="status-badge ${s.class}"><i class="fas ${s.icon}"></i> ${s.label}</span>`;
             }
 
             // ========== LOAD DATA ==========
@@ -461,17 +461,18 @@
                 try {
                     // Build query
                     let query = supabase
-                        .from('maintenance_requests')
+                        .from('repair_orders')
                         .select('*')
                         .order('created_at', { ascending: false });
 
+                    const { data: customers, error: customersError } = await supabase
+                        .from('customers')
+                        .select('id, name, phone, address');
+
+                    if (customersError) throw customersError;
+
                     // Apply filters
                     const searchVal = searchInput.value.trim();
-                    if (searchVal) {
-                        // Search by name or phone
-                        query = query.or(`full_name.ilike.%${searchVal}%,phone.ilike.%${searchVal}%`);
-                    }
-
                     const statusVal = statusFilter.value;
                     if (statusVal) {
                         query = query.eq('status', statusVal);
@@ -488,11 +489,26 @@
 
                     if (error) throw error;
 
+                    const customersById = Object.fromEntries((customers || []).map(customer => [customer.id, customer]));
+                    let enrichedData = (data || []).map(row => ({
+                        ...row,
+                        customer: customersById[row.customer_id] || {}
+                    }));
+
+                    if (searchVal) {
+                        const normalizedSearch = searchVal.toLowerCase();
+                        enrichedData = enrichedData.filter(row =>
+                            [row.customer.name, row.customer.phone].some(value =>
+                                String(value || '').toLowerCase().includes(normalizedSearch)
+                            )
+                        );
+                    }
+
                     // Update stats
-                    updateStats(data);
+                    updateStats(enrichedData);
 
                     // Render table
-                    renderTable(data);
+                    renderTable(enrichedData);
 
                 } catch (err) {
                     console.error('Error loading data:', err);
@@ -510,9 +526,9 @@
             // ========== UPDATE STATS ==========
             function updateStats(data) {
                 const total = data.length;
-                const newRequests = data.filter(r => r.status === 'جديد').length;
-                const progress = data.filter(r => r.status === 'قيد التنفيذ').length;
-                const done = data.filter(r => r.status === 'مكتمل').length;
+                const newRequests = data.filter(r => r.status === 'received').length;
+                const progress = data.filter(r => r.status === 'in_progress').length;
+                const done = data.filter(r => r.status === 'completed').length;
 
                 totalCount.textContent = total;
                 newCount.textContent = newRequests;
@@ -542,16 +558,17 @@
                     html += `
                         <tr>
                             <td>${index + 1}</td>
-                            <td><strong>${escapeHtml(row.full_name || '-')}</strong></td>
+                            <td><strong>${escapeHtml(row.customer.name || '-')}</strong></td>
                             <td>
-                                <a href="tel:${row.phone}" class="phone-link">
+                                <a href="tel:${row.customer.phone}" class="phone-link">
                                     <i class="fas fa-phone" style="color:#D4A843;font-size:12px;"></i>
-                                    ${escapeHtml(row.phone || '-')}
+                                    ${escapeHtml(row.customer.phone || '-')}
                                 </a>
                             </td>
-                            <td style="max-width:180px;word-break:break-word;">${escapeHtml(row.address || '-')}</td>
+                            <td style="max-width:180px;word-break:break-word;">${escapeHtml(row.customer.address || '-')}</td>
                             <td style="max-width:200px;word-break:break-word;font-size:13px;color:#ccd9f0;">
-                                ${escapeHtml(row.problem_description || '-')}
+                                <strong>${escapeHtml(row.device_type || 'جهاز')}</strong>${row.device_model ? ` · ${escapeHtml(row.device_model)}` : ''}<br>
+                                ${escapeHtml(row.problem || '-')}
                             </td>
                             <td>${getStatusBadge(row.status)}</td>
                             <td style="font-size:12px;color:#8a94a8;white-space:nowrap;">
@@ -593,7 +610,12 @@
 
             // ========== STATUS MENU ==========
             function showStatusMenu(id, currentStatus, button) {
-                const statuses = ['جديد', 'قيد التنفيذ', 'مكتمل', 'ملغي'];
+                const statuses = [
+                    { value: 'received', label: 'مستلم' },
+                    { value: 'in_progress', label: 'قيد التنفيذ' },
+                    { value: 'completed', label: 'مكتمل' },
+                    { value: 'cancelled', label: 'ملغي' }
+                ];
                 const menu = document.createElement('div');
                 menu.style.cssText = `
                     position: fixed;
@@ -611,9 +633,9 @@
                 menu.style.left = (rect.left - 50) + 'px';
 
                 statuses.forEach(status => {
-                    if (status === currentStatus) return;
+                    if (status.value === currentStatus) return;
                     const item = document.createElement('div');
-                    item.textContent = status;
+                    item.textContent = status.label;
                     item.style.cssText = `
                         padding: 10px 20px;
                         cursor: pointer;
@@ -626,7 +648,7 @@
                     item.onmouseout = () => { item.style.background = 'transparent'; };
                     item.onclick = async () => {
                         menu.remove();
-                        await updateStatus(id, status);
+                        await updateStatus(id, status.value);
                     };
                     menu.appendChild(item);
                 });
@@ -646,7 +668,7 @@
             async function updateStatus(id, newStatus) {
                 try {
                     const { error } = await supabase
-                        .from('maintenance_requests')
+                        .from('repair_orders')
                         .update({ status: newStatus })
                         .eq('id', id);
 
